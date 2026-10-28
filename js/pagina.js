@@ -161,8 +161,13 @@
   // ---------- Mini formulários (hero, fechamento, barra) e links para a simulação ----------
 
   function rolarParaSimulacao(campoFoco) {
-    document.getElementById('simulacao').scrollIntoView({ behavior: movimentoReduzido ? 'auto' : 'smooth' });
+    var dobra = document.getElementById('simulacao');
+    dobra.scrollIntoView({ behavior: movimentoReduzido ? 'auto' : 'smooth' });
     if (campoFoco) campoFoco.focus({ preventScroll: true });
+    // Se a rolagem suave não acontecer (navegador que não anima), pula direto.
+    setTimeout(function () {
+      if (Math.abs(dobra.getBoundingClientRect().top) > window.innerHeight) dobra.scrollIntoView();
+    }, 1200);
   }
 
   document.querySelectorAll('form.campo-conta').forEach(function (mini) {

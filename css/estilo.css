@@ -121,7 +121,7 @@ s { text-decoration-thickness: 2px; }
 .rotulo .aguardando { text-transform: none; letter-spacing: 0; }
 .folha { font-family: var(--mono); letter-spacing: 0; margin-right: 12px; color: var(--marinho); }
 
-.numero { font-family: var(--mono); font-weight: 400; letter-spacing: 0; font-variant-numeric: tabular-nums; }
+.numero { font-family: var(--mono); font-weight: 400; letter-spacing: 0; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .numero-medio { font-size: var(--media); }
 .numero-grande { font-size: var(--grande); line-height: 1.05; }
 
@@ -223,6 +223,7 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
   padding: 0 8px;
   font-family: var(--mono);
   font-size: var(--pequena);
+  font-weight: 400;
   line-height: 1.6;
   color: var(--marinho);
 }
@@ -283,7 +284,8 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
 .cota * { vector-effect: non-scaling-stroke; }
 .antes-depois-valores { display: grid; gap: 24px; flex: 1; }
 .ad-linha { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
-.ad-linha .rotulo { width: 100%; }
+.ad-linha .rotulo, .ad-obs { width: 100%; }
+.ad-obs { color: var(--marinho-70); }
 .ad-antes s { font-family: var(--mono); font-size: var(--media); color: var(--marinho-70); text-decoration-color: var(--marinho); }
 .ad-depois .numero-grande {
   font-weight: 400;
@@ -295,7 +297,7 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
 @media (min-width: 768px) {
   .titulo-hero mark { white-space: nowrap; }
   .dobra-hero { padding-top: 80px; }
-  .hero-grade { grid-template-columns: 7fr 4fr; column-gap: 64px; row-gap: 48px; }
+  .hero-grade { grid-template-columns: 7fr 4fr; column-gap: 64px; row-gap: 32px; }
   .antes-depois { margin-top: 48px; }
 }
 
@@ -363,7 +365,7 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
 .cena-svg .fluxo-noite { stroke: rgba(255, 255, 255, .85); }
 
 .etapas { display: grid; gap: 24px; margin-top: 24px; }
-.etapas li { display: grid; gap: 4px; padding-top: 16px; border-top: 1px solid var(--marinho); }
+.etapas li { display: grid; gap: 4px; align-content: start; padding-top: 16px; border-top: 1px solid var(--marinho); }
 .etapas .numero { color: var(--marinho-70); }
 @media (min-width: 768px) { .etapas { grid-template-columns: repeat(4, 1fr); gap: 32px; } }
 
@@ -401,11 +403,12 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
 .ficha-dados > div { padding: 16px 24px; border-bottom: 1px solid var(--marinho-25); }
 .ficha-dados > div:last-child { border-bottom: 0; }
 .ficha-dados dd { margin-top: 4px; }
+.ficha-numero { display: block; }
 .ficha-dados s { color: var(--marinho-70); }
 .ficha-destaque { position: relative; }
 .ficha-destaque::before { content: ""; position: absolute; left: 0; top: 16px; bottom: 16px; width: 4px; background: var(--ambar); }
 @media (min-width: 768px) {
-  .ficha-dados { grid-template-columns: 1fr 2fr 1fr 1fr; }
+  .ficha-dados { grid-template-columns: 1fr 1.5fr 1fr 1.4fr; }
   .ficha-dados > div { border-bottom: 0; border-right: 1px solid var(--marinho-25); padding: 24px; }
   .ficha-dados > div:last-child { border-right: 0; }
   .ficha-destaque::before { top: 24px; bottom: 24px; }
@@ -435,9 +438,8 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
 }
 
 .convite-grade { display: grid; gap: 40px; }
+.convite-topo > * + * { margin-top: 16px; }
 .convite-texto > * + * { margin-top: 24px; }
-.convite-texto .rotulo + .titulo { margin-top: 16px; }
-.convite-texto .titulo { max-width: none; }
 .aviso-minimo { padding: 16px 0 0; border-top: 1px solid var(--branco-25); }
 
 .formulario, .confirmacao {
@@ -485,7 +487,8 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
 .confirmacao:focus { outline: none; }
 
 @media (min-width: 768px) {
-  .convite-grade { grid-template-columns: 5fr 6fr; gap: 64px; align-items: start; }
+  .convite-grade { grid-template-columns: 5fr 6fr; gap: 48px 64px; align-items: start; }
+  .convite-topo { grid-column: 1 / -1; }
   .formulario, .confirmacao { padding: 40px; }
   .confirmacao { grid-column: 2; }
 }
