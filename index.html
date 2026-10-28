@@ -5,276 +5,396 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Energia solar residencial em Sorocaba e região | Ravena Solar</title>
   <meta name="description" content="Energia solar para casa em Sorocaba, Votorantim, Itu e Salto. Na média dos nossos clientes, a conta de luz cai entre 75% e 90%. Peça sua simulação: resposta no mesmo dia útil, por WhatsApp.">
+  <meta property="og:title" content="Energia solar residencial em Sorocaba e região | Ravena Solar">
+  <meta property="og:description" content="Na média dos nossos clientes, a conta de luz cai entre 75% e 90%. Peça sua simulação: resposta no mesmo dia útil, por WhatsApp.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <!-- Esqueleto só com texto (DESIGN.md, ordem de trabalho 1). Sem CSS e sem JS por enquanto.
-       Notas "[esqueleto: …]" são só para a revisão e saem na fase visual.
-       "[aguardando: …]" são os placeholders de dados que faltam (DESIGN.md, seção 9) e ficam até o cliente responder. -->
+  <link rel="preload" href="assets/fonts/IBMPlexSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/IBMPlexSans-Bold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/estilo.css">
+  <script src="js/pagina.js" defer></script>
 </head>
 <body>
 
-<header>
-  <a href="#topo"><img src="assets/logo.svg" alt="Ravena Solar" width="240" height="64"></a>
-  <a href="#simulacao" data-origem="barra">Pedir simulação</a>
-  <p>[esqueleto: cabeçalho fixo. No celular, só a logo.]</p>
+<a class="pular" href="#simulacao">Ir para a simulação</a>
+
+<header class="cabecalho" id="cabecalho">
+  <div class="cabecalho-dentro">
+    <a href="#topo" class="cabecalho-logo"><img src="assets/logo.svg" alt="Ravena Solar" width="150" height="40"></a>
+    <a href="#simulacao" class="botao botao-cabecalho" data-origem="barra">Pedir simulação</a>
+  </div>
 </header>
 
 <main id="topo">
 
   <!-- 01/08 · Hero -->
-  <section id="hero" aria-labelledby="hero-titulo">
-    <p>01/08 · Energia solar residencial · Sorocaba e região</p>
-    <h1 id="hero-titulo">Sua conta de luz <mark>de 75% a 90% menor</mark>.<a href="#hero-nota" aria-label="Ver nota">*</a></h1>
-    <p>Fazemos o projeto, a homologação na CPFL, a instalação e o acompanhamento depois de ligado. Com equipe própria, de carteira assinada, sem terceirizar.</p>
+  <section class="dobra dobra-hero" id="hero" aria-labelledby="hero-titulo">
+    <div class="dentro hero-grade">
+      <div class="hero-texto">
+        <p class="rotulo"><span class="folha">01/08</span> Energia solar residencial · Sorocaba e região</p>
+        <h1 id="hero-titulo" class="titulo-hero">Sua conta de luz <mark>de 75% a 90% menor</mark>.<a class="asterisco" href="#hero-nota" aria-label="Ver nota sobre a média">*</a></h1>
+        <p class="lead">Fazemos o projeto, a homologação na CPFL, a instalação e o acompanhamento depois de ligado. Com equipe própria, de carteira assinada, sem terceirizar.</p>
 
-    <figure>
-      <figcaption>Casa em Sorocaba, conta média dos últimos doze meses</figcaption>
-      <p>Antes: <s>R$ 780/mês</s></p>
-      <p>Depois: <strong>R$ 118/mês</strong></p>
-    </figure>
+        <form class="campo-conta" data-origem="hero" action="#simulacao" novalidate>
+          <label for="conta-hero">Quanto você paga de luz por mês, em média?</label>
+          <div class="campo-conta-linha">
+            <input id="conta-hero" name="conta" class="campo campo-dinheiro" type="text" inputmode="numeric" autocomplete="off" placeholder="R$ 0">
+            <button type="submit" class="botao">Pedir simulação</button>
+          </div>
+        </form>
+        <p class="pequeno">Resposta no mesmo dia útil, por WhatsApp.</p>
+      </div>
 
-    <form action="#simulacao" class="campo-conta" novalidate>
-      <input type="hidden" name="origem" value="hero">
-      <label for="conta-hero">Quanto você paga de luz por mês, em média?</label>
-      <input id="conta-hero" name="conta" type="text" inputmode="numeric" autocomplete="off" placeholder="R$ 0">
-      <button type="submit">Pedir simulação</button>
-    </form>
-    <p>Resposta no mesmo dia útil, por WhatsApp.</p>
+      <figure class="antes-depois" aria-labelledby="caso-resumo">
+        <figcaption id="caso-resumo" class="rotulo">Casa em Sorocaba · conta média dos últimos doze meses</figcaption>
+        <div class="antes-depois-linhas">
+          <svg class="cota" viewBox="0 0 24 200" preserveAspectRatio="none" aria-hidden="true">
+            <line x1="4" y1="1" x2="20" y2="1"/>
+            <line x1="12" y1="1" x2="12" y2="199"/>
+            <line x1="4" y1="199" x2="20" y2="199"/>
+            <path d="M7 186 L12 198 L17 186"/>
+          </svg>
+          <div class="antes-depois-valores">
+            <p class="ad-linha ad-antes"><span class="rotulo">Antes</span> <s class="numero">R$ 780</s><span class="pequeno">/mês</span></p>
+            <p class="ad-linha ad-depois"><span class="rotulo">Depois</span> <strong class="numero numero-grande">R$ 118</strong><span class="pequeno">/mês</span></p>
+          </div>
+        </div>
+      </figure>
 
-    <p id="hero-nota"><small>* Média dos nossos clientes. A conta não zera: sempre resta a taxa mínima da distribuidora e o custo do fio.</small></p>
+      <p id="hero-nota" class="nota">* Média dos nossos clientes. A conta não zera: sempre resta a taxa mínima da distribuidora e o custo do fio.</p>
+    </div>
   </section>
 
   <!-- 02/08 · O problema -->
-  <section id="problema" aria-labelledby="problema-titulo">
-    <p>02/08 · O problema</p>
-    <h2 id="problema-titulo">A conta de luz só sobe. Com energia solar, ela cai.</h2>
-    <p>Com o sistema no telhado, a casa passa a usar a energia que produz, e o que sobra vira crédito na rede da CPFL. É isso que derruba a conta.</p>
+  <section class="dobra" id="problema" aria-labelledby="problema-titulo">
+    <div class="dentro">
+      <p class="rotulo"><span class="folha">02/08</span> O problema</p>
+      <h2 id="problema-titulo" class="titulo">A conta de luz só sobe. Com energia solar, ela cai.</h2>
+      <p class="lead">Com o sistema no telhado, a casa passa a usar a energia que produz, e o que sobra vira crédito na rede da CPFL. É isso que derruba a conta.</p>
 
-    <h3>O que você não vai ouvir de nós</h3>
-    <ul>
-      <li>
-        <p><s>“Sua conta vai zerar”</s></p>
-        <p>Na média dos nossos clientes, a conta cai entre 75% e 90%. Sempre resta a taxa mínima da distribuidora e o custo do fio.</p>
-      </li>
-      <li>
-        <p><s>Prazo inventado</s></p>
-        <p>De 45 a 60 dias entre a assinatura e o sistema ligado. A instalação leva 2; o resto é projeto e homologação na distribuidora.</p>
-      </li>
-      <li>
-        <p><s>Instalação terceirizada</s></p>
-        <p>A equipe que sobe no telhado é da Ravena, com carteira assinada.</p>
-      </li>
-    </ul>
+      <h3 class="subtitulo">O que você não vai ouvir de nós</h3>
+      <ul class="riscados">
+        <li>
+          <p class="riscado"><s>“Sua conta vai zerar”</s></p>
+          <p>Na média dos nossos clientes, a conta cai entre 75% e 90%. Sempre resta a taxa mínima da distribuidora e o custo do fio.</p>
+        </li>
+        <li>
+          <p class="riscado"><s>Prazo inventado</s></p>
+          <p>De 45 a 60 dias entre a assinatura e o sistema ligado. A instalação leva 2; o resto é projeto e homologação na distribuidora.</p>
+        </li>
+        <li>
+          <p class="riscado"><s>Instalação terceirizada</s></p>
+          <p>A equipe que sobe no telhado é da Ravena, com carteira assinada.</p>
+        </li>
+      </ul>
+    </div>
   </section>
 
   <!-- 03/08 · A solução -->
-  <section id="solucao" aria-labelledby="solucao-titulo">
-    <p>03/08 · Como funciona</p>
-    <h2 id="solucao-titulo">Projeto, homologação, instalação e acompanhamento, com equipe própria.</h2>
+  <section class="dobra" id="solucao" aria-labelledby="solucao-titulo">
+    <div class="dentro">
+      <p class="rotulo"><span class="folha">03/08</span> Como funciona</p>
+      <h2 id="solucao-titulo" class="titulo">Projeto, homologação, instalação e acompanhamento, com equipe própria.</h2>
 
-    <figure>
-      <p>[esqueleto: animação dia e noite, fase 3. As legendas abaixo também ficam como texto na página final.]</p>
-      <ol>
-        <li>A casa usa a energia que o telhado produz.</li>
-        <li>O que sobra vai para a rede da CPFL e vira crédito.</li>
-        <li>Em dia nublado produz menos; à noite, não produz.</li>
-        <li>O que compensa é o crédito acumulado ao longo do mês.</li>
+      <figure class="cena">
+        <!-- Animação dia e noite: próxima etapa (DESIGN.md, seção 8). Até lá, só as legendas. -->
+        <div class="aguardando aguardando-bloco cena-espaco">[aguardando: animação dia e noite, próxima etapa]</div>
+        <ol class="cena-legendas">
+          <li>A casa usa a energia que o telhado produz.</li>
+          <li>O que sobra vai para a rede da CPFL e vira crédito.</li>
+          <li>Em dia nublado produz menos; à noite, não produz.</li>
+          <li>O que compensa é o crédito acumulado ao longo do mês.</li>
+        </ol>
+      </figure>
+
+      <h3 class="subtitulo">Quatro etapas</h3>
+      <ol class="etapas">
+        <li><span class="numero">1</span><strong>Simulação por WhatsApp</strong><span>Você informa a conta e recebe resposta no mesmo dia útil.</span></li>
+        <li><span class="numero">2</span><strong>Visita técnica</strong><span>Medição do telhado, gratuita e sem compromisso.</span></li>
+        <li><span class="numero">3</span><strong>Instalação em 2 dias</strong><span>Depois do projeto e da homologação na CPFL.</span></li>
+        <li><span class="numero">4</span><strong>Acompanhamento</strong><span>Acompanhamos a produção no primeiro ano e ligamos se cair fora do previsto.</span></li>
       </ol>
-    </figure>
 
-    <h3>Quatro etapas</h3>
-    <ol>
-      <li><strong>Simulação por WhatsApp.</strong> Você informa a conta e recebe resposta no mesmo dia útil.</li>
-      <li><strong>Visita técnica.</strong> Medição do telhado, gratuita e sem compromisso.</li>
-      <li><strong>Instalação em 2 dias.</strong> Depois do projeto e da homologação na CPFL.</li>
-      <li><strong>Acompanhamento.</strong> Acompanhamos a produção no primeiro ano e ligamos se cair fora do previsto.</li>
-    </ol>
+      <div class="calendario-bloco">
+        <h3 class="subtitulo"><span class="numero">45 a 60</span> dias da assinatura ao sistema ligado</h3>
+        <div class="calendario" aria-hidden="true"><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-instalacao"></i><i class="dia dia-instalacao"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i></div>
+        <ul class="calendario-legenda pequeno">
+          <li><i class="dia dia-cheio"></i> 45 dias</li>
+          <li><i class="dia dia-faixa"></i> faixa até 60 dias</li>
+          <li><i class="dia dia-instalacao"></i> instalação: 2 dias (posição ilustrativa)</li>
+        </ul>
+        <p class="pequeno">O resto é projeto e homologação na CPFL, a parte que não depende de nós.</p>
+      </div>
 
-    <h3>45 a 60 dias da assinatura ao sistema ligado</h3>
-    <p>[esqueleto: calendário estático de 60 quadrados; 2 em âmbar nos dias 42 e 43.]</p>
-    <p>Instalação: 2 dias (posição ilustrativa). O resto é projeto e homologação na CPFL, a parte que não depende de nós.</p>
+      <h3 class="subtitulo">Garantias</h3>
+      <ul class="cartoes cartoes-3">
+        <li class="cartao"><span class="numero numero-grande">25</span><span>anos de performance do painel</span></li>
+        <li class="cartao"><span class="numero numero-grande">10</span><span>anos do inversor</span></li>
+        <li class="cartao"><span class="numero numero-grande">5</span><span>anos da nossa instalação, incluindo qualquer infiltração causada pela obra</span></li>
+      </ul>
 
-    <h3>Garantias</h3>
-    <ul>
-      <li><strong>25 anos</strong> de performance do painel</li>
-      <li><strong>10 anos</strong> do inversor</li>
-      <li><strong>5 anos</strong> da nossa instalação, incluindo qualquer infiltração causada pela obra</li>
-    </ul>
-
-    <h3>Investimento</h3>
-    <ul>
-      <li>Sistema típico: de <strong>R$ 14 mil a R$ 19 mil</strong>.</li>
-      <li>O retorno do investimento tem levado de <strong>3 a 4 anos</strong>.</li>
-      <li>Financiamento com dois bancos. Entrada zero é possível, e na maioria dos casos a parcela fica próxima do valor que você já paga de luz hoje.</li>
-    </ul>
+      <h3 class="subtitulo">Investimento</h3>
+      <ul class="cartoes cartoes-3">
+        <li class="cartao"><span class="rotulo">Sistema típico</span><span class="numero numero-medio">R$ 14 mil a R$ 19 mil</span></li>
+        <li class="cartao"><span class="rotulo">Retorno</span><span>O retorno do investimento tem levado de <span class="numero">3 a 4 anos</span>.</span></li>
+        <li class="cartao"><span class="rotulo">Financiamento</span><span>Com dois bancos. Entrada zero é possível, e na maioria dos casos a parcela fica próxima do valor que você já paga de luz hoje.</span></li>
+      </ul>
+    </div>
   </section>
 
   <!-- 04/08 · Prova social -->
-  <section id="prova" aria-labelledby="prova-titulo">
-    <p>04/08 · Resultados</p>
-    <h2 id="prova-titulo">412 sistemas residenciais instalados.</h2>
-    <p>Nota <strong>4,8</strong> no Google, com 137 avaliações. [aguardando: link da página no Google]</p>
+  <section class="dobra" id="prova" aria-labelledby="prova-titulo">
+    <div class="dentro">
+      <p class="rotulo"><span class="folha">04/08</span> Resultados</p>
+      <h2 id="prova-titulo" class="titulo"><span class="numero">412</span> sistemas residenciais instalados.</h2>
+      <p class="lead">Nota <span class="numero">4,8</span> no Google, com <span class="numero">137</span> avaliações. <span class="aguardando">[aguardando: link da página no Google]</span></p>
 
-    <h3>Caso conferido: casa em Sorocaba</h3>
-    <dl>
-      <dt>Conta antes</dt><dd>R$ 780 por mês</dd>
-      <dt>Conta depois</dt><dd>R$ 118 por mês, média dos últimos doze meses</dd>
-      <dt>Sistema</dt><dd>6,4 kWp</dd>
-      <dt>Instalado em</dt><dd>março de 2025</dd>
-    </dl>
+      <div class="ficha">
+        <h3 class="ficha-titulo"><span class="rotulo">Ficha técnica</span> Caso conferido: casa em Sorocaba</h3>
+        <dl class="ficha-dados">
+          <div><dt class="rotulo">Conta antes</dt><dd><s class="numero numero-medio">R$ 780</s> por mês</dd></div>
+          <div class="ficha-destaque"><dt class="rotulo">Conta depois</dt><dd><span class="numero numero-grande">R$ 118</span> por mês, média dos últimos doze meses</dd></div>
+          <div><dt class="rotulo">Sistema</dt><dd><span class="numero numero-medio">6,4 kWp</span></dd></div>
+          <div><dt class="rotulo">Instalado em</dt><dd><span class="numero numero-medio">março de 2025</span></dd></div>
+        </dl>
+      </div>
 
-    <h3>Depoimentos em vídeo</h3>
-    <ul>
-      <li>Votorantim · 2025 [aguardando: vídeo do depoimento]</li>
-      <li>Itu · 2025 [aguardando: vídeo do depoimento]</li>
-      <li>[aguardando: cidade do terceiro depoimento] · 2025 [aguardando: vídeo do depoimento]</li>
-    </ul>
+      <h3 class="subtitulo">Depoimentos em vídeo</h3>
+      <ul class="videos">
+        <li><div class="aguardando aguardando-bloco proporcao-video">[aguardando: vídeo do depoimento]</div><p class="rotulo">Votorantim · 2025</p></li>
+        <li><div class="aguardando aguardando-bloco proporcao-video">[aguardando: vídeo do depoimento]</div><p class="rotulo">Itu · 2025</p></li>
+        <li><div class="aguardando aguardando-bloco proporcao-video">[aguardando: vídeo do depoimento]</div><p class="rotulo"><span class="aguardando">[aguardando: cidade]</span> · 2025</p></li>
+      </ul>
 
-    <h3>Obras nossas, fotografadas com autorização dos clientes</h3>
-    <ul>
-      <li>[aguardando: foto da obra]</li>
-      <li>[aguardando: foto da obra]</li>
-      <li>[aguardando: foto da obra]</li>
-      <li>[aguardando: foto da obra]</li>
-      <li>[aguardando: foto da obra]</li>
-      <li>[aguardando: foto da obra]</li>
-    </ul>
+      <h3 class="subtitulo">Obras nossas, fotografadas com autorização dos clientes</h3>
+      <ul class="fotos">
+        <li class="aguardando aguardando-bloco">[aguardando: foto da obra]</li>
+        <li class="aguardando aguardando-bloco">[aguardando: foto da obra]</li>
+        <li class="aguardando aguardando-bloco">[aguardando: foto da obra]</li>
+        <li class="aguardando aguardando-bloco">[aguardando: foto da obra]</li>
+        <li class="aguardando aguardando-bloco">[aguardando: foto da obra]</li>
+        <li class="aguardando aguardando-bloco">[aguardando: foto da obra]</li>
+      </ul>
+    </div>
   </section>
 
-  <!-- 05/08 · Convite forte (formulário completo, único na página) -->
-  <section id="simulacao" aria-labelledby="simulacao-titulo">
-    <p>05/08 · Simulação</p>
-    <h2 id="simulacao-titulo">Peça sua simulação. Resposta no mesmo dia útil, por WhatsApp.</h2>
-    <p>Se fizer sentido, o próximo passo é a visita técnica ao telhado: gratuita e sem compromisso.</p>
-    <p><strong>Atendemos contas de luz acima de R$ 450 por mês.</strong> Abaixo disso a conta não fecha e nós mesmos desaconselhamos.</p>
+  <!-- 05/08 · Convite forte (o único formulário completo da página) -->
+  <section class="dobra dobra-escura dobra-convite" id="simulacao" aria-labelledby="simulacao-titulo">
+    <div class="dentro convite-grade">
+      <div class="convite-texto">
+        <p class="rotulo"><span class="folha">05/08</span> Simulação</p>
+        <h2 id="simulacao-titulo" class="titulo">Peça sua simulação. Resposta no mesmo dia útil, por WhatsApp.</h2>
+        <p class="lead">Se fizer sentido, o próximo passo é a visita técnica ao telhado: gratuita e sem compromisso.</p>
+        <p class="aviso-minimo"><strong>Atendemos contas de luz acima de <span class="numero">R$ 450</span> por mês.</strong> Abaixo disso a conta não fecha e nós mesmos desaconselhamos.</p>
+      </div>
 
-    <!-- Envio em placeholder: o formulário valida e mostra a confirmação, mas não envia nada
-         até o cliente definir para onde vão os pedidos (CLAUDE.md, "Técnica e publicação"). -->
-    <form id="form-simulacao" novalidate>
-      <input type="hidden" name="origem" value="convite">
+      <!-- ENVIO EM PLACEHOLDER: o formulário valida e mostra a confirmação, mas não envia nada
+           até o cliente definir para onde vão os pedidos (CLAUDE.md, "Técnica e publicação"). -->
+      <form id="form-simulacao" class="formulario" novalidate>
+        <input type="hidden" name="origem" id="origem" value="convite">
 
-      <fieldset>
-        <legend>Passo 1 de 2: sua conta</legend>
+        <fieldset class="passo" id="passo-1">
+          <legend class="rotulo">Passo 1 de 2 · sua conta</legend>
 
-        <label for="conta">Valor médio da conta de luz, por mês</label>
-        <input id="conta" name="conta" type="text" inputmode="numeric" autocomplete="off" placeholder="R$ 0" required>
-        <p>[esqueleto: erro] Informe o valor médio da conta, só números.</p>
-        <p>[esqueleto: estimativa, aparece ao digitar; exemplo com R$ 600] Para uma conta de R$ 600, a média dos nossos clientes ficaria entre R$ 60 e R$ 150 por mês. É a média dos clientes da Ravena, não uma garantia. A conta não zera: sempre resta a taxa mínima da distribuidora e o custo do fio.</p>
-        <p>[esqueleto: aviso abaixo de R$ 450, junto da estimativa] Com conta abaixo de R$ 450 por mês, a conta não fecha e nós mesmos desaconselhamos. Se quiser, pode enviar mesmo assim.</p>
+          <div class="grupo">
+            <label for="conta">Valor médio da conta de luz, por mês</label>
+            <input id="conta" name="conta" class="campo campo-dinheiro" type="text" inputmode="numeric" autocomplete="off" placeholder="R$ 0" required aria-describedby="conta-erro estimativa">
+            <p class="erro" id="conta-erro" hidden>Informe o valor médio da conta, só números.</p>
+          </div>
 
-        <label for="cidade">Cidade</label>
-        <select id="cidade" name="cidade" required>
-          <option value="">Escolha</option>
-          <option>Sorocaba</option>
-          <option>Votorantim</option>
-          <option>Itu</option>
-          <option>Salto</option>
-          <option>Outra cidade</option>
-        </select>
-        <p>[esqueleto: erro] Escolha a sua cidade.</p>
+          <div class="estimativa" id="estimativa" aria-live="polite" hidden>
+            <p class="estimativa-faixa">Para uma conta de <span class="numero" id="est-conta"></span>, a média dos nossos clientes ficaria entre <span class="numero" id="est-min"></span> e <span class="numero" id="est-max"></span> por mês.</p>
+            <p class="pequeno">É a média dos clientes da Ravena, não uma garantia. A conta não zera: sempre resta a taxa mínima da distribuidora e o custo do fio.</p>
+            <p class="estimativa-baixa" id="aviso-baixo" hidden>Com conta abaixo de <span class="numero">R$ 450</span> por mês, a conta não fecha e nós mesmos desaconselhamos. Se quiser, pode enviar mesmo assim.</p>
+          </div>
 
-        <button type="button">Continuar</button>
-      </fieldset>
+          <div class="grupo">
+            <label for="cidade">Cidade</label>
+            <select id="cidade" name="cidade" class="campo" required aria-describedby="cidade-erro">
+              <option value="">Escolha</option>
+              <option>Sorocaba</option>
+              <option>Votorantim</option>
+              <option>Itu</option>
+              <option>Salto</option>
+              <option>Outra cidade</option>
+            </select>
+            <p class="erro" id="cidade-erro" hidden>Escolha a sua cidade.</p>
+          </div>
 
-      <fieldset>
-        <legend>Passo 2 de 2: seus dados</legend>
+          <button type="button" class="botao botao-largo" id="continuar">Continuar</button>
+        </fieldset>
 
-        <label for="nome">Nome</label>
-        <input id="nome" name="nome" type="text" autocomplete="name" required>
-        <p>[esqueleto: erro] Informe seu nome.</p>
+        <fieldset class="passo" id="passo-2">
+          <legend class="rotulo">Passo 2 de 2 · seus dados</legend>
 
-        <label for="whatsapp">WhatsApp, com DDD</label>
-        <input id="whatsapp" name="whatsapp" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="(15) 99999-9999" required>
-        <p>[esqueleto: erro] Informe o WhatsApp com DDD e 9 dígitos, por exemplo (15) 99999-9999.</p>
+          <div class="grupo">
+            <label for="nome">Nome</label>
+            <input id="nome" name="nome" class="campo" type="text" autocomplete="name" required aria-describedby="nome-erro">
+            <p class="erro" id="nome-erro" hidden>Informe seu nome.</p>
+          </div>
 
-        <label for="anexo">Foto ou PDF da conta (opcional)</label>
-        <input id="anexo" name="anexo" type="file" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf">
-        <p>Ajuda muito, mas não é obrigatório. JPG, PNG ou PDF, até 10 MB.</p>
-        <p>[esqueleto: erro] Envie um arquivo JPG, PNG ou PDF de até 10 MB.</p>
+          <div class="grupo">
+            <label for="whatsapp">WhatsApp, com DDD</label>
+            <input id="whatsapp" name="whatsapp" class="campo" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="(15) 99999-9999" required aria-describedby="whatsapp-erro">
+            <p class="erro" id="whatsapp-erro" hidden>Informe o WhatsApp com DDD e 9 dígitos, por exemplo (15) 99999-9999.</p>
+          </div>
 
-        <input id="consentimento" name="consentimento" type="checkbox" required>
-        <label for="consentimento">Autorizo a Ravena Solar a falar comigo pelo WhatsApp sobre esta simulação. Ver a <a href="#privacidade">política de privacidade</a>.</label>
-        <p>[esqueleto: erro] Marque a autorização para podermos responder pelo WhatsApp.</p>
+          <div class="grupo">
+            <label for="anexo">Foto ou PDF da conta (opcional)</label>
+            <input id="anexo" name="anexo" class="campo campo-arquivo" type="file" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf" aria-describedby="anexo-dica anexo-erro">
+            <p class="pequeno" id="anexo-dica">Ajuda muito, mas não é obrigatório. JPG, PNG ou PDF, até 10 MB.</p>
+            <p class="erro" id="anexo-erro" hidden>Envie um arquivo JPG, PNG ou PDF de até 10 MB.</p>
+          </div>
 
-        <button type="button">Voltar</button>
-        <button type="submit">Pedir simulação</button>
-      </fieldset>
+          <div class="grupo grupo-caixa">
+            <input id="consentimento" name="consentimento" type="checkbox" required aria-describedby="consentimento-erro">
+            <label for="consentimento">Autorizo a Ravena Solar a falar comigo pelo WhatsApp sobre esta simulação. Ver a <a href="#privacidade">política de privacidade</a>.</label>
+            <p class="erro" id="consentimento-erro" hidden>Marque a autorização para podermos responder pelo WhatsApp.</p>
+          </div>
 
-      <p role="status">[esqueleto: confirmação depois do envio] Pedido recebido. Resposta no mesmo dia útil, por WhatsApp.</p>
-    </form>
+          <div class="passo-botoes">
+            <button type="button" class="botao-texto" id="voltar">Voltar</button>
+            <button type="submit" class="botao botao-largo">Pedir simulação</button>
+          </div>
+        </fieldset>
+      </form>
+
+      <div class="confirmacao" id="confirmacao" tabindex="-1" hidden>
+        <p class="rotulo">Pedido recebido</p>
+        <p class="titulo-medio">Resposta no mesmo dia útil, por WhatsApp.</p>
+      </div>
+    </div>
   </section>
 
   <!-- 06/08 · Perguntas frequentes (ordem do briefing.md, seção 5.1) -->
-  <section id="perguntas" aria-labelledby="perguntas-titulo">
-    <p>06/08 · Perguntas frequentes</p>
-    <h2 id="perguntas-titulo">As seis perguntas que mais ouvimos.</h2>
+  <section class="dobra" id="perguntas" aria-labelledby="perguntas-titulo">
+    <div class="dentro">
+      <p class="rotulo"><span class="folha">06/08</span> Perguntas frequentes</p>
+      <h2 id="perguntas-titulo" class="titulo">As seis perguntas que mais ouvimos.</h2>
 
-    <h3>Como sei que vocês não vão sumir daqui a dois anos?</h3>
-    <p>Seis anos de empresa, sede em Sorocaba, 412 sistemas residenciais instalados e equipe própria, com carteira assinada. A garantia de 5 anos da instalação é nossa.</p>
+      <div class="perguntas">
+        <div class="pergunta">
+          <h3 class="subtitulo">Como sei que vocês não vão sumir daqui a dois anos?</h3>
+          <p>Seis anos de empresa, sede em Sorocaba, 412 sistemas residenciais instalados e equipe própria, com carteira assinada. A garantia de 5 anos da instalação é nossa.</p>
+        </div>
 
-    <h3>Isso não vai estragar meu telhado?</h3>
-    <p>A visita técnica mede o telhado antes do projeto. E a nossa instalação tem 5 anos de garantia, incluindo qualquer infiltração causada pela obra.</p>
-    <p>[esqueleto: mini-desenho, corte do telhado de barro]</p>
+        <div class="pergunta">
+          <h3 class="subtitulo">Isso não vai estragar meu telhado?</h3>
+          <p>A visita técnica mede o telhado antes do projeto. E a nossa instalação tem 5 anos de garantia, incluindo qualquer infiltração causada pela obra.</p>
+          <svg class="desenho" viewBox="0 0 320 150" role="img" aria-label="Corte de um telhado de telha de barro com o painel instalado por cima">
+            <!-- caibro -->
+            <path class="linha" d="M20 130 L300 46"/>
+            <path class="linha" d="M23.4 141.5 L303.4 57.5"/>
+            <!-- telhas de barro -->
+            <path class="linha" d="M20 130 q11.1 -13.8 28 -8.4 q11.1 -13.8 28 -8.4 q11.1 -13.8 28 -8.4 q11.1 -13.8 28 -8.4 q11.1 -13.8 28 -8.4 q11.1 -13.8 28 -8.4 q11.1 -13.8 28 -8.4 q11.1 -13.8 28 -8.4 q11.1 -13.8 28 -8.4 q11.1 -13.8 28 -8.4"/>
+            <!-- suportes -->
+            <path class="linha" d="M90 109 L85.4 93.7 M225 68.5 L220.4 53.2"/>
+            <!-- painel -->
+            <path class="painel" d="M55.4 102.7 L255.4 42.7 L253.7 37 L53.7 97 Z"/>
+          </svg>
+        </div>
 
-    <h3>Ouvi dizer que taxaram o sol, ainda vale a pena?</h3>
-    <p>Desde a Lei 14.300 existe uma cobrança sobre a energia injetada na rede, que aumenta ano a ano. Continua valendo, mas o cálculo mudou.</p>
+        <div class="pergunta">
+          <h3 class="subtitulo">Ouvi dizer que taxaram o sol, ainda vale a pena?</h3>
+          <p>Desde a Lei 14.300 existe uma cobrança sobre a energia injetada na rede, que aumenta ano a ano. Continua valendo, mas o cálculo mudou.</p>
+        </div>
 
-    <h3>E se eu mudar de casa?</h3>
-    <p>O sistema valoriza o imóvel e pode ser transferido.</p>
-    <p>[esqueleto: mini-desenho, casa com seta]</p>
+        <div class="pergunta">
+          <h3 class="subtitulo">E se eu mudar de casa?</h3>
+          <p>O sistema valoriza o imóvel e pode ser transferido.</p>
+          <svg class="desenho" viewBox="0 0 320 150" role="img" aria-label="Casa com painéis e uma seta indicando a transferência do sistema">
+            <!-- casa 1 -->
+            <path class="linha" d="M24 140 L24 84 L74 50 L124 84 L124 140 Z"/>
+            <path class="painel" d="M44 70 L62 58 L96 58 L108 70 Z"/>
+            <rect class="linha" x="62" y="108" width="24" height="32"/>
+            <!-- seta -->
+            <path class="linha seta" d="M144 104 L188 104"/>
+            <path class="linha seta" d="M180 96 L190 104 L180 112"/>
+            <!-- casa 2 -->
+            <path class="linha tracejada" d="M206 140 L206 84 L256 50 L306 84 L306 140 Z"/>
+            <rect class="linha tracejada" x="244" y="108" width="24" height="32"/>
+          </svg>
+        </div>
 
-    <h3>E em dia nublado, e à noite?</h3>
-    <p>Em dia nublado produz menos; à noite, não produz. O que compensa é o crédito acumulado ao longo do mês.</p>
+        <div class="pergunta">
+          <h3 class="subtitulo">E em dia nublado, e à noite?</h3>
+          <p>Em dia nublado produz menos; à noite, não produz. O que compensa é o crédito acumulado ao longo do mês.</p>
+        </div>
 
-    <h3>Preciso de bateria?</h3>
-    <p>Para casa ligada na rede, não. O que sobra de dia vira crédito na rede da CPFL.</p>
+        <div class="pergunta">
+          <h3 class="subtitulo">Preciso de bateria?</h3>
+          <p>Para casa ligada na rede, não. O que sobra de dia vira crédito na rede da CPFL.</p>
+        </div>
+      </div>
 
-    <p>Ainda tem dúvida? <a href="#simulacao">Pergunte na simulação.</a></p>
+      <p class="lead perguntas-fim">Ainda tem dúvida? <a href="#simulacao" data-origem="convite">Pergunte na simulação.</a></p>
+    </div>
   </section>
 
   <!-- 07/08 · Quem somos -->
-  <section id="quem-somos" aria-labelledby="quem-somos-titulo">
-    <p>07/08 · Quem somos</p>
-    <h2 id="quem-somos-titulo">Seis anos, onze pessoas, instalação sem terceirizar.</h2>
-    <p>A região teve pelo menos três empresas de energia solar que fecharam deixando obra pela metade. Nós estamos há seis anos no mercado, e a equipe que sobe no telhado é nossa, com carteira assinada.</p>
-    <p>Somos integradora, não revenda: fazemos o projeto, a homologação junto à distribuidora e a instalação.</p>
-    <p>Somos assistência técnica autorizada da marca de inversor que instalamos: [aguardando: marca do inversor].</p>
-    <p>[aguardando: foto da equipe]</p>
+  <section class="dobra" id="quem-somos" aria-labelledby="quem-somos-titulo">
+    <div class="dentro quem-grade">
+      <div>
+        <p class="rotulo"><span class="folha">07/08</span> Quem somos</p>
+        <h2 id="quem-somos-titulo" class="titulo">Seis anos, onze pessoas, instalação sem terceirizar.</h2>
+        <p class="lead">A região teve pelo menos três empresas de energia solar que fecharam deixando obra pela metade. Nós estamos há seis anos no mercado, e a equipe que sobe no telhado é nossa, com carteira assinada.</p>
+        <p>Somos integradora, não revenda: fazemos o projeto, a homologação junto à distribuidora e a instalação.</p>
+        <p>Somos assistência técnica autorizada da marca de inversor que instalamos: <span class="aguardando">[aguardando: marca do inversor]</span>.</p>
+      </div>
+
+      <figure class="foto-trapezio">
+        <svg viewBox="0 0 400 220" aria-hidden="true">
+          <path class="trapezio" d="M10 210 L90 10 L310 10 L390 210 Z"/>
+          <g class="grade">
+            <line x1="145" y1="10" x2="117" y2="210"/>
+            <line x1="200" y1="10" x2="200" y2="210"/>
+            <line x1="255" y1="10" x2="283" y2="210"/>
+            <line x1="50" y1="110" x2="350" y2="110"/>
+          </g>
+        </svg>
+        <figcaption class="aguardando">[aguardando: foto da equipe]</figcaption>
+      </figure>
+    </div>
   </section>
 
   <!-- 08/08 · Fechamento -->
-  <section id="fechamento" aria-labelledby="fechamento-titulo">
-    <p>08/08</p>
-    <h2 id="fechamento-titulo">Diga quanto você paga de luz e receba a resposta no mesmo dia útil, por WhatsApp.</h2>
-    <form action="#simulacao" class="campo-conta" novalidate>
-      <input type="hidden" name="origem" value="fechamento">
-      <label for="conta-fechamento">Valor médio da conta de luz, por mês</label>
-      <input id="conta-fechamento" name="conta" type="text" inputmode="numeric" autocomplete="off" placeholder="R$ 0">
-      <button type="submit">Pedir simulação</button>
-    </form>
+  <section class="dobra dobra-escura dobra-fechamento" id="fechamento" aria-labelledby="fechamento-titulo">
+    <div class="dentro">
+      <p class="rotulo"><span class="folha">08/08</span></p>
+      <h2 id="fechamento-titulo" class="titulo">Diga quanto você paga de luz e receba a resposta no mesmo dia útil, por WhatsApp.</h2>
+      <form class="campo-conta" data-origem="fechamento" action="#simulacao" novalidate>
+        <label for="conta-fechamento">Valor médio da conta de luz, por mês</label>
+        <div class="campo-conta-linha">
+          <input id="conta-fechamento" name="conta" class="campo campo-dinheiro" type="text" inputmode="numeric" autocomplete="off" placeholder="R$ 0">
+          <button type="submit" class="botao">Pedir simulação</button>
+        </div>
+      </form>
+    </div>
   </section>
 
 </main>
 
-<footer>
-  <p>[esqueleto: rodapé em forma de carimbo de prancha técnica]</p>
-  <img src="assets/logo.svg" alt="Ravena Solar" width="180" height="48">
-  <dl>
-    <dt>Razão social</dt><dd>[aguardando: razão social]</dd>
-    <dt>Endereço</dt><dd>[aguardando: endereço]</dd>
-    <dt>Telefone</dt><dd>[aguardando: telefone]</dd>
-    <dt>WhatsApp</dt><dd>[aguardando: WhatsApp]</dd>
-  </dl>
-  <p id="privacidade">Política de privacidade: [aguardando: política de privacidade]</p>
+<footer class="rodape">
+  <div class="dentro">
+    <div class="carimbo">
+      <div class="carimbo-logo"><img src="assets/logo.svg" alt="Ravena Solar" width="180" height="48"></div>
+      <div class="carimbo-projeto"><span class="rotulo">Projeto</span><span>Energia solar residencial · Sorocaba e região</span></div>
+      <div><span class="rotulo">Razão social</span><span class="aguardando">[aguardando: razão social]</span></div>
+      <div class="carimbo-duplo"><span class="rotulo">Endereço</span><span class="aguardando">[aguardando: endereço]</span></div>
+      <div><span class="rotulo">Telefone</span><span class="aguardando">[aguardando: telefone]</span></div>
+      <div><span class="rotulo">WhatsApp</span><span class="aguardando">[aguardando: WhatsApp]</span></div>
+      <div id="privacidade" class="carimbo-largo"><span class="rotulo">Política de privacidade</span><span class="aguardando">[aguardando: política de privacidade]</span></div>
+    </div>
+  </div>
 </footer>
 
 <!-- Barra fixa do celular: aparece depois que o campo do hero sai da tela e some enquanto a dobra 5 está visível. -->
-<aside class="barra-celular" aria-label="Pedir simulação">
-  <p>[esqueleto: barra fixa no celular]</p>
-  <form action="#simulacao" class="campo-conta" novalidate>
-    <input type="hidden" name="origem" value="barra">
-    <label for="conta-barra">Sua conta de luz por mês</label>
-    <input id="conta-barra" name="conta" type="text" inputmode="numeric" autocomplete="off" placeholder="R$ 0">
-    <button type="submit">Pedir simulação</button>
+<aside class="barra" id="barra" aria-label="Pedir simulação">
+  <form class="campo-conta campo-conta-barra" data-origem="barra" action="#simulacao" novalidate>
+    <label for="conta-barra" class="visualmente-oculto">Sua conta de luz por mês</label>
+    <input id="conta-barra" name="conta" class="campo campo-dinheiro" type="text" inputmode="numeric" autocomplete="off" placeholder="Sua conta: R$ 0">
+    <button type="submit" class="botao">Simular</button>
   </form>
 </aside>
 
