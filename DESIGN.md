@@ -167,7 +167,7 @@ Prancha técnica que vai do dia à noite.
 
 ### Comportamento
 
-- A seção fica travada (`position: sticky`) enquanto a rolagem vertical faz a cena avançar. Duração: 1,5 a 2 telas de rolagem.
+- A seção fica travada (`position: sticky`) enquanto a rolagem vertical faz a cena avançar. Duração: 1,5 tela de rolagem. **A animação termina quando a noite acaba** (a lua se põe) e a página volta a rolar normalmente; não volta a ser dia.
 - **Layout:** no computador, a cena fica à direita e, à esquerda, as frases do roteiro vão aparecendo uma a uma conforme a rolagem; a da fase atual fica em destaque e as anteriores continuam visíveis, mais claras. No celular, a cena fica em cima e só a frase atual aparece embaixo.
 - No celular, a barra fixa da simulação continua visível durante a animação.
 - Com `prefers-reduced-motion`: dois quadros estáticos, dia e noite.
@@ -179,7 +179,8 @@ Prancha técnica que vai do dia à noite.
 - **SVG desenhado à mão no código.** Nenhuma imagem externa, nenhum modelo 3D e nenhuma biblioteca.
 - **Vista isométrica (2,5D):** a casa vista de canto, com volume (duas paredes e o telhado à mostra), sobre um bloco de terreno, como uma maquete. Projeção isométrica, sem ponto de fuga. (Avaliado e descartado: 3D real com three.js e modelos prontos, por peso, desempenho no celular, falta de modelo de painel com licença livre e estilo de jogo.)
 - **Cenário completo:** céu em degradê, nuvens de dia, estrelas à noite, terreno com grama, calçada e rua, árvores, casas vizinhas mais simples ao fundo, a casa, o poste e a fiação.
-- **Sol e lua fazem um semicírculo ao redor da casa:** o sol de dia e a lua à noite percorrem o mesmo arco, nascendo de um lado e se pondo do outro. Um arco tracejado fino mostra o caminho. O arco é largo o bastante para passar por fora de casas, árvores e terreno (nunca atravessa um modelo), e o quadro tem céu de sobra acima da maquete.
+- **Quadro retangular** (mais largo que alto, cerca de 4:3), com a casa no centro da largura.
+- **Sol e lua fazem um semicírculo ao redor da casa:** o sol de dia e a lua à noite percorrem o mesmo arco, nascendo de um lado e se pondo do outro. Um arco tracejado fino, centralizado no quadro, mostra o caminho. O arco é largo o bastante para passar por fora de casas, árvores e terreno (nunca atravessa um modelo), e o quadro tem céu de sobra acima da maquete.
 - **Nada se cruza:** nenhuma linha ou forma atravessa outra de um jeito torto (fio cruzando poste ou janela, faixa saindo do terreno, árvore encostando no telhado, sombra invadindo a calçada). O poste fica do outro lado da rua, e o ramal chega ao padrão de entrada sem passar na frente da casa.
 - **Sol = sol da logo** (círculo com cinco raios de ponta redonda). **Painéis:** 14, em pé (2 fileiras de 7), cobrindo quase toda a água da frente do telhado, com sombra, moldura de alumínio e células com a grade clara, como na logo.
 - **Cores próprias da cena** (exceção à seção 5, só aqui): céu azul, verdes da grama e das árvores, telha de barro, paredes claras, luz amarelada nas janelas à noite. Âmbar continua reservado ao sol, à energia do dia e ao crédito. O resto da página segue só com as cores da logo.
@@ -203,11 +204,10 @@ Prancha técnica que vai do dia à noite.
 
 | Rolagem | Cena | Crédito | Legenda |
 |---|---|---|---|
-| 0–20% | O sol nasce, os painéis acendem e o fluxo âmbar vai do painel para a casa e, desde o primeiro momento, da casa para a rede | Começa com um pouco e já começa a encher | A casa usa a energia que o telhado produz |
-| 20–45% | Sol a pino; o excedente continua seguindo para a rede | Enche | O que sobra vai para a rede da CPFL e vira crédito |
-| 45–60% | O céu escurece para azul-marinho | Para de encher | Em dia nublado produz menos; à noite, não produz |
-| 60–85% | Luzes e ar ligam; o fluxo branco vai do poste para a casa | Esvazia, sem zerar | O que compensa é o crédito acumulado ao longo do mês |
-| 85–100% | O sol nasce de novo, os painéis voltam a acender e a energia volta a sair para a rede | Sobra um pouco e volta a encher | — |
+| 0–24% | O sol nasce, os painéis acendem e o fluxo âmbar vai do painel para a casa e, desde o primeiro momento, da casa para a rede | Começa com um pouco e já começa a encher | A casa usa a energia que o telhado produz |
+| 24–53% | Sol a pino; o excedente continua seguindo para a rede | Enche | O que sobra vai para a rede da CPFL e vira crédito |
+| 53–71% | O céu escurece para azul-marinho | Para de encher | Em dia nublado produz menos; à noite, não produz |
+| 71–100% | Luzes e ar ligam; o fluxo branco vai do poste para a casa; a lua se põe e a animação termina | Esvazia até o tracinho, sem zerar | O que compensa é o crédito acumulado ao longo do mês |
 
 Sem aviso de fechamento ao final da animação.
 
@@ -216,7 +216,7 @@ Sem aviso de fechamento ao final da animação.
 - A rolagem vira um número de 0 a 1, e cada peça reage a ele: posição do sol e da lua no arco, cor do céu e das superfícies, giro da ventoinha à noite, brilho dos painéis, direção dos pontos, nível do crédito, luzes e ar.
 - JavaScript puro, sem biblioteca.
 - **Ordem de construção:** (1) quadros estáticos de dia e de noite para aprovação; (2) animação ligada à rolagem; (3) ajustes no celular e versão para `prefers-reduced-motion`.
-- **Como ficou:** o palco fica preso por 1,75 tela de rolagem, com "Dia" ou "Noite" e as frases do roteiro ao lado (no celular, embaixo). As cores vêm das paletas dos quadros estáticos, misturadas conforme a rolagem. Os dois quadros estáticos continuam na página e são o que aparece com `prefers-reduced-motion` ou sem JavaScript.
+- **Como ficou:** o palco fica preso por 1,5 tela de rolagem, com "Dia" ou "Noite" e as frases do roteiro ao lado (no celular, embaixo). As cores vêm das paletas dos quadros estáticos, misturadas conforme a rolagem. Os dois quadros estáticos continuam na página e são o que aparece com `prefers-reduced-motion` ou sem JavaScript.
 
 ## 9. Layout e componentes
 

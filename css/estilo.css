@@ -320,10 +320,10 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
 .cena-quadros { display: grid; gap: 40px; }
 .quadro > .rotulo { margin-top: 16px; }
 
-/* Animação ligada à rolagem: o palco fica preso (sticky) por ~1,75 tela de rolagem.
+/* Animação ligada à rolagem: o palco fica preso (sticky) por 1,5 tela de rolagem.
    Só aparece quando o JS liga (html.cena-animada); senão ficam os quadros estáticos. */
 .cena-rolagem { display: none; }
-.cena-animada .cena-rolagem { display: block; height: calc(100vh + 175vh); height: calc(100svh + 175svh); }
+.cena-animada .cena-rolagem { display: block; height: calc(100vh + 150vh); height: calc(100svh + 150svh); }
 .cena-animada .cena-quadros { display: none; }
 .cena-fixa {
   position: sticky; top: var(--cabecalho);
@@ -331,7 +331,7 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
   height: calc(100svh - var(--cabecalho) - 72px);   /* 72px: barra fixa do celular */
   display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px;
 }
-.cena-palco-anim { width: min(100%, calc((100vh - 360px) * 800 / 860)); width: min(100%, calc((100svh - 360px) * 800 / 860)); }
+.cena-palco-anim { width: min(100%, calc((100vh - 360px) * 1000 / 770)); width: min(100%, calc((100svh - 360px) * 1000 / 770)); }
 .cena-anim { display: block; width: 100%; }
 .cena-anim .ventoinha-pas, .cena-anim .sol, .cena-anim .lua { will-change: transform; }
 
@@ -352,7 +352,7 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
     display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; gap: 48px;
   }
   .cena-narrativa { order: 0; min-height: 0; }
-  .cena-palco-anim { order: 1; justify-self: end; width: min(100%, calc((100vh - 120px) * 800 / 860)); width: min(100%, calc((100svh - 120px) * 800 / 860)); }
+  .cena-palco-anim { order: 1; justify-self: end; width: min(100%, calc((100vh - 120px) * 1000 / 770)); width: min(100%, calc((100svh - 120px) * 1000 / 770)); }
   .narrativa { margin-top: 16px; }
   .narrativa li, .narrativa li:not(.atual) {
     display: grid;

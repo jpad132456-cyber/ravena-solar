@@ -254,30 +254,32 @@
     function astro(el, angulo) {
       var r = angulo * Math.PI / 180;
       el.setAttribute('transform', 'translate(' + (arco[0] + arco[2] * Math.cos(r)).toFixed(1) + ' ' + (arco[1] - arco[2] * Math.sin(r)).toFixed(1) + ')');
-      el.style.opacity = Math.min(1, Math.max(0, Math.sin(r) * 6)).toFixed(3);
+      // some perto do horizonte (abaixo de 12°), para não passar por cima de nada
+      var altura = Math.min(angulo, 180 - angulo);
+      el.style.opacity = Math.min(1, Math.max(0, (altura - 12) / 12)).toFixed(3);
     }
 
     function desenhar() {
       var caixa = rolagem.getBoundingClientRect();
       var curso = caixa.height - window.innerHeight;
-      var p = curso > 0 ? Math.min(1, Math.max(0, -caixa.top / curso)) : 0;
+      // a animação termina quando a noite acaba (sem voltar a ser dia): o fim da rolagem
+      // corresponde ao ponto 0,85 do roteiro, e p vai de 0 a 0,85
+      var p = (curso > 0 ? Math.min(1, Math.max(0, -caixa.top / curso)) : 0) * .85;
 
       // noite (n), luzes e ar (luz) e crédito, conforme o roteiro do DESIGN.md
-      var n = p < .45 ? 0 : p < .6 ? suave(faixa(p, .45, .6)) : p < .85 ? 1 : 1 - suave(faixa(p, .85, 1));
-      var luz = p < .58 ? 0 : p < .64 ? faixa(p, .58, .64) : p < .85 ? 1 : 1 - faixa(p, .85, .9);
-      var credito = p < .45 ? .2 + .7 * suave(faixa(p, .03, .45)) : p < .6 ? .9 :
-        p < .85 ? .9 - .7 * suave(faixa(p, .6, .85)) : .2 + .1 * faixa(p, .85, 1);
+      var n = p < .45 ? 0 : p < .6 ? suave(faixa(p, .45, .6)) : 1;
+      var luz = p < .58 ? 0 : faixa(p, .58, .64);
+      var credito = p < .45 ? .2 + .7 * suave(faixa(p, .03, .45)) : p < .6 ? .9 : .9 - .7 * suave(faixa(p, .6, .85));
 
       var estilo = '';
       paleta.forEach(function (c) { estilo += '--' + c[0] + ':' + misturar(c[1], c[2], n) + ';'; });
       estilo += '--vidro:' + misturar(vidroDia, vidroNoite, luz) + ';';
       svg.setAttribute('style', estilo);
 
-      // sol: nasce à esquerda e se põe à direita; nasce de novo no fim. Lua: o mesmo arco à noite.
+      // sol: nasce à esquerda e se põe à direita. Lua: o mesmo arco à noite, e se põe no fim.
       if (p <= .52) astro(sol, 175 - 170 * faixa(p, 0, .52));
-      else if (p >= .85) astro(sol, 180 - 40 * faixa(p, .85, 1));
       else sol.style.opacity = 0;
-      if (p >= .5 && p <= .9) astro(lua, 175 - 170 * faixa(p, .5, .9));
+      if (p >= .5) astro(lua, 175 - 163 * faixa(p, .5, .85));
       else lua.style.opacity = 0;
 
       nuvens.style.opacity = (1 - n).toFixed(3);
@@ -286,10 +288,10 @@
 
       // pontos correndo pelos fios
       var deslocamento = (-p * 900).toFixed(1);
-      fPainel.style.opacity = (p < .52 ? faixa(p, .02, .08) * (1 - faixa(p, .46, .52)) : faixa(p, .87, .93)).toFixed(3);
-      // o que sobra sai da casa para a rede desde o começo do dia até o pôr do sol, e de novo no amanhecer
-      fRede.style.opacity = (p < .52 ? faixa(p, .02, .08) * (1 - faixa(p, .46, .52)) : faixa(p, .87, .93)).toFixed(3);
-      fNoite.style.opacity = (faixa(p, .6, .64) * (1 - faixa(p, .83, .87))).toFixed(3);
+      fPainel.style.opacity = (faixa(p, .02, .08) * (1 - faixa(p, .46, .52))).toFixed(3);
+      // o que sobra sai da casa para a rede desde o começo do dia até o pôr do sol
+      fRede.style.opacity = (faixa(p, .02, .08) * (1 - faixa(p, .46, .52))).toFixed(3);
+      fNoite.style.opacity = faixa(p, .6, .64).toFixed(3);
       fPainel.style.strokeDashoffset = fRede.style.strokeDashoffset = fNoite.style.strokeDashoffset = deslocamento;
 
       // ar-condicionado: a ventoinha gira enquanto está ligado
@@ -301,7 +303,7 @@
       periodo.textContent = n > .5 ? 'Noite' : 'Dia';
 
       // narrativa: cada frase aparece quando sua fase chega; a da fase atual fica em destaque
-      var indice = p < .2 ? 0 : p < .45 ? 1 : p < .6 ? 2 : p < .85 ? 3 : -1;
+      var indice = p < .2 ? 0 : p < .45 ? 1 : p < .6 ? 2 : 3;
       itens.forEach(function (item, i) {
         item.classList.toggle('visivel', p >= INICIOS[i]);
         item.classList.toggle('atual', i === indice);
