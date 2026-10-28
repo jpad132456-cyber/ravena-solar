@@ -117,7 +117,7 @@ Nenhum outro item. ⚠️ Avisar o cliente sobre a lista.
   | Âmbar | `#F2A03D` | Botão principal, dados, destaques gráficos, energia do sol, crédito | ~3% |
   | Laranja | `#E8721C` | Hover e clique do botão; degradê da dobra 5 | ~2% |
 
-- **Transparência permitida** nas quatro cores (ex.: azul-marinho a 6% como fundo de cartão, a 70% como texto secundário). Nenhuma cor nova.
+- **Transparência permitida** nas quatro cores (ex.: azul-marinho a 6% como fundo de cartão, a 70% como texto secundário). Nenhuma cor nova, com uma única exceção: a cena dia e noite da dobra 3 (seção 8).
 - **Contraste:**
 
   | Combinação | Contraste | Uso |
@@ -175,11 +175,13 @@ Prancha técnica que vai do dia à noite.
 
 ### Desenho
 
-- **SVG desenhado à mão no código.** Nenhuma imagem externa.
-- Vista de frente da casa, plana, como fachada de projeto. Sem 3D nem perspectiva.
-- **Sol = sol da logo** (círculo com cinco raios de ponta redonda). **Painéis = trapézio da logo**, com as linhas brancas da grade.
-- Traço azul-marinho fino; preenchimentos em azul-marinho transparente. Âmbar só no sol, na energia do dia e no crédito.
-- Peças, cada uma um elemento animável: céu, sol, casa com telha de barro sugerida, painéis, janela com luz, ar-condicionado na parede, fio até o poste, poste e barrinha de crédito.
+- **SVG desenhado à mão no código.** Nenhuma imagem externa, nenhum modelo 3D e nenhuma biblioteca.
+- **Vista isométrica (2,5D):** a casa vista de canto, com volume (duas paredes e o telhado à mostra), sobre um bloco de terreno, como uma maquete. Projeção isométrica, sem ponto de fuga. (Avaliado e descartado: 3D real com three.js e modelos prontos, por peso, desempenho no celular, falta de modelo de painel com licença livre e estilo de jogo.)
+- **Cenário completo:** céu em degradê, nuvens de dia, estrelas à noite, terreno com grama, calçada e rua, árvores, casas vizinhas mais simples ao fundo, a casa, o poste e a fiação.
+- **Sol e lua fazem um semicírculo ao redor da casa:** o sol de dia e a lua à noite percorrem o mesmo arco, nascendo de um lado e se pondo do outro. Um arco tracejado fino mostra o caminho.
+- **Sol = sol da logo** (círculo com cinco raios de ponta redonda). **Painéis** com as linhas brancas da grade, como na logo.
+- **Cores próprias da cena** (exceção à seção 5, só aqui): céu azul, verdes da grama e das árvores, telha de barro, paredes claras, luz amarelada nas janelas à noite. Âmbar continua reservado ao sol, à energia do dia e ao crédito. O resto da página segue só com as cores da logo.
+- Peças, cada uma um elemento animável: céu, sol, lua, nuvens, estrelas, casa com telha de barro, painéis, janelas com luz, ar-condicionado na parede, fio até o poste, poste e barrinha de crédito.
 
 ### Fluxo de energia
 
@@ -207,7 +209,7 @@ Sem aviso de fechamento ao final da animação.
 
 ### Técnica
 
-- A rolagem vira um número de 0 a 1, e cada peça reage a ele: posição do sol no arco, cor do céu, brilho dos painéis, direção dos pontos, nível do crédito, luzes e ar.
+- A rolagem vira um número de 0 a 1, e cada peça reage a ele: posição do sol e da lua no arco, cor do céu e das superfícies, brilho dos painéis, direção dos pontos, nível do crédito, luzes e ar.
 - JavaScript puro, sem biblioteca.
 - **Ordem de construção:** (1) quadros estáticos de dia e de noite para aprovação; (2) animação ligada à rolagem; (3) ajustes no celular e versão para `prefers-reduced-motion`.
 

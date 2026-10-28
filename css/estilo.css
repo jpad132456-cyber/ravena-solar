@@ -325,42 +325,97 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
   .cena-quadros { grid-template-columns: 1fr 1fr; gap: 32px; }
 }
 
-/* Cena dia e noite (DESIGN.md, seção 8). Mesmas peças nos dois quadros; só as variáveis mudam. */
+/* Cena dia e noite (DESIGN.md, seção 8): vista isométrica.
+   Única parte da página com cores próprias (exceção da seção 5). Mesmas peças nos dois
+   quadros; só as variáveis mudam, para a animação poder ir de uma a outra. */
 .cena-svg {
-  --ceu: var(--branco);
-  --traco: var(--marinho);
-  --fachada: var(--marinho-06);
-  --telhado: rgba(18, 58, 85, .12);
-  --painel: var(--marinho);
-  --grade: rgba(255, 255, 255, .85);
-  --janela: var(--marinho-06);
+  --ceu-topo: #6FB3E3;  --ceu-base: #D9EEFA;
+  --arco: rgba(18, 58, 85, .28);
+  --nuvem: #FFFFFF;
+  --grama: #9BCB78;     --solo-frente: #A9774F;  --solo-lado: #8C5E3B;
+  --calcada: #E6E1D8;   --rua: #6C7782;          --faixa: #FFFFFF;
+  --parede-frente: #F6F1E7; --parede-lado: #DDD3C1;
+  --telha: #C9653C;     --telha-linha: #A54F2C;  --telha-borda: #9A4826; --telha-cume: #B35733;
+  --painel: #1C4C72;    --painel-grade: rgba(255, 255, 255, .8);
+  --porta: #8B5B3D;     --moldura: #123A55;      --vidro: #BFDDEF;
+  --ar: #FFFFFF;        --ar-lado: #D9DFE4;
+  --copa: #5C9E48;      --copa-luz: #78B85E;     --tronco: #7B5337;
+  --viz-frente: #ECE6DB; --viz-lado: #D3CBBC;    --viz-telha: #C08E73;
+  --poste: #6E6A64;     --fio: #3D4852;
+  --sombra: rgba(18, 58, 85, .14);
+  --credito-fundo: rgba(255, 255, 255, .9); --credito-borda: #123A55;
   width: 100%; height: auto;
-  border: 1px solid var(--marinho);
   border-radius: var(--raio);
 }
 .cena-noite {
-  --ceu: var(--marinho);
-  --traco: rgba(255, 255, 255, .85);
-  --fachada: rgba(255, 255, 255, .08);
-  --telhado: rgba(255, 255, 255, .14);
-  --painel: var(--marinho);
-  --grade: rgba(255, 255, 255, .3);
-  --janela: rgba(255, 255, 255, .85);
+  --ceu-topo: #081A2A;  --ceu-base: #123A55;
+  --arco: rgba(255, 255, 255, .22);
+  --grama: #284A33;     --solo-frente: #3F2E22;  --solo-lado: #33251B;
+  --calcada: #3B4855;   --rua: #1E2A35;          --faixa: rgba(255, 255, 255, .45);
+  --parede-frente: #2E4C63; --parede-lado: #243F54;
+  --telha: #6B3727;     --telha-linha: #562C1F;  --telha-borda: #4E281C; --telha-cume: #5E3022;
+  --painel: #10283C;    --painel-grade: rgba(255, 255, 255, .22);
+  --porta: #4A3123;     --moldura: #0D2536;      --vidro: #FFE29A;
+  --ar: #C7D1DA;        --ar-lado: #9FADB9;
+  --copa: #1E3D29;      --copa-luz: #284D34;     --tronco: #3D2A1C;
+  --viz-frente: #263F52; --viz-lado: #1F3546;    --viz-telha: #4C3328;
+  --poste: #56636F;     --fio: rgba(255, 255, 255, .35);
+  --sombra: rgba(0, 0, 0, .22);
+  --credito-fundo: rgba(255, 255, 255, .14); --credito-borda: rgba(255, 255, 255, .85);
 }
-.cena-svg .ceu { fill: var(--ceu); }
-.cena-svg .sol circle { fill: var(--ambar); }
-.cena-svg .sol path { stroke: var(--ambar); stroke-width: 4.5; stroke-linecap: round; }
-.cena-svg .linha { fill: none; stroke: var(--traco); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-.cena-svg .fina { stroke-width: 1; }
-.cena-svg .fachada { fill: var(--fachada); stroke: var(--traco); stroke-width: 1.5; }
-.cena-svg .telhado { fill: var(--telhado); stroke: var(--traco); stroke-width: 1.5; stroke-linejoin: round; }
-.cena-svg .painel { fill: var(--painel); stroke: var(--traco); stroke-width: 1; stroke-linejoin: round; }
-.cena-svg .grade { stroke: var(--grade); stroke-width: 2; }
-.cena-svg .janela { fill: var(--janela); stroke: var(--traco); stroke-width: 1.5; }
-.cena-svg .fio { fill: none; stroke: var(--traco); stroke-width: 1; opacity: .5; }
+.cena-svg .ceu-topo { stop-color: var(--ceu-topo); }
+.cena-svg .ceu-base { stop-color: var(--ceu-base); }
+.cena-svg .brilho-a { stop-color: #FFFFFF; stop-opacity: .32; }
+.cena-svg .brilho-b { stop-color: #FFFFFF; stop-opacity: 0; }
+.cena-svg .estrelas { fill: #FFFFFF; opacity: .8; }
+.cena-svg .arco { fill: none; stroke: var(--arco); stroke-width: 1.5; stroke-dasharray: 2 8; stroke-linecap: round; }
+.cena-svg .sol-halo { fill: var(--ambar); opacity: .18; }
+.cena-svg .sol-disco { fill: var(--ambar); }
+.cena-svg .sol-raios { stroke: var(--ambar); stroke-width: 4.5; stroke-linecap: round; fill: none; }
+.cena-svg .lua-halo { fill: #FFFFFF; opacity: .08; }
+.cena-svg .lua-disco { fill: #F4F1E4; }
+.cena-svg .nuvem { fill: var(--nuvem); opacity: .92; }
+.cena-svg .grama { fill: var(--grama); }
+.cena-svg .solo-frente { fill: var(--solo-frente); }
+.cena-svg .solo-lado { fill: var(--solo-lado); }
+.cena-svg .calcada { fill: var(--calcada); }
+.cena-svg .rua { fill: var(--rua); }
+.cena-svg .faixa { fill: var(--faixa); }
+.cena-svg .sombra { fill: var(--sombra); }
+.cena-svg .parede-frente { fill: var(--parede-frente); }
+.cena-svg .parede-lado { fill: var(--parede-lado); }
+.cena-svg .telha { fill: var(--telha); }
+.cena-svg .telha-tras { fill: var(--telha-borda); }
+.cena-svg .telha-linha { stroke: var(--telha-linha); stroke-width: 1.2; fill: none; }
+.cena-svg .telha-borda, .cena-svg .telha-empena { fill: var(--telha-borda); }
+.cena-svg .telha-cume { fill: var(--telha-cume); }
+.cena-svg .painel { fill: var(--painel); }
+.cena-svg .painel-grade { stroke: var(--painel-grade); stroke-width: 1; fill: none; }
+.cena-svg .porta { fill: var(--porta); }
+.cena-svg .macaneta { fill: var(--ambar); }
+.cena-svg .moldura { fill: var(--moldura); }
+.cena-svg .vidro { fill: var(--vidro); }
+.cena-svg .caixilho { stroke: var(--moldura); stroke-width: 1.5; fill: none; }
+.cena-svg .ar-frente, .cena-svg .ar-topo { fill: var(--ar); }
+.cena-svg .ar-lado { fill: var(--ar-lado); }
+.cena-svg .ar-vento { stroke: rgba(255, 255, 255, .7); stroke-width: 1.5; fill: none; stroke-linecap: round; }
+.cena-svg .arv-copa { fill: var(--copa); }
+.cena-svg .arv-copa-luz { fill: var(--copa-luz); }
+.cena-svg .arv-tronco { stroke: var(--tronco); stroke-width: 5; stroke-linecap: round; }
+.cena-svg .viz-frente { fill: var(--viz-frente); }
+.cena-svg .viz-lado, .cena-svg .viz-oitao { fill: var(--viz-lado); }
+.cena-svg .viz-telha { fill: var(--viz-telha); }
+.cena-svg .poste, .cena-svg .poste-cruzeta, .cena-svg .poste-braco { stroke: var(--poste); stroke-linecap: round; }
+.cena-svg .poste { stroke-width: 5; }
+.cena-svg .poste-cruzeta { stroke-width: 3.5; }
+.cena-svg .poste-braco { stroke-width: 2.5; }
+.cena-svg .isolador { fill: var(--poste); }
+.cena-svg .fio { fill: none; stroke: var(--fio); stroke-width: 1.4; }
+.cena-svg .credito-fundo { fill: var(--credito-fundo); }
 .cena-svg .credito { fill: var(--ambar); }
-.cena-svg .marca { stroke: var(--traco); stroke-width: 2; stroke-linecap: round; }
-.cena-svg .fluxo { fill: none; stroke-width: 5; stroke-linecap: round; stroke-dasharray: 0 12; }
+.cena-svg .credito-borda { fill: none; stroke: var(--credito-borda); stroke-width: 1.5; }
+.cena-svg .credito-marca { stroke: var(--credito-borda); stroke-width: 2; stroke-linecap: round; }
+.cena-svg .fluxo { fill: none; stroke-width: 5; stroke-linecap: round; stroke-dasharray: 0 11; }
 .cena-svg .fluxo-dia { stroke: var(--ambar); }
 .cena-svg .fluxo-noite { stroke: rgba(255, 255, 255, .85); }
 

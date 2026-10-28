@@ -18,7 +18,7 @@ Landing page para vender **energia solar residencial** da Ravena Solar.
 
 1. **Não inventar dados.** Todo número, prazo, garantia ou afirmação sobre a empresa tem que estar no `briefing.md`. Se faltar algum dado, deixar um placeholder visível e avisar.
 2. **Brief vence o site antigo.** Em qualquer conflito, vale o brief (`briefing.md`, seção 12).
-3. **Cores da marca:** usar só as da logo, lidas de `assets/logo.svg`.
+3. **Cores da marca:** usar só as da logo, lidas de `assets/logo.svg`. Única exceção: a cena dia e noite da dobra 3 pode ter cores próprias (céu, grama, telha, árvores…), conforme o `DESIGN.md`, seção 8.
 4. **Tom:** "Direto e específico. Somos técnicos e gostamos de número."
    - Proibido: "energia do futuro", "sustentabilidade" como slogan, "revolução solar", "grátis", economia de 95%, prazo inventado.
    - Conta de luz **não zera**: a queda média é de 75% a 90%.
