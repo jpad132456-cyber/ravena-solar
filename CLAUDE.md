@@ -23,6 +23,7 @@ Landing page para vender **energia solar residencial** da Ravena Solar.
    - Proibido: "energia do futuro", "sustentabilidade" como slogan, "revolução solar", "grátis", economia de 95%, prazo inventado.
    - Conta de luz **não zera**: a queda média é de 75% a 90%.
 5. **Não oferecer** bateria, sistemas para indústria ou comércio acima de 75 kWp, nem manutenção de sistema instalado por outra empresa.
+6. **Na dúvida, parar e perguntar.** Diante de qualquer dúvida significativa, de contradição entre os documentos do projeto (`CLAUDE.md`, `DESIGN.md`, `briefing.md`) ou de qualquer adição que não esteja prevista neles, parar o que está fazendo e perguntar ao usuário antes de seguir. Não escolher sozinho, não presumir e não "resolver depois".
 
 ## O cliente (resumo)
 
