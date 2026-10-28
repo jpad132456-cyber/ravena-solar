@@ -102,6 +102,7 @@ Nenhum outro item. ⚠️ Avisar o cliente sobre a lista.
 - **Computador:** cabeçalho fino e fixo, com a logo e o botão "Pedir simulação".
 - **Celular:** cabeçalho só com a logo. Barra fixa na parte de baixo da tela, com o campo da conta, que aparece só depois que o campo do hero sai da tela.
 - Cabeçalho e barra somem enquanto o formulário da dobra 5 está visível.
+- A barra do celular também some enquanto o campo da conta do fechamento (dobra 8) está visível, para não mostrar dois campos iguais.
 - Nenhum menu de navegação na página.
 
 ## 5. Marca e cores

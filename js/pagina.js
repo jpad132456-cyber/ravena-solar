@@ -199,17 +199,20 @@
   // ---------- Cabeçalho fixo e barra do celular ----------
   // A barra aparece depois que o campo do hero sai da tela (para cima).
   // Cabeçalho e barra somem enquanto a dobra 5 está visível.
+  // A barra também some enquanto o campo do fechamento está visível.
 
   var cabecalho = document.getElementById('cabecalho');
   var barra = document.getElementById('barra');
   var campoHero = document.querySelector('#hero .campo-conta');
   var dobraConvite = document.getElementById('simulacao');
+  var campoFechamento = document.querySelector('#fechamento .campo-conta');
   var heroPassou = false;
   var conviteVisivel = false;
+  var fechamentoVisivel = false;
 
   function atualizarFixos() {
     cabecalho.classList.toggle('oculto', conviteVisivel);
-    barra.classList.toggle('visivel', heroPassou && !conviteVisivel);
+    barra.classList.toggle('visivel', heroPassou && !conviteVisivel && !fechamentoVisivel);
   }
 
   if ('IntersectionObserver' in window) {
@@ -223,5 +226,10 @@
       conviteVisivel = entradas[0].isIntersecting;
       atualizarFixos();
     }, { threshold: 0.15 }).observe(dobraConvite);
+
+    new IntersectionObserver(function (entradas) {
+      fechamentoVisivel = entradas[0].isIntersecting;
+      atualizarFixos();
+    }).observe(campoFechamento);
   }
 })();
