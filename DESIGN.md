@@ -213,6 +213,7 @@ Sem aviso de fechamento ao final da animação.
 - A rolagem vira um número de 0 a 1, e cada peça reage a ele: posição do sol e da lua no arco, cor do céu e das superfícies, giro da ventoinha à noite, brilho dos painéis, direção dos pontos, nível do crédito, luzes e ar.
 - JavaScript puro, sem biblioteca.
 - **Ordem de construção:** (1) quadros estáticos de dia e de noite para aprovação; (2) animação ligada à rolagem; (3) ajustes no celular e versão para `prefers-reduced-motion`.
+- **Como ficou:** o palco fica preso por 1,75 tela de rolagem, com a legenda da fase embaixo ("Dia" ou "Noite" e a frase do roteiro). As cores vêm das paletas dos quadros estáticos, misturadas conforme a rolagem. Os dois quadros estáticos continuam na página e são o que aparece com `prefers-reduced-motion` ou sem JavaScript.
 
 ## 9. Layout e componentes
 

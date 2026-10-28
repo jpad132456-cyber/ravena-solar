@@ -320,6 +320,29 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
 .cena-quadros { display: grid; gap: 40px; }
 .quadro > .rotulo { margin-top: 16px; }
 
+/* Animação ligada à rolagem: o palco fica preso (sticky) por ~1,75 tela de rolagem.
+   Só aparece quando o JS liga (html.cena-animada); senão ficam os quadros estáticos. */
+.cena-rolagem { display: none; }
+.cena-animada .cena-rolagem { display: block; height: calc(100vh + 175vh); height: calc(100svh + 175svh); }
+.cena-animada .cena-quadros { display: none; }
+.cena-fixa {
+  position: sticky; top: var(--cabecalho);
+  height: calc(100vh - var(--cabecalho) - 72px);
+  height: calc(100svh - var(--cabecalho) - 72px);   /* 72px: barra fixa do celular */
+  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px;
+}
+.cena-palco-anim { width: min(100%, calc((100vh - 330px) * 800 / 520)); width: min(100%, calc((100svh - 330px) * 800 / 520)); }
+.cena-anim { display: block; width: 100%; }
+.cena-legenda { width: 100%; max-width: 800px; min-height: 76px; }
+.cena-legenda .rotulo { margin-bottom: 4px; }
+.cena-legenda-texto { font-size: var(--media); line-height: 1.4; }
+.cena-anim .ventoinha-pas, .cena-anim .sol, .cena-anim .lua { will-change: transform; }
+@media (min-width: 768px) {
+  .cena-fixa { height: calc(100vh - var(--cabecalho)); height: calc(100svh - var(--cabecalho)); }
+  .cena-palco-anim { width: min(100%, calc((100vh - 240px) * 800 / 520)); width: min(100%, calc((100svh - 240px) * 800 / 520)); }
+  .cena-legenda { max-width: none; text-align: center; }
+}
+
 /* Crédito da rede: painel no canto inferior direito da cena (fora do desenho, sem cara de bateria). */
 .cena-palco { position: relative; }
 .credito-painel {

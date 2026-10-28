@@ -196,21 +196,130 @@
     });
   });
 
-  // ---------- Ventoinha do ar-condicionado (cena da noite) ----------
-  // Gira com a rolagem, como o resto da cena da dobra 3 (nada em loop).
+  // ---------- Animação dia e noite ligada à rolagem (DESIGN.md, seção 8) ----------
+  // A rolagem dentro de #cena-rolagem vira um número p de 0 a 1, e cada peça reage a ele.
+  // Com prefers-reduced-motion, nada disso liga e ficam os dois quadros estáticos.
 
-  var pas = document.querySelectorAll('.cena-noite .ventoinha-pas');
-  if (pas.length && !movimentoReduzido) {
+  var rolagem = document.getElementById('cena-rolagem');
+  if (rolagem && !movimentoReduzido) iniciarCena();
+
+  function iniciarCena() {
+    var svg = rolagem.querySelector('.cena-anim');
+    var svgDia = document.querySelector('.cena-quadros .cena-dia');
+    var svgNoite = document.querySelector('.cena-quadros .cena-noite');
+    if (!svg || !svgDia || !svgNoite) return;
+    document.documentElement.classList.add('cena-animada');
+
+    // Paletas lidas do CSS dos quadros estáticos: uma fonte só para as cores.
+    var CORES = ['ceu-topo', 'ceu-base', 'arco', 'grama', 'solo-frente', 'solo-lado', 'calcada', 'rua', 'faixa',
+      'parede-frente', 'parede-lado', 'telha', 'telha-linha', 'telha-borda', 'telha-cume', 'painel', 'painel-grade',
+      'porta', 'moldura', 'cond', 'cond-lado', 'cond-topo', 'vent', 'vent-fundo', 'copa', 'copa-luz', 'tronco',
+      'viz-frente', 'viz-lado', 'viz-telha', 'viz-telha-escura', 'poste', 'fio', 'sombra'];
+    var csDia = getComputedStyle(svgDia), csNoite = getComputedStyle(svgNoite);
+    var paleta = CORES.map(function (nome) {
+      return [nome, lerCor(csDia.getPropertyValue('--' + nome)), lerCor(csNoite.getPropertyValue('--' + nome))];
+    });
+    var vidroDia = lerCor(csDia.getPropertyValue('--vidro'));
+    var vidroNoite = lerCor(csNoite.getPropertyValue('--vidro'));
+
+    var arco = svg.getAttribute('data-arco').split(' ').map(Number);
+    var sol = svg.querySelector('.sol'), lua = svg.querySelector('.lua');
+    var nuvens = svg.querySelector('.nuvens'), estrelas = svg.querySelector('.estrelas');
+    var brilho = svg.querySelector('.painel-brilho');
+    var fPainel = svg.querySelector('.f-painel'), fRede = svg.querySelector('.f-rede'), fNoite = svg.querySelector('.f-noite');
+    var vento = svg.querySelector('.ar-vento');
+    var pas = svg.querySelector('.ventoinha-pas');
+    var palco = document.getElementById('cena-palco-anim');
+    var barra = palco.querySelector('.credito-barra');
+    var periodo = document.getElementById('cena-periodo');
+    var legenda = document.getElementById('cena-legenda');
+    var LEGENDAS = [
+      'A casa usa a energia que o telhado produz.',
+      'O que sobra vai para a rede da CPFL e vira crédito.',
+      'Em dia nublado produz menos; à noite, não produz.',
+      'O que compensa é o crédito acumulado ao longo do mês.'
+    ];
+    var legendaAtual = -2;
+
+    function lerCor(texto) {
+      texto = texto.trim();
+      if (texto.charAt(0) === '#') {
+        var h = texto.slice(1);
+        return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16), 1];
+      }
+      var n = texto.replace(/rgba?\(|\)/g, '').split(',').map(Number);
+      return [n[0], n[1], n[2], n.length > 3 ? n[3] : 1];
+    }
+    function misturar(a, b, t) {
+      return 'rgba(' + Math.round(a[0] + (b[0] - a[0]) * t) + ',' + Math.round(a[1] + (b[1] - a[1]) * t) + ',' +
+        Math.round(a[2] + (b[2] - a[2]) * t) + ',' + (a[3] + (b[3] - a[3]) * t).toFixed(3) + ')';
+    }
+    function faixa(p, a, b) { return Math.min(1, Math.max(0, (p - a) / (b - a))); }
+    function suave(t) { return t * t * (3 - 2 * t); }
+    function astro(el, angulo) {
+      var r = angulo * Math.PI / 180;
+      el.setAttribute('transform', 'translate(' + (arco[0] + arco[2] * Math.cos(r)).toFixed(1) + ' ' + (arco[1] - arco[2] * Math.sin(r)).toFixed(1) + ')');
+      el.style.opacity = Math.min(1, Math.max(0, Math.sin(r) * 6)).toFixed(3);
+    }
+
+    function desenhar() {
+      var caixa = rolagem.getBoundingClientRect();
+      var curso = caixa.height - window.innerHeight;
+      var p = curso > 0 ? Math.min(1, Math.max(0, -caixa.top / curso)) : 0;
+
+      // noite (n), luzes e ar (luz) e crédito, conforme o roteiro do DESIGN.md
+      var n = p < .45 ? 0 : p < .6 ? suave(faixa(p, .45, .6)) : p < .85 ? 1 : 1 - suave(faixa(p, .85, 1));
+      var luz = p < .58 ? 0 : p < .64 ? faixa(p, .58, .64) : p < .85 ? 1 : 1 - faixa(p, .85, .9);
+      var credito = p < .2 ? .2 : p < .45 ? .2 + .7 * suave(faixa(p, .2, .45)) : p < .6 ? .9 :
+        p < .85 ? .9 - .7 * suave(faixa(p, .6, .85)) : .2 + .1 * faixa(p, .85, 1);
+
+      var estilo = '';
+      paleta.forEach(function (c) { estilo += '--' + c[0] + ':' + misturar(c[1], c[2], n) + ';'; });
+      estilo += '--vidro:' + misturar(vidroDia, vidroNoite, luz) + ';';
+      svg.setAttribute('style', estilo);
+
+      // sol: nasce à esquerda e se põe à direita; nasce de novo no fim. Lua: o mesmo arco à noite.
+      if (p <= .52) astro(sol, 175 - 170 * faixa(p, 0, .52));
+      else if (p >= .85) astro(sol, 180 - 40 * faixa(p, .85, 1));
+      else sol.style.opacity = 0;
+      if (p >= .5 && p <= .9) astro(lua, 175 - 170 * faixa(p, .5, .9));
+      else lua.style.opacity = 0;
+
+      nuvens.style.opacity = (1 - n).toFixed(3);
+      estrelas.style.opacity = (n * .8).toFixed(3);
+      brilho.style.opacity = ((1 - n) * (p < .2 ? .3 + .7 * faixa(p, 0, .2) : 1)).toFixed(3);
+
+      // pontos correndo pelos fios
+      var deslocamento = (-p * 900).toFixed(1);
+      fPainel.style.opacity = (p < .52 ? faixa(p, .02, .08) * (1 - faixa(p, .46, .52)) : faixa(p, .87, .93)).toFixed(3);
+      fRede.style.opacity = (faixa(p, .2, .25) * (1 - faixa(p, .44, .49))).toFixed(3);
+      fNoite.style.opacity = (faixa(p, .6, .64) * (1 - faixa(p, .83, .87))).toFixed(3);
+      fPainel.style.strokeDashoffset = fRede.style.strokeDashoffset = fNoite.style.strokeDashoffset = deslocamento;
+
+      // ar-condicionado: a ventoinha gira enquanto está ligado
+      vento.style.opacity = luz.toFixed(3);
+      if (luz > 0) pas.setAttribute('transform', 'rotate(' + ((p * 4000) % 360).toFixed(1) + ')');
+
+      barra.style.setProperty('--nivel', (credito * 100).toFixed(1) + '%');
+      palco.classList.toggle('cena-palco-noite', n > .5);
+      periodo.textContent = n > .5 ? 'Noite' : 'Dia';
+
+      var indice = p < .2 ? 0 : p < .45 ? 1 : p < .6 ? 2 : p < .85 ? 3 : -1;
+      if (indice !== legendaAtual) {
+        legenda.textContent = indice >= 0 ? LEGENDAS[indice] : '';
+        legendaAtual = indice;
+      }
+    }
+
     var pedido = false;
-    window.addEventListener('scroll', function () {
+    function agendar() {
       if (pedido) return;
       pedido = true;
-      requestAnimationFrame(function () {
-        var angulo = (window.scrollY * 1.2) % 360;
-        pas.forEach(function (p) { p.setAttribute('transform', 'rotate(' + angulo.toFixed(1) + ')'); });
-        pedido = false;
-      });
-    }, { passive: true });
+      requestAnimationFrame(function () { pedido = false; desenhar(); });
+    }
+    window.addEventListener('scroll', agendar, { passive: true });
+    window.addEventListener('resize', agendar);
+    desenhar();
   }
 
   // ---------- Cabeçalho fixo e barra do celular ----------
