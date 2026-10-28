@@ -331,16 +331,38 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
   height: calc(100svh - var(--cabecalho) - 72px);   /* 72px: barra fixa do celular */
   display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px;
 }
-.cena-palco-anim { width: min(100%, calc((100vh - 330px) * 800 / 520)); width: min(100%, calc((100svh - 330px) * 800 / 520)); }
+.cena-palco-anim { width: min(100%, calc((100vh - 360px) * 800 / 830)); width: min(100%, calc((100svh - 360px) * 800 / 830)); }
 .cena-anim { display: block; width: 100%; }
-.cena-legenda { width: 100%; max-width: 800px; min-height: 76px; }
-.cena-legenda .rotulo { margin-bottom: 4px; }
-.cena-legenda-texto { font-size: var(--media); line-height: 1.4; }
 .cena-anim .ventoinha-pas, .cena-anim .sol, .cena-anim .lua { will-change: transform; }
+
+/* Narrativa: as frases do roteiro aparecem uma a uma com a rolagem. No celular, só a atual. */
+.cena-narrativa { width: 100%; order: 2; min-height: 84px; }
+.narrativa li {
+  display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: baseline;
+  padding: 8px 0 0;
+  font-size: var(--media); line-height: 1.4;
+}
+.narrativa li:not(.atual) { display: none; }
+.narrativa .numero { font-size: var(--pequena); color: var(--marinho-70); }
+.cena-narrativa .rotulo { margin-bottom: 4px; }
+
 @media (min-width: 768px) {
-  .cena-fixa { height: calc(100vh - var(--cabecalho)); height: calc(100svh - var(--cabecalho)); }
-  .cena-palco-anim { width: min(100%, calc((100vh - 240px) * 800 / 520)); width: min(100%, calc((100svh - 240px) * 800 / 520)); }
-  .cena-legenda { max-width: none; text-align: center; }
+  .cena-fixa {
+    height: calc(100vh - var(--cabecalho)); height: calc(100svh - var(--cabecalho));
+    display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; gap: 48px;
+  }
+  .cena-narrativa { order: 0; min-height: 0; }
+  .cena-palco-anim { order: 1; justify-self: end; width: min(100%, calc((100vh - 120px) * 800 / 830)); width: min(100%, calc((100svh - 120px) * 800 / 830)); }
+  .narrativa { margin-top: 16px; }
+  .narrativa li, .narrativa li:not(.atual) {
+    display: grid;
+    padding: 16px 0;
+    border-top: 2px solid var(--marinho-15);
+    opacity: 0; transform: translateY(12px);
+    transition: opacity .35s, transform .35s, border-color .35s;
+  }
+  .narrativa li.visivel { opacity: .4; transform: none; }
+  .narrativa li.atual { opacity: 1; border-top-color: var(--ambar); }
 }
 
 /* Crédito da rede: painel no canto inferior direito da cena (fora do desenho, sem cara de bateria). */
@@ -390,7 +412,7 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
   --calcada: #E6E1D8;   --rua: #6C7782;          --faixa: #FFFFFF;
   --parede-frente: #F6F1E7; --parede-lado: #DDD3C1;
   --telha: #C9653C;     --telha-linha: #A54F2C;  --telha-borda: #9A4826; --telha-cume: #B35733;
-  --painel: #1C4C72;    --painel-grade: rgba(255, 255, 255, .8);
+  --painel: #1B416B;    --painel-grade: rgba(255, 255, 255, .32); --painel-moldura: #D4DBE1;
   --porta: #8B5B3D;     --moldura: #123A55;      --vidro: #BFDDEF;
   --cond: #E9EDF0;      --cond-lado: #C9D0D6;     --cond-topo: #F6F8F9; --vent: #3D4852; --vent-fundo: #26313B;
   --copa: #5C9E48;      --copa-luz: #78B85E;     --tronco: #7B5337;
@@ -408,7 +430,7 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
   --calcada: #3B4855;   --rua: #1E2A35;          --faixa: rgba(255, 255, 255, .45);
   --parede-frente: #2E4C63; --parede-lado: #243F54;
   --telha: #6B3727;     --telha-linha: #562C1F;  --telha-borda: #4E281C; --telha-cume: #5E3022;
-  --painel: #10283C;    --painel-grade: rgba(255, 255, 255, .22);
+  --painel: #0E2234;    --painel-grade: rgba(255, 255, 255, .1);  --painel-moldura: #3A4856;
   --porta: #4A3123;     --moldura: #0D2536;      --vidro: #FFE29A;
   --cond: #9AA8B4;      --cond-lado: #7D8C99;     --cond-topo: #AEBAC4; --vent: #E6ECF0; --vent-fundo: #1A242D;
   --copa: #1E3D29;      --copa-luz: #284D34;     --tronco: #3D2A1C;
@@ -444,9 +466,11 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
 .cena-svg .telha-borda, .cena-svg .telha-empena { fill: var(--telha-borda); }
 .cena-svg .telha-cume { fill: var(--telha-cume); }
 .cena-svg .painel { fill: var(--painel); }
-.cena-svg .painel-grade { stroke: var(--painel-grade); stroke-width: 1; fill: none; }
+.cena-svg .painel-moldura { fill: var(--painel-moldura); }
+.cena-svg .painel-sombra { fill: var(--sombra); }
+.cena-svg .painel-grade { stroke: var(--painel-grade); stroke-width: .8; fill: none; }
 .cena-svg .porta { fill: var(--porta); }
-.cena-svg .macaneta { fill: var(--ambar); }
+.cena-svg .macaneta { fill: var(--painel-moldura); }
 .cena-svg .moldura { fill: var(--moldura); }
 .cena-svg .vidro { fill: var(--vidro); }
 .cena-svg .caixilho { stroke: var(--moldura); stroke-width: 1.5; fill: none; }

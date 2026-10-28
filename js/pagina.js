@@ -212,7 +212,7 @@
 
     // Paletas lidas do CSS dos quadros estáticos: uma fonte só para as cores.
     var CORES = ['ceu-topo', 'ceu-base', 'arco', 'grama', 'solo-frente', 'solo-lado', 'calcada', 'rua', 'faixa',
-      'parede-frente', 'parede-lado', 'telha', 'telha-linha', 'telha-borda', 'telha-cume', 'painel', 'painel-grade',
+      'parede-frente', 'parede-lado', 'telha', 'telha-linha', 'telha-borda', 'telha-cume', 'painel', 'painel-grade', 'painel-moldura',
       'porta', 'moldura', 'cond', 'cond-lado', 'cond-topo', 'vent', 'vent-fundo', 'copa', 'copa-luz', 'tronco',
       'viz-frente', 'viz-lado', 'viz-telha', 'viz-telha-escura', 'poste', 'fio', 'sombra'];
     var csDia = getComputedStyle(svgDia), csNoite = getComputedStyle(svgNoite);
@@ -232,14 +232,8 @@
     var palco = document.getElementById('cena-palco-anim');
     var barra = palco.querySelector('.credito-barra');
     var periodo = document.getElementById('cena-periodo');
-    var legenda = document.getElementById('cena-legenda');
-    var LEGENDAS = [
-      'A casa usa a energia que o telhado produz.',
-      'O que sobra vai para a rede da CPFL e vira crédito.',
-      'Em dia nublado produz menos; à noite, não produz.',
-      'O que compensa é o crédito acumulado ao longo do mês.'
-    ];
-    var legendaAtual = -2;
+    var itens = rolagem.querySelectorAll('.narrativa li');
+    var INICIOS = [0, .2, .45, .6];   // onde cada frase do roteiro começa
 
     function lerCor(texto) {
       texto = texto.trim();
@@ -304,11 +298,12 @@
       palco.classList.toggle('cena-palco-noite', n > .5);
       periodo.textContent = n > .5 ? 'Noite' : 'Dia';
 
+      // narrativa: cada frase aparece quando sua fase chega; a da fase atual fica em destaque
       var indice = p < .2 ? 0 : p < .45 ? 1 : p < .6 ? 2 : p < .85 ? 3 : -1;
-      if (indice !== legendaAtual) {
-        legenda.textContent = indice >= 0 ? LEGENDAS[indice] : '';
-        legendaAtual = indice;
-      }
+      itens.forEach(function (item, i) {
+        item.classList.toggle('visivel', p >= INICIOS[i]);
+        item.classList.toggle('atual', i === indice);
+      });
     }
 
     var pedido = false;

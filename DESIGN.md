@@ -168,6 +168,7 @@ Prancha técnica que vai do dia à noite.
 ### Comportamento
 
 - A seção fica travada (`position: sticky`) enquanto a rolagem vertical faz a cena avançar. Duração: 1,5 a 2 telas de rolagem.
+- **Layout:** no computador, a cena fica à direita e, à esquerda, as frases do roteiro vão aparecendo uma a uma conforme a rolagem; a da fase atual fica em destaque e as anteriores continuam visíveis, mais claras. No celular, a cena fica em cima e só a frase atual aparece embaixo.
 - No celular, a barra fixa da simulação continua visível durante a animação.
 - Com `prefers-reduced-motion`: dois quadros estáticos, dia e noite.
 - **Sem números:** nada de kWh, medidor com valor ou porcentagem.
@@ -178,8 +179,9 @@ Prancha técnica que vai do dia à noite.
 - **SVG desenhado à mão no código.** Nenhuma imagem externa, nenhum modelo 3D e nenhuma biblioteca.
 - **Vista isométrica (2,5D):** a casa vista de canto, com volume (duas paredes e o telhado à mostra), sobre um bloco de terreno, como uma maquete. Projeção isométrica, sem ponto de fuga. (Avaliado e descartado: 3D real com three.js e modelos prontos, por peso, desempenho no celular, falta de modelo de painel com licença livre e estilo de jogo.)
 - **Cenário completo:** céu em degradê, nuvens de dia, estrelas à noite, terreno com grama, calçada e rua, árvores, casas vizinhas mais simples ao fundo, a casa, o poste e a fiação.
-- **Sol e lua fazem um semicírculo ao redor da casa:** o sol de dia e a lua à noite percorrem o mesmo arco, nascendo de um lado e se pondo do outro. Um arco tracejado fino mostra o caminho.
-- **Sol = sol da logo** (círculo com cinco raios de ponta redonda). **Painéis** com as linhas brancas da grade, como na logo.
+- **Sol e lua fazem um semicírculo ao redor da casa:** o sol de dia e a lua à noite percorrem o mesmo arco, nascendo de um lado e se pondo do outro. Um arco tracejado fino mostra o caminho. O arco é largo o bastante para passar por fora de casas, árvores e terreno (nunca atravessa um modelo), e o quadro tem céu de sobra acima da maquete.
+- **Nada se cruza:** nenhuma linha ou forma atravessa outra de um jeito torto (fio cruzando poste ou janela, faixa saindo do terreno, árvore encostando no telhado, sombra invadindo a calçada). O poste fica à direita da casa, fora da frente dela, e o fio sai da parede lateral até o isolador do lado da casa.
+- **Sol = sol da logo** (círculo com cinco raios de ponta redonda). **Painéis:** 14, em pé (2 fileiras de 7), cobrindo quase toda a água da frente do telhado, com sombra, moldura de alumínio e células com a grade clara, como na logo.
 - **Cores próprias da cena** (exceção à seção 5, só aqui): céu azul, verdes da grama e das árvores, telha de barro, paredes claras, luz amarelada nas janelas à noite. Âmbar continua reservado ao sol, à energia do dia e ao crédito. O resto da página segue só com as cores da logo.
 - **Ar-condicionado:** unidade externa (condensadora) presa na parede lateral, logo acima da janela, bem à vista, com suporte e cano entrando na parede. A ventoinha fica virada para quem olha e **gira à noite**, acompanhando a rolagem (nada em loop). De dia fica parada.
 - Peças, cada uma um elemento animável: céu, sol, lua, nuvens, estrelas, casa com telha de barro, painéis, janelas com luz, ar-condicionado com ventoinha, fio até o poste, poste e painel do crédito. A casa vizinha também tem telhado completo e janelas que acendem à noite.
@@ -213,7 +215,7 @@ Sem aviso de fechamento ao final da animação.
 - A rolagem vira um número de 0 a 1, e cada peça reage a ele: posição do sol e da lua no arco, cor do céu e das superfícies, giro da ventoinha à noite, brilho dos painéis, direção dos pontos, nível do crédito, luzes e ar.
 - JavaScript puro, sem biblioteca.
 - **Ordem de construção:** (1) quadros estáticos de dia e de noite para aprovação; (2) animação ligada à rolagem; (3) ajustes no celular e versão para `prefers-reduced-motion`.
-- **Como ficou:** o palco fica preso por 1,75 tela de rolagem, com a legenda da fase embaixo ("Dia" ou "Noite" e a frase do roteiro). As cores vêm das paletas dos quadros estáticos, misturadas conforme a rolagem. Os dois quadros estáticos continuam na página e são o que aparece com `prefers-reduced-motion` ou sem JavaScript.
+- **Como ficou:** o palco fica preso por 1,75 tela de rolagem, com "Dia" ou "Noite" e as frases do roteiro ao lado (no celular, embaixo). As cores vêm das paletas dos quadros estáticos, misturadas conforme a rolagem. Os dois quadros estáticos continuam na página e são o que aparece com `prefers-reduced-motion` ou sem JavaScript.
 
 ## 9. Layout e componentes
 
