@@ -98,14 +98,87 @@
       <h2 id="solucao-titulo" class="titulo">Projeto, homologação, instalação e acompanhamento, com equipe própria.</h2>
 
       <figure class="cena">
-        <!-- Animação dia e noite: próxima etapa (DESIGN.md, seção 8). Até lá, só as legendas. -->
-        <div class="aguardando aguardando-bloco cena-espaco">[aguardando: animação dia e noite, próxima etapa]</div>
-        <ol class="cena-legendas">
-          <li>A casa usa a energia que o telhado produz.</li>
-          <li>O que sobra vai para a rede da CPFL e vira crédito.</li>
-          <li>Em dia nublado produz menos; à noite, não produz.</li>
-          <li>O que compensa é o crédito acumulado ao longo do mês.</li>
-        </ol>
+        <!-- Quadros estáticos de dia e de noite (DESIGN.md, seção 8, passo 1).
+             Depois viram a versão de prefers-reduced-motion; a animação usa as mesmas peças. -->
+        <div class="cena-quadros">
+          <div class="quadro">
+            <svg class="cena-svg cena-dia" viewBox="0 0 640 360" role="img" aria-label="De dia: o sol sobre a casa, os painéis produzindo, energia indo do painel para a casa e da casa para o poste; a barra de crédito no poste quase cheia.">
+              <rect class="ceu" x="0" y="0" width="640" height="360"/>
+              <g class="sol" transform="translate(96 78)">
+                <circle r="23"/>
+                <path d="M0 -37 V-30 M26 -26 L31 -31 M-26 -26 L-31 -31 M37 0 H44 M-37 0 H-44"/>
+              </g>
+              <path class="linha" d="M0 320 H640"/>
+              <!-- casa: fachada, telhado de barro, porta, janela e ar-condicionado -->
+              <rect class="fachada" x="120" y="200" width="240" height="120"/>
+              <path class="telhado" d="M100 200 L170 130 L310 130 L380 200 Z"/>
+              <path class="linha fina" d="M124 182 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0"/>
+              <path class="linha fina" d="M144 162 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0"/>
+              <path class="painel" d="M150 192 L198 144 L282 144 L330 192 Z"/>
+              <path class="grade" d="M219 144 L195 192 M240 144 L240 192 M261 144 L285 192 M174 168 H306"/>
+              <rect class="linha" x="150" y="250" width="36" height="70"/>
+              <rect class="janela" x="220" y="232" width="70" height="48"/>
+              <path class="linha" d="M255 232 V280 M220 256 H290"/>
+              <rect class="linha" x="306" y="210" width="44" height="18" rx="2"/>
+              <path class="linha fina" d="M312 222 H344"/>
+              <!-- fios -->
+              <path class="fio" d="M240 192 V226"/>
+              <path class="fio" d="M360 236 C420 252 480 214 532 144"/>
+              <!-- poste e crédito guardado na rede -->
+              <path class="linha" d="M540 124 V320 M516 140 H564 M540 214 H550"/>
+              <circle class="linha" cx="522" cy="135" r="3"/>
+              <circle class="linha" cx="558" cy="135" r="3"/>
+              <rect class="credito" x="550" y="214.4" width="16" height="81.6"/>
+              <rect class="linha" x="550" y="200" width="16" height="96" rx="2"/>
+              <path class="marca" d="M545 276.8 H571"/>
+              <!-- energia do dia: do painel para a casa e da casa para o poste -->
+              <path class="fluxo fluxo-dia" d="M240 192 V226"/>
+              <path class="fluxo fluxo-dia" d="M360 236 C420 252 480 214 532 144"/>
+            </svg>
+            <p class="rotulo">Dia</p>
+            <ul class="cena-legendas">
+              <li>A casa usa a energia que o telhado produz.</li>
+              <li>O que sobra vai para a rede da CPFL e vira crédito.</li>
+            </ul>
+          </div>
+          <div class="quadro">
+            <svg class="cena-svg cena-noite" viewBox="0 0 640 360" role="img" aria-label="À noite: céu escuro, painéis apagados, luz na janela e ar-condicionado ligado, energia vindo do poste para a casa; a barra de crédito no poste baixando, sem zerar.">
+              <rect class="ceu" x="0" y="0" width="640" height="360"/>
+              <path class="linha" d="M0 320 H640"/>
+              <!-- casa: fachada, telhado de barro, porta, janela e ar-condicionado -->
+              <rect class="fachada" x="120" y="200" width="240" height="120"/>
+              <path class="telhado" d="M100 200 L170 130 L310 130 L380 200 Z"/>
+              <path class="linha fina" d="M124 182 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0"/>
+              <path class="linha fina" d="M144 162 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0 q10 -8 20 0"/>
+              <path class="painel" d="M150 192 L198 144 L282 144 L330 192 Z"/>
+              <path class="grade" d="M219 144 L195 192 M240 144 L240 192 M261 144 L285 192 M174 168 H306"/>
+              <rect class="linha" x="150" y="250" width="36" height="70"/>
+              <rect class="janela" x="220" y="232" width="70" height="48"/>
+              <path class="linha" d="M255 232 V280 M220 256 H290"/>
+              <rect class="linha" x="306" y="210" width="44" height="18" rx="2"/>
+              <path class="linha fina" d="M312 222 H344"/>
+              <path class="linha fina" d="M314 234 q4 6 0 12 M328 234 q4 6 0 12 M342 234 q4 6 0 12"/>
+              <!-- fios -->
+              <path class="fio" d="M240 192 V226"/>
+              <path class="fio" d="M360 236 C420 252 480 214 532 144"/>
+              <!-- poste e crédito guardado na rede -->
+              <path class="linha" d="M540 124 V320 M516 140 H564 M540 214 H550"/>
+              <circle class="linha" cx="522" cy="135" r="3"/>
+              <circle class="linha" cx="558" cy="135" r="3"/>
+              <rect class="credito" x="550" y="257.6" width="16" height="38.4"/>
+              <rect class="linha" x="550" y="200" width="16" height="96" rx="2"/>
+              <path class="marca" d="M545 276.8 H571"/>
+              <!-- energia da noite: do poste para a casa -->
+              <path class="fluxo fluxo-noite" d="M532 144 C480 214 420 252 360 236"/>
+            </svg>
+            <p class="rotulo">Noite</p>
+            <ul class="cena-legendas">
+              <li>Em dia nublado produz menos; à noite, não produz.</li>
+              <li>O que compensa é o crédito acumulado ao longo do mês.</li>
+            </ul>
+          </div>
+        </div>
+        <figcaption class="nota">No poste, a barra âmbar é o crédito guardado na rede.</figcaption>
       </figure>
 
       <h3 class="subtitulo">Quatro etapas</h3>

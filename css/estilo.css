@@ -314,13 +314,53 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
 
 /* ---------- 03 Solução ---------- */
 
-.cena { margin-top: 48px; display: grid; gap: 24px; }
-.cena-espaco { min-height: 280px; }
-.cena-legendas { display: grid; gap: 8px; counter-reset: legenda; }
+.cena { margin-top: 48px; }
+.cena-quadros { display: grid; gap: 40px; }
+.quadro > .rotulo { margin-top: 16px; }
+.cena-legendas { display: grid; gap: 8px; margin-top: 8px; }
+.cena .nota { margin-top: 24px; }
 @media (min-width: 768px) {
-  .cena { grid-template-columns: 2fr 1fr; align-items: center; gap: 48px; }
-  .cena-espaco { min-height: 420px; }
+  .cena-quadros { grid-template-columns: 1fr 1fr; gap: 32px; }
 }
+
+/* Cena dia e noite (DESIGN.md, seção 8). Mesmas peças nos dois quadros; só as variáveis mudam. */
+.cena-svg {
+  --ceu: var(--branco);
+  --traco: var(--marinho);
+  --fachada: var(--marinho-06);
+  --telhado: rgba(18, 58, 85, .12);
+  --painel: var(--marinho);
+  --grade: rgba(255, 255, 255, .85);
+  --janela: var(--marinho-06);
+  width: 100%; height: auto;
+  border: 1px solid var(--marinho);
+  border-radius: var(--raio);
+}
+.cena-noite {
+  --ceu: var(--marinho);
+  --traco: rgba(255, 255, 255, .85);
+  --fachada: rgba(255, 255, 255, .08);
+  --telhado: rgba(255, 255, 255, .14);
+  --painel: var(--marinho);
+  --grade: rgba(255, 255, 255, .3);
+  --janela: rgba(255, 255, 255, .85);
+}
+.cena-svg .ceu { fill: var(--ceu); }
+.cena-svg .sol circle { fill: var(--ambar); }
+.cena-svg .sol path { stroke: var(--ambar); stroke-width: 4.5; stroke-linecap: round; }
+.cena-svg .linha { fill: none; stroke: var(--traco); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.cena-svg .fina { stroke-width: 1; }
+.cena-svg .fachada { fill: var(--fachada); stroke: var(--traco); stroke-width: 1.5; }
+.cena-svg .telhado { fill: var(--telhado); stroke: var(--traco); stroke-width: 1.5; stroke-linejoin: round; }
+.cena-svg .painel { fill: var(--painel); stroke: var(--traco); stroke-width: 1; stroke-linejoin: round; }
+.cena-svg .grade { stroke: var(--grade); stroke-width: 2; }
+.cena-svg .janela { fill: var(--janela); stroke: var(--traco); stroke-width: 1.5; }
+.cena-svg .fio { fill: none; stroke: var(--traco); stroke-width: 1; opacity: .5; }
+.cena-svg .credito { fill: var(--ambar); }
+.cena-svg .marca { stroke: var(--traco); stroke-width: 2; stroke-linecap: round; }
+.cena-svg .fluxo { fill: none; stroke-width: 5; stroke-linecap: round; stroke-dasharray: 0 12; }
+.cena-svg .fluxo-dia { stroke: var(--ambar); }
+.cena-svg .fluxo-noite { stroke: rgba(255, 255, 255, .85); }
 
 .etapas { display: grid; gap: 24px; margin-top: 24px; }
 .etapas li { display: grid; gap: 4px; padding-top: 16px; border-top: 1px solid var(--marinho); }
