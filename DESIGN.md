@@ -180,7 +180,7 @@ Prancha técnica que vai do dia à noite.
 - **Vista isométrica (2,5D):** a casa vista de canto, com volume (duas paredes e o telhado à mostra), sobre um bloco de terreno, como uma maquete. Projeção isométrica, sem ponto de fuga. (Avaliado e descartado: 3D real com three.js e modelos prontos, por peso, desempenho no celular, falta de modelo de painel com licença livre e estilo de jogo.)
 - **Cenário completo:** céu em degradê, nuvens de dia, estrelas à noite, terreno com grama, calçada e rua, árvores, casas vizinhas mais simples ao fundo, a casa, o poste e a fiação.
 - **Sol e lua fazem um semicírculo ao redor da casa:** o sol de dia e a lua à noite percorrem o mesmo arco, nascendo de um lado e se pondo do outro. Um arco tracejado fino mostra o caminho. O arco é largo o bastante para passar por fora de casas, árvores e terreno (nunca atravessa um modelo), e o quadro tem céu de sobra acima da maquete.
-- **Nada se cruza:** nenhuma linha ou forma atravessa outra de um jeito torto (fio cruzando poste ou janela, faixa saindo do terreno, árvore encostando no telhado, sombra invadindo a calçada). O poste fica à direita da casa, fora da frente dela, e o fio sai da parede lateral até o isolador do lado da casa.
+- **Nada se cruza:** nenhuma linha ou forma atravessa outra de um jeito torto (fio cruzando poste ou janela, faixa saindo do terreno, árvore encostando no telhado, sombra invadindo a calçada). O poste fica do outro lado da rua, e o ramal chega ao padrão de entrada sem passar na frente da casa.
 - **Sol = sol da logo** (círculo com cinco raios de ponta redonda). **Painéis:** 14, em pé (2 fileiras de 7), cobrindo quase toda a água da frente do telhado, com sombra, moldura de alumínio e células com a grade clara, como na logo.
 - **Cores próprias da cena** (exceção à seção 5, só aqui): céu azul, verdes da grama e das árvores, telha de barro, paredes claras, luz amarelada nas janelas à noite. Âmbar continua reservado ao sol, à energia do dia e ao crédito. O resto da página segue só com as cores da logo.
 - **Ar-condicionado:** unidade externa (condensadora) presa na parede lateral, logo acima da janela, bem à vista, com suporte e cano entrando na parede. A ventoinha fica virada para quem olha e **gira à noite**, acompanhando a rolagem (nada em loop). De dia fica parada.
@@ -189,8 +189,9 @@ Prancha técnica que vai do dia à noite.
 ### Fluxo de energia
 
 - Pontos correndo pelos fios (traço tracejado com pontas redondas, em movimento).
-- **De dia:** pontos âmbar, do painel para a casa e da casa para o poste.
-- **À noite:** pontos brancos a 85% de opacidade, do poste para a casa.
+- **De dia:** pontos âmbar, do painel para a casa e da casa para a rede (cabo enterrado até o padrão de entrada, ramal até o poste).
+- **À noite:** pontos brancos a 85% de opacidade, no caminho inverso: do poste para a casa.
+- **Rede elétrica, como na vida real:** um poste só, do outro lado da rua, com transformador. Dele sai o ramal de entrada (dois cabos com a curva natural) atravessando a rua até o padrão de entrada (poste curto com a caixa do medidor), na frente do lote, à esquerda da casa. Do padrão até a casa, o cabo vai enterrado. Nada de fileira de postes; nenhum fio encosta na casa, no telhado ou nas árvores.
 
 ### Barrinha de crédito
 
@@ -202,11 +203,11 @@ Prancha técnica que vai do dia à noite.
 
 | Rolagem | Cena | Crédito | Legenda |
 |---|---|---|---|
-| 0–20% | O sol nasce, os painéis acendem e o fluxo âmbar vai do painel para a casa | Começa com um pouco | A casa usa a energia que o telhado produz |
-| 20–45% | Sol a pino; o excedente segue pelo fio até o poste | Enche | O que sobra vai para a rede da CPFL e vira crédito |
+| 0–20% | O sol nasce, os painéis acendem e o fluxo âmbar vai do painel para a casa e, desde o primeiro momento, da casa para a rede | Começa com um pouco e já começa a encher | A casa usa a energia que o telhado produz |
+| 20–45% | Sol a pino; o excedente continua seguindo para a rede | Enche | O que sobra vai para a rede da CPFL e vira crédito |
 | 45–60% | O céu escurece para azul-marinho | Para de encher | Em dia nublado produz menos; à noite, não produz |
 | 60–85% | Luzes e ar ligam; o fluxo branco vai do poste para a casa | Esvazia, sem zerar | O que compensa é o crédito acumulado ao longo do mês |
-| 85–100% | O sol nasce de novo e os painéis voltam a acender | Sobra um pouco e volta a encher | — |
+| 85–100% | O sol nasce de novo, os painéis voltam a acender e a energia volta a sair para a rede | Sobra um pouco e volta a encher | — |
 
 Sem aviso de fechamento ao final da animação.
 

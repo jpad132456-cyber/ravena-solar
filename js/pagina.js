@@ -214,7 +214,8 @@
     var CORES = ['ceu-topo', 'ceu-base', 'arco', 'grama', 'solo-frente', 'solo-lado', 'calcada', 'rua', 'faixa',
       'parede-frente', 'parede-lado', 'telha', 'telha-linha', 'telha-borda', 'telha-cume', 'painel', 'painel-grade', 'painel-moldura',
       'porta', 'moldura', 'cond', 'cond-lado', 'cond-topo', 'vent', 'vent-fundo', 'copa', 'copa-luz', 'tronco',
-      'viz-frente', 'viz-lado', 'viz-telha', 'viz-telha-escura', 'poste', 'fio', 'sombra'];
+      'viz-frente', 'viz-lado', 'viz-telha', 'viz-telha-escura', 'poste', 'fio', 'sombra',
+      'padrao', 'padrao-lado', 'medidor', 'medidor-visor', 'trafo'];
     var csDia = getComputedStyle(svgDia), csNoite = getComputedStyle(svgNoite);
     var paleta = CORES.map(function (nome) {
       return [nome, lerCor(csDia.getPropertyValue('--' + nome)), lerCor(csNoite.getPropertyValue('--' + nome))];
@@ -264,7 +265,7 @@
       // noite (n), luzes e ar (luz) e crédito, conforme o roteiro do DESIGN.md
       var n = p < .45 ? 0 : p < .6 ? suave(faixa(p, .45, .6)) : p < .85 ? 1 : 1 - suave(faixa(p, .85, 1));
       var luz = p < .58 ? 0 : p < .64 ? faixa(p, .58, .64) : p < .85 ? 1 : 1 - faixa(p, .85, .9);
-      var credito = p < .2 ? .2 : p < .45 ? .2 + .7 * suave(faixa(p, .2, .45)) : p < .6 ? .9 :
+      var credito = p < .45 ? .2 + .7 * suave(faixa(p, .03, .45)) : p < .6 ? .9 :
         p < .85 ? .9 - .7 * suave(faixa(p, .6, .85)) : .2 + .1 * faixa(p, .85, 1);
 
       var estilo = '';
@@ -286,7 +287,8 @@
       // pontos correndo pelos fios
       var deslocamento = (-p * 900).toFixed(1);
       fPainel.style.opacity = (p < .52 ? faixa(p, .02, .08) * (1 - faixa(p, .46, .52)) : faixa(p, .87, .93)).toFixed(3);
-      fRede.style.opacity = (faixa(p, .2, .25) * (1 - faixa(p, .44, .49))).toFixed(3);
+      // o que sobra sai da casa para a rede desde o começo do dia até o pôr do sol, e de novo no amanhecer
+      fRede.style.opacity = (p < .52 ? faixa(p, .02, .08) * (1 - faixa(p, .46, .52)) : faixa(p, .87, .93)).toFixed(3);
       fNoite.style.opacity = (faixa(p, .6, .64) * (1 - faixa(p, .83, .87))).toFixed(3);
       fPainel.style.strokeDashoffset = fRede.style.strokeDashoffset = fNoite.style.strokeDashoffset = deslocamento;
 

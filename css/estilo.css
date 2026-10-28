@@ -331,7 +331,7 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
   height: calc(100svh - var(--cabecalho) - 72px);   /* 72px: barra fixa do celular */
   display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px;
 }
-.cena-palco-anim { width: min(100%, calc((100vh - 360px) * 800 / 830)); width: min(100%, calc((100svh - 360px) * 800 / 830)); }
+.cena-palco-anim { width: min(100%, calc((100vh - 360px) * 800 / 860)); width: min(100%, calc((100svh - 360px) * 800 / 860)); }
 .cena-anim { display: block; width: 100%; }
 .cena-anim .ventoinha-pas, .cena-anim .sol, .cena-anim .lua { will-change: transform; }
 
@@ -352,7 +352,7 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
     display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; gap: 48px;
   }
   .cena-narrativa { order: 0; min-height: 0; }
-  .cena-palco-anim { order: 1; justify-self: end; width: min(100%, calc((100vh - 120px) * 800 / 830)); width: min(100%, calc((100svh - 120px) * 800 / 830)); }
+  .cena-palco-anim { order: 1; justify-self: end; width: min(100%, calc((100vh - 120px) * 800 / 860)); width: min(100%, calc((100svh - 120px) * 800 / 860)); }
   .narrativa { margin-top: 16px; }
   .narrativa li, .narrativa li:not(.atual) {
     display: grid;
@@ -418,8 +418,8 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
   --copa: #5C9E48;      --copa-luz: #78B85E;     --tronco: #7B5337;
   --viz-frente: #ECE6DB; --viz-lado: #D3CBBC;    --viz-telha: #C08E73; --viz-telha-escura: #A0725A;
   --poste: #6E6A64;     --fio: #3D4852;
+  --padrao: #C9C4BB;    --padrao-lado: #A9A39A;  --medidor: #E7EAED; --medidor-visor: #33414D; --trafo: #8D979E;
   --sombra: rgba(18, 58, 85, .14);
-  --credito-fundo: rgba(255, 255, 255, .9); --credito-borda: #123A55;
   width: 100%; height: auto;
   border-radius: var(--raio);
 }
@@ -436,8 +436,8 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
   --copa: #1E3D29;      --copa-luz: #284D34;     --tronco: #3D2A1C;
   --viz-frente: #263F52; --viz-lado: #1F3546;    --viz-telha: #4C3328; --viz-telha-escura: #3B271E;
   --poste: #56636F;     --fio: rgba(255, 255, 255, .35);
+  --padrao: #4D5862;    --padrao-lado: #3E4852;  --medidor: #6C7A86; --medidor-visor: #1A232B; --trafo: #4A5763;
   --sombra: rgba(0, 0, 0, .22);
-  --credito-fundo: rgba(255, 255, 255, .14); --credito-borda: rgba(255, 255, 255, .85);
 }
 .cena-svg .ceu-topo { stop-color: var(--ceu-topo); }
 .cena-svg .ceu-base { stop-color: var(--ceu-base); }
@@ -497,11 +497,18 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
 .cena-svg .poste-cruzeta { stroke-width: 3.5; }
 .cena-svg .poste-braco { stroke-width: 2.5; }
 .cena-svg .isolador { fill: var(--poste); }
+.cena-svg .fio-ramal { fill: none; stroke: var(--fio); stroke-width: 2; stroke-linecap: round; }
+.cena-svg .fio-neutro { fill: none; stroke: var(--fio); stroke-width: 1; stroke-linecap: round; opacity: .8; }
+.cena-svg .trafo, .cena-svg .trafo-topo { fill: var(--trafo); }
+.cena-svg .trafo-topo { filter: brightness(1.15); }
+.cena-svg .trafo-fio { stroke: var(--fio); stroke-width: 1; }
+.cena-svg .padrao-frente, .cena-svg .padrao-topo { fill: var(--padrao); }
+.cena-svg .padrao-lado { fill: var(--padrao-lado); }
+.cena-svg .medidor-frente, .cena-svg .medidor-topo { fill: var(--medidor); }
+.cena-svg .medidor-lado { fill: var(--padrao-lado); }
+.cena-svg .medidor-visor { fill: var(--medidor-visor); }
+.cena-svg .padrao-cabo { stroke: var(--fio); stroke-width: 2; stroke-linecap: round; }
 .cena-svg .fio { fill: none; stroke: var(--fio); stroke-width: 1.4; }
-.cena-svg .credito-fundo { fill: var(--credito-fundo); }
-.cena-svg .credito { fill: var(--ambar); }
-.cena-svg .credito-borda { fill: none; stroke: var(--credito-borda); stroke-width: 1.5; }
-.cena-svg .credito-marca { stroke: var(--credito-borda); stroke-width: 2; stroke-linecap: round; }
 .cena-svg .fluxo { fill: none; stroke-width: 5; stroke-linecap: round; stroke-dasharray: 0 11; }
 .cena-svg .fluxo-dia { stroke: var(--ambar); }
 .cena-svg .fluxo-noite { stroke: rgba(255, 255, 255, .85); }
