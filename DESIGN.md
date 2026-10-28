@@ -25,12 +25,12 @@ Todas as decisões de design e de conteúdo da página. Os dados da empresa est�
 | # | Dobra | Conteúdo | Elemento de destaque | CTA |
 |---|---|---|---|---|
 | 1 | Hero | Título com a queda de 75% a 90%; subtítulo com como a Ravena entrega isso; caso de Sorocaba resumido; "Sorocaba e região" | Antes/depois **estático** do caso de Sorocaba: R$ 780 riscado e R$ 118 em destaque | **Simulação nº 1** (campo da conta) |
-| 2 | O problema | A conta que só sobe; a empresa que some ("pelo menos três empresas que fecharam deixando obra pela metade"); lista "O que você não vai ouvir de nós" (seção 3.1) | A lista, com os itens riscados | — |
+| 2 | O problema | A conta que só sobe e como a energia solar a derruba (foco da dobra: a queda da conta é a proposta de valor principal); lista "O que você não vai ouvir de nós" (seção 3.1) | A lista, com os itens riscados | — |
 | 3 | A solução | Equipe própria; 4 etapas (simulação → visita → instalação em 2 dias → acompanhamento); 45 a 60 dias; 3 garantias; entrada zero; faixa de R$ 14 mil a R$ 19 mil; retorno de 3 a 4 anos | Animação dia e noite (seção 8) | — |
 | 4 | Prova social | 412 sistemas; 4,8 no Google (137 avaliações); ficha completa do caso de Sorocaba (R$ 780 → R$ 118, 6,4 kWp, março de 2025, média dos últimos doze meses); vídeos ("Votorantim · 2025", "Itu · 2025"); fotos das obras | Ficha técnica do caso | — |
 | 5 | Convite forte | Formulário em 2 passos; resposta no mesmo dia útil, por WhatsApp; visita técnica gratuita e sem compromisso; aviso de conta mínima de R$ 450 | Única dobra azul-marinho até aqui | **Simulação nº 2** (a mais forte) |
 | 6 | Perguntas frequentes | As seis objeções, na ordem do `briefing.md` (seção 5.1), com respostas curtas tiradas do brief, abertas em duas colunas (sem acordeão). No fim: "Ainda tem dúvida? Pergunte na simulação." | Mini-desenhos: corte do telhado de barro (garantia de 5 anos, incluindo infiltração) e casa com seta (transferência) | — |
-| 7 | Quem somos | Seis anos; onze pessoas; integradora; equipe própria com carteira assinada; assistência técnica autorizada da marca do inversor [marca a confirmar] | Foto da equipe recortada no trapézio do painel | — |
+| 7 | Quem somos | A empresa que some ("pelo menos três empresas que fecharam deixando obra pela metade"), como contraste; seis anos; onze pessoas; integradora; equipe própria com carteira assinada; assistência técnica autorizada da marca do inversor [marca a confirmar] | Foto da equipe recortada no trapézio do painel | — |
 | 8 | Fechamento | Uma frase | Fundo azul-marinho (o fim do dia) | **Simulação nº 3** (campo da conta) |
 | — | Rodapé | Razão social ⚠️, endereço, telefone, WhatsApp e link de privacidade, todos como placeholders até a confirmação | Carimbo de prancha técnica | — |
 
@@ -57,7 +57,7 @@ Nenhum outro item. ⚠️ Avisar o cliente sobre a lista.
 | Dobra | Não entra |
 |---|---|
 | 1 | 412 sistemas, nota 4,8, entrada zero, lista de cidades |
-| 2 | "Fama ruim do setor"; "três orçamentos / duas a oito semanas"; telhado; Lei 14.300 |
+| 2 | A empresa que some (foi para a dobra 7); "fama ruim do setor"; "três orçamentos / duas a oito semanas"; telhado; Lei 14.300 |
 | 3 | Processo em 9 etapas; ticket médio; kWp; nº de painéis; vida útil |
 | 4 | Assistência técnica autorizada |
 | 5 | Entrada zero; três tamanhos de proposta |
