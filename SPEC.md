@@ -27,6 +27,8 @@ Uma landing page de energia solar residencial com uma única ação: **pedir uma
 | **Animação dia e noite** na dobra da solução: casa, painéis, rede e uma barra de crédito que não zera | Responde de uma vez a "e à noite?", "preciso de bateria?" e mostra que a rede guarda o crédito |
 | **Desenho em SVG feito no código**, sem imagens externas | Cada peça precisa ser animada separadamente, e as cores precisam ser só as da logo |
 | **Placeholders visíveis** para fotos, vídeos, contatos e dados que faltam | Regra de não inventar dados |
+| **HTML, CSS e JavaScript puros**, publicados no Vercel a partir do GitHub | Uma página só não precisa de framework; sem build, o site fica leve e fácil de verificar, e cada envio ao GitHub publica sozinho |
+| **Formulário sem envio real por enquanto**: valida e confirma, mas não envia | O cliente ainda não disse para onde os pedidos devem ir |
 
 ## Fora da página
 
@@ -39,6 +41,6 @@ Bateria, indústria, comércio acima de 75 kWp e manutenção de sistemas de out
 
 ## A decidir
 
-- Stack, hospedagem e destino do pedido de simulação.
+- Destino do pedido de simulação (WhatsApp, e-mail, planilha…), que depende do cliente.
 - Valores dos três tamanhos de fonte.
 - Dados de contato, fotos, vídeos, marca do inversor e bancos (aguardando o cliente).

@@ -62,6 +62,7 @@ Todas as decisões de design e de conteúdo da página. Os dados da empresa est�
 - **Abaixo de R$ 450:** avisar sem bloquear o envio: abaixo disso "a conta não fecha e nós mesmos desaconselhamos".
 - **Estimativa:** a partir do valor digitado, mostrar a faixa entre 10% e 25% dele (queda de 90% a 75%), sempre com o aviso de que é a média dos clientes da Ravena, não uma garantia, e de que a conta não zera porque "sempre resta a taxa mínima da distribuidora e o custo do fio". ⚠️ Avisar o cliente.
 - **Depois do envio:** "Resposta no mesmo dia útil, por WhatsApp."
+- **Envio:** placeholder até o cliente definir o destino. O formulário valida e mostra a confirmação, mas não envia.
 - **Acesso de qualquer ponto:**
   - Computador: cabeçalho fino e fixo, com a logo e o botão "Pedir simulação".
   - Celular: barra fixa na parte de baixo da tela, com o campo da conta.
@@ -168,5 +169,5 @@ Sem aviso de fechamento ao final da animação.
 - Valores dos três tamanhos de fonte. Sugestão ainda não aprovada: ~56px → ~36px, ~22px → ~19px e ~15px (computador → celular).
 - Fotos das 40 obras, foto da equipe e vídeos de depoimento: até chegarem, usar placeholders identificados.
 - Marca do inversor, nomes dos bancos, link do Google, dados de contato reais e razão social.
-- Destino do pedido de simulação, stack e hospedagem.
+- Destino do pedido de simulação (hoje é placeholder).
 - Avisar o cliente sobre a lista riscada (dobra 2) e a estimativa do formulário, por causa do Procon.

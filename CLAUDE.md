@@ -45,4 +45,11 @@ Landing page para vender **energia solar residencial** da Ravena Solar.
 
 ## Pendências
 
-Stack, hospedagem e dados de contato ainda não foram definidos. Ver as lacunas no `briefing.md` (seção 14).
+Dados de contato ainda não foram definidos. Ver as lacunas no `briefing.md` (seção 14).
+
+## Técnica e publicação
+
+- **Stack:** HTML, CSS e JavaScript puros, sem framework e sem etapa de build.
+- **Repositório:** `github.com/jpad132456-cyber/ravena-solar` (público), branch `main`.
+- **Hospedagem:** Vercel, projeto `ravena-solar` (https://ravena-solar-kappa.vercel.app). Cada envio para a `main` publica o site automaticamente.
+- **Envio do formulário:** placeholder. O formulário valida os campos e mostra a confirmação, mas não envia nada até o cliente definir para onde vão os pedidos. Deixar isso visível no código e na página de verificação.
