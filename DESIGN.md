@@ -182,7 +182,7 @@ Prancha técnica que vai do dia à noite.
 - **Sol = sol da logo** (círculo com cinco raios de ponta redonda). **Painéis** com as linhas brancas da grade, como na logo.
 - **Cores próprias da cena** (exceção à seção 5, só aqui): céu azul, verdes da grama e das árvores, telha de barro, paredes claras, luz amarelada nas janelas à noite. Âmbar continua reservado ao sol, à energia do dia e ao crédito. O resto da página segue só com as cores da logo.
 - **Ar-condicionado:** unidade externa (condensadora) presa na parede lateral, logo acima da janela, bem à vista, com suporte e cano entrando na parede. A ventoinha fica virada para quem olha e **gira à noite**, acompanhando a rolagem (nada em loop). De dia fica parada.
-- Peças, cada uma um elemento animável: céu, sol, lua, nuvens, estrelas, casa com telha de barro, painéis, janelas com luz, ar-condicionado com ventoinha, fio até o poste, poste e barrinha de crédito. A casa vizinha também tem telhado completo e janelas que acendem à noite.
+- Peças, cada uma um elemento animável: céu, sol, lua, nuvens, estrelas, casa com telha de barro, painéis, janelas com luz, ar-condicionado com ventoinha, fio até o poste, poste e painel do crédito. A casa vizinha também tem telhado completo e janelas que acendem à noite.
 
 ### Fluxo de energia
 
@@ -192,7 +192,7 @@ Prancha técnica que vai do dia à noite.
 
 ### Barrinha de crédito
 
-- Fica no poste, para ler como "crédito guardado na rede", e não como bateria.
+- Fica **no canto inferior direito da cena**, como um painel plano (fora do desenho isométrico), com a legenda **"Seu crédito solar"** e, embaixo, "guardado na rede da CPFL". A legenda diz que é solar, que é do cliente e que fica na rede, para não ler como bateria. No celular, onde não cabe dentro da cena sem cobrir o desenho, fica colado logo abaixo do canto inferior direito.
 - Preenchimento âmbar, sem números. Enche de dia, esvazia à noite **sem zerar**, e ao amanhecer ainda sobra um pouco.
 - Um tracinho marca o nível que sobra ao amanhecer.
 

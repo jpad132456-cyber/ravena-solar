@@ -319,8 +319,39 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
 .cena { margin-top: 48px; }
 .cena-quadros { display: grid; gap: 40px; }
 .quadro > .rotulo { margin-top: 16px; }
+
+/* Crédito da rede: painel no canto inferior direito da cena (fora do desenho, sem cara de bateria). */
+.cena-palco { position: relative; }
+.credito-painel {
+  display: flex; align-items: center; gap: 12px;
+  width: max-content; max-width: 100%;
+  /* No celular não cabe dentro da cena sem cobrir o desenho: fica colado embaixo, à direita. */
+  margin: 0 0 0 auto;
+  padding: 8px 12px;
+  border: 1px solid var(--marinho-25);
+  border-top: 0;
+  border-radius: 0 0 var(--raio) var(--raio);
+  background: var(--branco);
+  color: var(--marinho);
+}
+.credito-texto { line-height: 1.35; }
+.credito-texto strong { display: block; }
+.credito-barra {
+  position: relative; flex: none;
+  width: 14px; height: 48px;
+  border: 1.5px solid currentColor; border-radius: 3px;
+  overflow: visible;
+}
+.credito-nivel { position: absolute; left: 1px; right: 1px; bottom: 1px; height: calc(var(--nivel) - 2px); background: var(--ambar); border-radius: 1px; }
+/* Nível que sobra ao amanhecer. */
+.credito-marca { position: absolute; left: -5px; right: -5px; bottom: 20%; height: 2px; background: currentColor; border-radius: 1px; }
+.cena-palco-noite .credito-painel { background: var(--marinho); color: var(--branco); border-color: var(--branco-25); }
+@media (min-width: 768px) {
+  .credito-painel { position: absolute; right: 12px; bottom: 12px; margin: 0; border-top: 1px solid var(--marinho-25); border-radius: var(--raio); }
+  .cena-palco-noite .credito-painel { border-top-color: var(--branco-25); }
+  .credito-texto { max-width: 15ch; }
+}
 .cena-legendas { display: grid; gap: 8px; margin-top: 8px; }
-.cena .nota { margin-top: 24px; }
 @media (min-width: 768px) {
   .cena-quadros { grid-template-columns: 1fr 1fr; gap: 32px; }
 }
