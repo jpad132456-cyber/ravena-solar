@@ -24,7 +24,7 @@ Todas as decisões de design e de conteúdo da página. Os dados da empresa est�
 
 | # | Dobra | Conteúdo | Elemento de destaque | CTA |
 |---|---|---|---|---|
-| 1 | Hero | Título com a queda de 75% a 90%; subtítulo com como a Ravena entrega isso; caso de Sorocaba resumido; "Sorocaba e região" | Antes/depois **estático** do caso de Sorocaba: R$ 780 riscado e R$ 118 em destaque | **Simulação nº 1** (campo da conta) |
+| 1 | Hero | Título com a queda de 75% a 90%, só a proposta de valor, sem ressalva no título; as ressalvas (média dos clientes, a conta não zera) vão numa nota discreta com asterisco, no pé do hero; subtítulo com como a Ravena entrega isso; caso de Sorocaba resumido; "Sorocaba e região" | Antes/depois **estático** do caso de Sorocaba: R$ 780 riscado e R$ 118 em destaque | **Simulação nº 1** (campo da conta) |
 | 2 | O problema | A conta que só sobe e como a energia solar a derruba (foco da dobra: a queda da conta é a proposta de valor principal); lista "O que você não vai ouvir de nós" (seção 3.1) | A lista, com os itens riscados | — |
 | 3 | A solução | Equipe própria; 4 etapas (simulação → visita → instalação em 2 dias → acompanhamento); 45 a 60 dias; 3 garantias; entrada zero; faixa de R$ 14 mil a R$ 19 mil; retorno de 3 a 4 anos | Animação dia e noite (seção 8) | — |
 | 4 | Prova social | 412 sistemas; 4,8 no Google (137 avaliações); ficha completa do caso de Sorocaba (R$ 780 → R$ 118, 6,4 kWp, março de 2025, média dos últimos doze meses); vídeos ("Votorantim · 2025", "Itu · 2025"); fotos das obras | Ficha técnica do caso | — |
