@@ -181,7 +181,8 @@ Prancha técnica que vai do dia à noite.
 - **Sol e lua fazem um semicírculo ao redor da casa:** o sol de dia e a lua à noite percorrem o mesmo arco, nascendo de um lado e se pondo do outro. Um arco tracejado fino mostra o caminho.
 - **Sol = sol da logo** (círculo com cinco raios de ponta redonda). **Painéis** com as linhas brancas da grade, como na logo.
 - **Cores próprias da cena** (exceção à seção 5, só aqui): céu azul, verdes da grama e das árvores, telha de barro, paredes claras, luz amarelada nas janelas à noite. Âmbar continua reservado ao sol, à energia do dia e ao crédito. O resto da página segue só com as cores da logo.
-- Peças, cada uma um elemento animável: céu, sol, lua, nuvens, estrelas, casa com telha de barro, painéis, janelas com luz, ar-condicionado na parede, fio até o poste, poste e barrinha de crédito.
+- **Ar-condicionado:** unidade externa (condensadora) presa na parede da frente da casa, à meia altura, bem à vista, com suporte e cano entrando na parede. A ventoinha fica virada para quem olha e **gira à noite**, acompanhando a rolagem (nada em loop). De dia fica parada.
+- Peças, cada uma um elemento animável: céu, sol, lua, nuvens, estrelas, casa com telha de barro, painéis, janelas com luz, ar-condicionado com ventoinha, fio até o poste, poste e barrinha de crédito. A casa vizinha também tem telhado completo e janelas que acendem à noite.
 
 ### Fluxo de energia
 
@@ -209,7 +210,7 @@ Sem aviso de fechamento ao final da animação.
 
 ### Técnica
 
-- A rolagem vira um número de 0 a 1, e cada peça reage a ele: posição do sol e da lua no arco, cor do céu e das superfícies, brilho dos painéis, direção dos pontos, nível do crédito, luzes e ar.
+- A rolagem vira um número de 0 a 1, e cada peça reage a ele: posição do sol e da lua no arco, cor do céu e das superfícies, giro da ventoinha à noite, brilho dos painéis, direção dos pontos, nível do crédito, luzes e ar.
 - JavaScript puro, sem biblioteca.
 - **Ordem de construção:** (1) quadros estáticos de dia e de noite para aprovação; (2) animação ligada à rolagem; (3) ajustes no celular e versão para `prefers-reduced-motion`.
 

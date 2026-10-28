@@ -196,6 +196,23 @@
     });
   });
 
+  // ---------- Ventoinha do ar-condicionado (cena da noite) ----------
+  // Gira com a rolagem, como o resto da cena da dobra 3 (nada em loop).
+
+  var pas = document.querySelectorAll('.cena-noite .ventoinha-pas');
+  if (pas.length && !movimentoReduzido) {
+    var pedido = false;
+    window.addEventListener('scroll', function () {
+      if (pedido) return;
+      pedido = true;
+      requestAnimationFrame(function () {
+        var angulo = (window.scrollY * 1.2) % 360;
+        pas.forEach(function (p) { p.setAttribute('transform', 'rotate(' + angulo.toFixed(1) + ')'); });
+        pedido = false;
+      });
+    }, { passive: true });
+  }
+
   // ---------- Cabeçalho fixo e barra do celular ----------
   // A barra aparece depois que o campo do hero sai da tela (para cima).
   // Cabeçalho e barra somem enquanto a dobra 5 está visível.
