@@ -189,7 +189,7 @@ Prancha técnica que vai do dia à noite.
 
 ### Fluxo de energia
 
-- Pontos correndo pelos fios (traço tracejado com pontas redondas, em movimento).
+- Pontos correndo pelos fios (traço tracejado com pontas redondas, em movimento), grandes e com um contorno escuro fino, para ficarem visíveis também no céu claro do dia.
 - **De dia:** pontos âmbar, do painel para a casa e da casa para a rede (cabo enterrado até o padrão de entrada, ramal até o poste).
 - **À noite:** pontos brancos a 85% de opacidade, no caminho inverso: do poste para a casa.
 - **Rede elétrica, como na vida real:** um poste só, do outro lado da rua, com transformador. Dele sai o ramal de entrada (dois cabos com a curva natural) atravessando a rua até o padrão de entrada (poste curto com a caixa do medidor), na frente do lote, à esquerda da casa. Do padrão até a casa, o cabo vai enterrado. Nada de fileira de postes; nenhum fio encosta na casa, no telhado ou nas árvores.
