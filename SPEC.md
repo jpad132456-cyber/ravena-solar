@@ -18,10 +18,10 @@ Uma landing page de energia solar residencial com uma única ação: **pedir uma
 | **Aviso abaixo de R$ 450**, sem bloquear o envio | Atende à meta de qualidade com as palavras do próprio cliente ("nós mesmos desaconselhamos") |
 | **Estimativa da conta** a partir do valor digitado, com aviso | Torna a promessa concreta para cada visitante. É a média de 75% a 90% aplicada ao valor informado, nunca uma garantia |
 | **Caso de Sorocaba** (R$ 780 → R$ 118) no hero e na prova social | É a única prova com números conferidos. O hero mostra só o resultado; a prova mostra a ficha completa |
-| **Lista "O que você não vai ouvir de nós"**, com "conta zerada" riscada; "95%" não aparece nem riscado | O setor tem fama ruim e três empresas da região sumiram com obra pela metade. Mostrar o que a Ravena não promete vira prova de honestidade |
+| **Lista "O que você não vai ouvir de nós"**, com três itens riscados ("sua conta vai zerar", "prazo inventado", "instalação terceirizada"); "95%" não aparece nem riscado | O setor tem fama ruim e três empresas da região sumiram com obra pela metade. Mostrar o que a Ravena não promete vira prova de honestidade |
 | **Visita técnica "gratuita e sem compromisso"** | São as palavras do cliente; o veto é à palavra "grátis" |
 | **Visual de prancha técnica:** linhas finas, cotas, números em fonte mono, carimbo no rodapé | Traduz "somos técnicos e gostamos de número" e diferencia de concorrentes com foto de céu azul |
-| **Só as cores da logo**, com transparência permitida; laranja é ação, âmbar é dado, azul-marinho é texto | Regra do cliente. Papéis fixos evitam saturação e ensinam onde clicar |
+| **Só as cores da logo**, com transparência permitida; âmbar é botão e dado, azul-marinho é texto, laranja só na interação com o botão | Regra do cliente. Papéis fixos evitam saturação e ensinam onde clicar |
 | **Botão âmbar com texto azul-marinho** e destaque do título em marca-texto | Âmbar sobre branco tem contraste de ~2,1:1 e não serve como texto; azul-marinho sobre âmbar tem ~5,6:1 |
 | **IBM Plex Sans + Plex Mono, só três tamanhos** | Tom técnico e números tabulares. A hierarquia vem de peso e espaçamento, como na própria logo |
 | **Animação dia e noite** na dobra da solução: casa, painéis, rede e uma barra de crédito que não zera | Responde de uma vez a "e à noite?", "preciso de bateria?" e mostra que a rede guarda o crédito |
@@ -42,5 +42,4 @@ Bateria, indústria, comércio acima de 75 kWp e manutenção de sistemas de out
 ## A decidir
 
 - Destino do pedido de simulação (WhatsApp, e-mail, planilha…), que depende do cliente.
-- Valores dos três tamanhos de fonte.
 - Dados de contato, fotos, vídeos, marca do inversor e bancos (aguardando o cliente).

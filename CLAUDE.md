@@ -8,8 +8,11 @@ Landing page para vender **energia solar residencial** da Ravena Solar.
 ## Arquivos do projeto (tudo o que é necessário está nesta pasta)
 
 - `briefing.md`: todos os dados da empresa, com as palavras exatas do cliente.
-- `DESIGN.md`: estrutura das dobras, CTAs, marca e leitura visual. **Ler antes de qualquer trabalho visual.**
-- `assets/logo.svg` e `assets/logo.png`: logo da marca.
+- `DESIGN.md`: todas as decisões de design e de conteúdo (dobras, textos permitidos, formulário, cores, tipografia, animação, layout, acessibilidade e verificação). **Ler inteiro antes de qualquer trabalho no site.**
+- `BRAINSTORM.md`: ideias que **não** foram escolhidas. Não usar nada dele sem pedido.
+- `SPEC.md`: resumo para pessoas. Não é instrução; em conflito, vale o `DESIGN.md`.
+- `VERIFICACAO.md` e `verificacao/`: evidências de verificação (a criar; ver `DESIGN.md`, seção 11).
+- `assets/logo.svg` e `assets/logo.png`: logo da marca. `assets/fonts/`: fontes locais (a criar).
 
 ## Regras inegociáveis
 
@@ -49,7 +52,15 @@ Dados de contato ainda não foram definidos. Ver as lacunas no `briefing.md` (se
 
 ## Técnica e publicação
 
-- **Stack:** HTML, CSS e JavaScript puros, sem framework e sem etapa de build.
+- **Stack:** HTML, CSS e JavaScript puros, sem framework, sem biblioteca e sem etapa de build.
+- **Estrutura:** `index.html` na raiz, `css/`, `js/` e `assets/` (logo, fontes e imagens). Nada carregado de fora da pasta.
 - **Repositório:** `github.com/jpad132456-cyber/ravena-solar` (público), branch `main`.
-- **Hospedagem:** Vercel, projeto `ravena-solar` (https://ravena-solar-kappa.vercel.app). Cada envio para a `main` publica o site automaticamente.
-- **Envio do formulário:** placeholder. O formulário valida os campos e mostra a confirmação, mas não envia nada até o cliente definir para onde vão os pedidos. Deixar isso visível no código e na página de verificação.
+- **Hospedagem:** Vercel, projeto `ravena-solar` (https://ravena-solar-kappa.vercel.app). Cada envio para a `main` publica **direto em produção**. Para testar, trabalhar numa branch: o Vercel gera uma prévia dela. Só levar para a `main` o que foi aprovado.
+- **Envio do formulário:** placeholder. O formulário valida os campos e mostra a confirmação, mas não envia nada até o cliente definir para onde vão os pedidos. Deixar isso comentado no código e registrado no `VERIFICACAO.md`.
+
+## Ordem de trabalho
+
+1. Esqueleto das 8 dobras só com texto (sem visual), para o usuário revisar os textos.
+2. Visual (cores, tipografia, layout e componentes), depois de aprovados os textos.
+3. Animação da dobra 3, na ordem da seção 8 do `DESIGN.md`, começando pelos quadros estáticos para aprovação.
+4. Ajustes no celular e verificação (`DESIGN.md`, seção 11).
