@@ -18,12 +18,17 @@ Landing page para vender **energia solar residencial** da Ravena Solar.
 
 1. **Não inventar dados.** Todo número, prazo, garantia ou afirmação sobre a empresa tem que estar no `briefing.md`. Se faltar algum dado, deixar um placeholder visível e avisar.
 2. **Brief vence o site antigo.** Em qualquer conflito, vale o brief (`briefing.md`, seção 12).
-3. **Cores da marca:** usar só as da logo, lidas de `assets/logo.svg`.
+3. **Cores da marca:** usar só as da logo, lidas de `assets/logo.svg`. Única exceção: a cena dia e noite da dobra 3 pode ter cores próprias (céu, grama, telha, árvores…), conforme o `DESIGN.md`, seção 8.
 4. **Tom:** "Direto e específico. Somos técnicos e gostamos de número."
    - Proibido: "energia do futuro", "sustentabilidade" como slogan, "revolução solar", "grátis", economia de 95%, prazo inventado.
    - Conta de luz **não zera**: a queda média é de 75% a 90%.
 5. **Não oferecer** bateria, sistemas para indústria ou comércio acima de 75 kWp, nem manutenção de sistema instalado por outra empresa.
 6. **Na dúvida, parar e perguntar.** Diante de qualquer dúvida significativa, de contradição entre os documentos do projeto (`CLAUDE.md`, `DESIGN.md`, `briefing.md`) ou de qualquer adição que não esteja prevista neles, parar o que está fazendo e perguntar ao usuário antes de seguir. Não escolher sozinho, não presumir e não "resolver depois".
+7. **Revisar antes de entregar.** Depois de qualquer trabalho no site, revisar todo o trabalho feito, no navegador, no celular (375 px) e no computador (1440 px):
+   - a) verificar e relatar todos os problemas de funcionamento e de estética encontrados;
+   - b) corrigir tudo antes de entregar.
+
+   Se alguma correção depender de uma decisão que não está nos documentos, vale a regra 6.
 
 ## O cliente (resumo)
 

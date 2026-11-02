@@ -24,13 +24,13 @@ Todas as decisões de design e de conteúdo da página. Os dados da empresa est�
 
 | # | Dobra | Conteúdo | Elemento de destaque | CTA |
 |---|---|---|---|---|
-| 1 | Hero | Título com a queda de 75% a 90%; subtítulo com como a Ravena entrega isso; caso de Sorocaba resumido; "Sorocaba e região" | Antes/depois **estático** do caso de Sorocaba: R$ 780 riscado e R$ 118 em destaque | **Simulação nº 1** (campo da conta) |
-| 2 | O problema | A conta que só sobe; a empresa que some ("pelo menos três empresas que fecharam deixando obra pela metade"); lista "O que você não vai ouvir de nós" (seção 3.1) | A lista, com os itens riscados | — |
-| 3 | A solução | Equipe própria; 4 etapas (simulação → visita → instalação em 2 dias → acompanhamento); 45 a 60 dias; 3 garantias; entrada zero; faixa de R$ 14 mil a R$ 19 mil | Animação dia e noite (seção 8) | — |
+| 1 | Hero | Título com a queda de 75% a 90%, só a proposta de valor, sem ressalva no título; as ressalvas (média dos clientes, a conta não zera) vão numa nota discreta com asterisco, no pé do hero; subtítulo com como a Ravena entrega isso; caso de Sorocaba resumido; "Sorocaba e região" | Antes/depois **estático** do caso de Sorocaba: R$ 780 riscado e R$ 118 em destaque | **Simulação nº 1** (campo da conta) |
+| 2 | O problema | A conta que só sobe e como a energia solar a derruba (foco da dobra: a queda da conta é a proposta de valor principal); lista "O que você não vai ouvir de nós" (seção 3.1) | A lista, com os itens riscados | — |
+| 3 | A solução | Equipe própria; 4 etapas (simulação → visita → instalação em 2 dias → acompanhamento); 45 a 60 dias; 3 garantias; entrada zero; faixa de R$ 14 mil a R$ 19 mil; retorno de 3 a 4 anos | Animação dia e noite (seção 8) | — |
 | 4 | Prova social | 412 sistemas; 4,8 no Google (137 avaliações); ficha completa do caso de Sorocaba (R$ 780 → R$ 118, 6,4 kWp, março de 2025, média dos últimos doze meses); vídeos ("Votorantim · 2025", "Itu · 2025"); fotos das obras | Ficha técnica do caso | — |
 | 5 | Convite forte | Formulário em 2 passos; resposta no mesmo dia útil, por WhatsApp; visita técnica gratuita e sem compromisso; aviso de conta mínima de R$ 450 | Única dobra azul-marinho até aqui | **Simulação nº 2** (a mais forte) |
 | 6 | Perguntas frequentes | As seis objeções, na ordem do `briefing.md` (seção 5.1), com respostas curtas tiradas do brief, abertas em duas colunas (sem acordeão). No fim: "Ainda tem dúvida? Pergunte na simulação." | Mini-desenhos: corte do telhado de barro (garantia de 5 anos, incluindo infiltração) e casa com seta (transferência) | — |
-| 7 | Quem somos | Seis anos; onze pessoas; integradora; equipe própria com carteira assinada; assistência técnica autorizada da marca do inversor [marca a confirmar] | Foto da equipe recortada no trapézio do painel | — |
+| 7 | Quem somos | A empresa que some ("pelo menos três empresas que fecharam deixando obra pela metade"), como contraste; seis anos; onze pessoas; integradora; equipe própria com carteira assinada; assistência técnica autorizada da marca do inversor [marca a confirmar] | Foto da equipe recortada no trapézio do painel | — |
 | 8 | Fechamento | Uma frase | Fundo azul-marinho (o fim do dia) | **Simulação nº 3** (campo da conta) |
 | — | Rodapé | Razão social ⚠️, endereço, telefone, WhatsApp e link de privacidade, todos como placeholders até a confirmação | Carimbo de prancha técnica | — |
 
@@ -57,7 +57,7 @@ Nenhum outro item. ⚠️ Avisar o cliente sobre a lista.
 | Dobra | Não entra |
 |---|---|
 | 1 | 412 sistemas, nota 4,8, entrada zero, lista de cidades |
-| 2 | "Fama ruim do setor"; "três orçamentos / duas a oito semanas"; telhado; Lei 14.300 |
+| 2 | A empresa que some (foi para a dobra 7); "fama ruim do setor"; "três orçamentos / duas a oito semanas"; telhado; Lei 14.300 |
 | 3 | Processo em 9 etapas; ticket médio; kWp; nº de painéis; vida útil |
 | 4 | Assistência técnica autorizada |
 | 5 | Entrada zero; três tamanhos de proposta |
@@ -76,12 +76,12 @@ Nenhum outro item. ⚠️ Avisar o cliente sobre a lista.
 
 ### Campos e passos
 
-- **Um componente só**, reutilizado nos três CTAs. No hero e no fechamento aparece só o campo da conta; ao enviar, o formulário completo abre com o valor já preenchido.
+- **Um componente só**, reutilizado nos três CTAs. No hero e no fechamento aparece só o campo da conta; ao enviar, a página rola até o formulário da dobra 5, com o valor já preenchido e a origem marcada. Só existe um formulário completo na página (sem janela sobreposta).
 - **Passo 1:** valor médio da conta (obrigatório) + cidade (obrigatório).
 - **Passo 2:** nome (obrigatório) + WhatsApp (obrigatório) + foto ou PDF da conta (opcional) + consentimento (obrigatório).
 - **Cidade:** lista com Sorocaba, Votorantim, Itu, Salto e "Outra cidade".
 - **Consentimento (LGPD):** caixa obrigatória autorizando o contato pelo WhatsApp, com link para a política de privacidade (placeholder).
-- **Origem do pedido:** campo oculto com `hero`, `convite`, `fechamento` ou `barra`, conforme o CTA usado.
+- **Origem do pedido:** campo oculto com `hero`, `convite`, `fechamento` ou `barra`, conforme o CTA usado. O botão do cabeçalho fixo (computador) também usa `barra`.
 
 ### Validação
 
@@ -102,6 +102,7 @@ Nenhum outro item. ⚠️ Avisar o cliente sobre a lista.
 - **Computador:** cabeçalho fino e fixo, com a logo e o botão "Pedir simulação".
 - **Celular:** cabeçalho só com a logo. Barra fixa na parte de baixo da tela, com o campo da conta, que aparece só depois que o campo do hero sai da tela.
 - Cabeçalho e barra somem enquanto o formulário da dobra 5 está visível.
+- A barra do celular também some enquanto o campo da conta do fechamento (dobra 8) está visível, para não mostrar dois campos iguais.
 - Nenhum menu de navegação na página.
 
 ## 5. Marca e cores
@@ -116,7 +117,7 @@ Nenhum outro item. ⚠️ Avisar o cliente sobre a lista.
   | Âmbar | `#F2A03D` | Botão principal, dados, destaques gráficos, energia do sol, crédito | ~3% |
   | Laranja | `#E8721C` | Hover e clique do botão; degradê da dobra 5 | ~2% |
 
-- **Transparência permitida** nas quatro cores (ex.: azul-marinho a 6% como fundo de cartão, a 70% como texto secundário). Nenhuma cor nova.
+- **Transparência permitida** nas quatro cores (ex.: azul-marinho a 6% como fundo de cartão, a 70% como texto secundário). Nenhuma cor nova, com uma única exceção: a cena dia e noite da dobra 3 (seção 8).
 - **Contraste:**
 
   | Combinação | Contraste | Uso |
@@ -166,7 +167,8 @@ Prancha técnica que vai do dia à noite.
 
 ### Comportamento
 
-- A seção fica travada (`position: sticky`) enquanto a rolagem vertical faz a cena avançar. Duração: 1,5 a 2 telas de rolagem.
+- A seção fica travada (`position: sticky`) enquanto a rolagem vertical faz a cena avançar. Duração: 1,5 tela de rolagem. **A animação termina quando a noite acaba** (a lua se põe) e a página volta a rolar normalmente; não volta a ser dia.
+- **Layout:** no computador, a cena fica à direita e, à esquerda, as frases do roteiro vão aparecendo uma a uma conforme a rolagem; a da fase atual fica em destaque e as anteriores continuam visíveis, mais claras. No celular, a cena fica em cima e só a frase atual aparece embaixo.
 - No celular, a barra fixa da simulação continua visível durante a animação.
 - Com `prefers-reduced-motion`: dois quadros estáticos, dia e noite.
 - **Sem números:** nada de kWh, medidor com valor ou porcentagem.
@@ -174,21 +176,27 @@ Prancha técnica que vai do dia à noite.
 
 ### Desenho
 
-- **SVG desenhado à mão no código.** Nenhuma imagem externa.
-- Vista de frente da casa, plana, como fachada de projeto. Sem 3D nem perspectiva.
-- **Sol = sol da logo** (círculo com cinco raios de ponta redonda). **Painéis = trapézio da logo**, com as linhas brancas da grade.
-- Traço azul-marinho fino; preenchimentos em azul-marinho transparente. Âmbar só no sol, na energia do dia e no crédito.
-- Peças, cada uma um elemento animável: céu, sol, casa com telha de barro sugerida, painéis, janela com luz, ar-condicionado na parede, fio até o poste, poste e barrinha de crédito.
+- **SVG desenhado à mão no código.** Nenhuma imagem externa, nenhum modelo 3D e nenhuma biblioteca.
+- **Vista isométrica (2,5D):** a casa vista de canto, com volume (duas paredes e o telhado à mostra), sobre um bloco de terreno, como uma maquete. Projeção isométrica, sem ponto de fuga. (Avaliado e descartado: 3D real com three.js e modelos prontos, por peso, desempenho no celular, falta de modelo de painel com licença livre e estilo de jogo.)
+- **Cenário completo:** céu em degradê, nuvens de dia, estrelas à noite, terreno com grama, calçada e rua, árvores, casas vizinhas mais simples ao fundo, a casa, o poste e a fiação.
+- **Quadro retangular e grande:** bem mais largo que alto (cerca de 3:2), com a casa no centro da largura. No computador, a cena avança sobre a margem direita da página para ficar maior; o texto ao lado continua alinhado com o resto da página.
+- **Sol e lua fazem um semicírculo ao redor da casa:** o sol de dia e a lua à noite percorrem o mesmo arco, nascendo de um lado e se pondo do outro. Um arco tracejado fino, centralizado no quadro, mostra o caminho. O arco é largo o bastante para passar por fora de casas, árvores e terreno (nunca atravessa um modelo), e o quadro tem céu de sobra acima da maquete.
+- **Nada se cruza:** nenhuma linha ou forma atravessa outra de um jeito torto (fio cruzando poste ou janela, faixa saindo do terreno, árvore encostando no telhado, sombra invadindo a calçada). O poste fica do outro lado da rua, e o ramal chega ao padrão de entrada sem passar na frente da casa.
+- **Sol = sol da logo** (círculo com cinco raios de ponta redonda). **Painéis:** 14, em pé (2 fileiras de 7), cobrindo quase toda a água da frente do telhado, com sombra, moldura de alumínio e células com a grade clara, como na logo.
+- **Cores próprias da cena** (exceção à seção 5, só aqui): céu azul, verdes da grama e das árvores, telha de barro, paredes claras, luz amarelada nas janelas à noite. Âmbar continua reservado ao sol, à energia do dia e ao crédito. O resto da página segue só com as cores da logo.
+- **Ar-condicionado:** unidade externa (condensadora) presa na parede lateral, logo acima da janela, bem à vista, com suporte e cano entrando na parede. A ventoinha fica virada para quem olha e **gira à noite**, acompanhando a rolagem (nada em loop); três tracinhos de vento nascem por dentro do círculo da ventoinha, a cerca de 60% do raio (um pouco para dentro da borda da hélice), um a cada terço da volta, e saem para a frente (perpendiculares à face da máquina), levemente curvados, sinalizando a saída do ar. De dia fica parada e sem os tracinhos.
+- Peças, cada uma um elemento animável: céu, sol, lua, nuvens, estrelas, casa com telha de barro, painéis, janelas com luz, ar-condicionado com ventoinha, fio até o poste, poste e painel do crédito. A casa vizinha também tem telhado completo e janelas que acendem à noite.
 
 ### Fluxo de energia
 
-- Pontos correndo pelos fios (traço tracejado com pontas redondas, em movimento).
-- **De dia:** pontos âmbar, do painel para a casa e da casa para o poste.
-- **À noite:** pontos brancos a 85% de opacidade, do poste para a casa.
+- Pontos correndo pelos fios (traço tracejado com pontas redondas, em movimento), grandes e com um contorno escuro fino, para ficarem visíveis também no céu claro do dia.
+- **De dia:** pontos âmbar, do painel para a casa e da casa para a rede (cabo enterrado até o padrão de entrada, ramal até o poste).
+- **À noite:** pontos brancos a 85% de opacidade, no caminho inverso: do poste para a casa.
+- **Rede elétrica, como na vida real:** um poste só, do outro lado da rua, com transformador. Dele sai o ramal de entrada (dois cabos com a curva natural) atravessando a rua até o padrão de entrada (poste curto com a caixa do medidor), na frente do lote, à esquerda da casa. Do padrão até a casa, o cabo vai enterrado. Nada de fileira de postes; nenhum fio encosta na casa, no telhado ou nas árvores.
 
 ### Barrinha de crédito
 
-- Fica no poste, para ler como "crédito guardado na rede", e não como bateria.
+- Fica **no canto inferior direito da cena**, como um painel plano (fora do desenho isométrico), com a legenda **"Seu crédito solar"** e, embaixo, "guardado na rede da CPFL". A legenda diz que é solar, que é do cliente e que fica na rede, para não ler como bateria. No celular, e nos quadros estáticos da versão sem movimento (que são menores), onde não cabe dentro da cena sem cobrir o desenho, fica colado logo abaixo do canto inferior direito.
 - Preenchimento âmbar, sem números. Enche de dia, esvazia à noite **sem zerar**, e ao amanhecer ainda sobra um pouco.
 - Um tracinho marca o nível que sobra ao amanhecer.
 
@@ -196,19 +204,19 @@ Prancha técnica que vai do dia à noite.
 
 | Rolagem | Cena | Crédito | Legenda |
 |---|---|---|---|
-| 0–20% | O sol nasce, os painéis acendem e o fluxo âmbar vai do painel para a casa | Começa com um pouco | A casa usa a energia que o telhado produz |
-| 20–45% | Sol a pino; o excedente segue pelo fio até o poste | Enche | O que sobra vai para a rede da CPFL e vira crédito |
-| 45–60% | O céu escurece para azul-marinho | Para de encher | Em dia nublado produz menos; à noite, não produz |
-| 60–85% | Luzes e ar ligam; o fluxo branco vai do poste para a casa | Esvazia, sem zerar | O que compensa é o crédito acumulado ao longo do mês |
-| 85–100% | O sol nasce de novo e os painéis voltam a acender | Sobra um pouco e volta a encher | — |
+| 0–24% | O sol nasce, os painéis acendem e o fluxo âmbar vai do painel para a casa e, desde o primeiro momento, da casa para a rede | Começa com um pouco e já começa a encher | A casa usa a energia que o telhado produz |
+| 24–53% | Sol a pino; o excedente continua seguindo para a rede | Enche | O que sobra vai para a rede da CPFL e vira crédito |
+| 53–71% | O céu escurece para azul-marinho | Para de encher | Em dia nublado produz menos; à noite, não produz |
+| 71–100% | Luzes e ar ligam; o fluxo branco vai do poste para a casa; a lua se põe e a animação termina | Esvazia até o tracinho, sem zerar | O que compensa é o crédito acumulado ao longo do mês |
 
 Sem aviso de fechamento ao final da animação.
 
 ### Técnica
 
-- A rolagem vira um número de 0 a 1, e cada peça reage a ele: posição do sol no arco, cor do céu, brilho dos painéis, direção dos pontos, nível do crédito, luzes e ar.
+- A rolagem vira um número de 0 a 1, e cada peça reage a ele: posição do sol e da lua no arco, cor do céu e das superfícies, giro da ventoinha à noite, brilho dos painéis, direção dos pontos, nível do crédito, luzes e ar.
 - JavaScript puro, sem biblioteca.
 - **Ordem de construção:** (1) quadros estáticos de dia e de noite para aprovação; (2) animação ligada à rolagem; (3) ajustes no celular e versão para `prefers-reduced-motion`.
+- **Como ficou:** o palco fica preso por 1,5 tela de rolagem, com "Dia" ou "Noite" e as frases do roteiro ao lado (no celular, embaixo). As cores vêm das paletas dos quadros estáticos, misturadas conforme a rolagem. Os dois quadros estáticos continuam na página e são o que aparece com `prefers-reduced-motion` ou sem JavaScript.
 
 ## 9. Layout e componentes
 
