@@ -322,3 +322,22 @@ Perguntas para levar ao cliente ou para decidir depois. Não preenchi nenhuma.
 - "o arquivo de instruções que o seu agente lê toda vez que abre ali"
 - "o design escrito no disco"
 - "a evidência de que você verificou o resultado"
+
+---
+
+## 16. Dados adotados para tirar os placeholders (2/11/2026)
+
+O usuário pediu para tirar todos os placeholders visíveis da página e preencher com dados plausíveis ("Sem medo de ser feliz"). **Nenhum destes dados foi confirmado pelo cliente.** Se o cliente mandar os reais, trocar aqui e na página.
+
+| Item | Valor na página | Origem |
+|---|---|---|
+| Razão social | "Ravena Solar Energia Ltda." | Site antigo (seção 10) |
+| Endereço | "Av. das Nações, 1420, sala 8 · Sorocaba/SP" | Site antigo (seção 10), sem o CEP |
+| Telefone | "(15) 3200-0000" | Site antigo (seção 10) |
+| WhatsApp | "(15) 99000-0000" | Site antigo (seção 10) |
+| Marca do inversor (assistência técnica autorizada) | "Inversul" | Site antigo, lista de "Parceiros" (seção 11.1) |
+| Política de privacidade | Texto curto no rodapé: dados usados só para a simulação e o contato pelo WhatsApp, base no consentimento (LGPD), sem venda nem repasse, pedido de correção ou exclusão pelo WhatsApp, página sem cookies | Escrita a partir do formulário (seção 7.2) |
+| Link da página no Google | Retirado da página | Não há como inventar um link |
+
+Ficaram de fora da página: CNPJ e CEP (no site antigo são sequências de zeros), e-mail (o domínio pode pertencer a outra pessoa), nomes dos bancos e destino do pedido de simulação.
+

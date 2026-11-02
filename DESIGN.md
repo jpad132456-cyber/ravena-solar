@@ -31,9 +31,9 @@ Todas as decisões de design e de conteúdo da página. Os dados da empresa est�
 | 4 | Prova social | 412 sistemas; 4,8 no Google (137 avaliações); ficha completa do caso de Sorocaba (R$ 780 → R$ 118, 6,4 kWp, março de 2025, média dos últimos doze meses); fotos das obras | Ficha técnica do caso | — |
 | 5 | Convite forte | Formulário em 2 passos; resposta no mesmo dia útil, por WhatsApp; visita técnica gratuita e sem compromisso; aviso de conta mínima de R$ 450 | Única dobra azul-marinho até aqui | **Simulação nº 2** (a mais forte) |
 | 6 | Perguntas frequentes | As seis objeções, na ordem do `briefing.md` (seção 5.1), com respostas curtas tiradas do brief, abertas em duas colunas (sem acordeão). Cada pergunta numerada de 01 a 06 em Plex Mono, com o raio do sol em âmbar como marcador; cada resposta começa pelo veredito em negrito, com os números em Plex Mono. No fim: "Ainda tem dúvida? Pergunte na simulação." | Seis mini-desenhos, um por pergunta, no mesmo quadro e em escala 1:1, com o dado principal em Plex Mono: carimbo (412 sistemas, 6 anos, sede em Sorocaba); corte do telhado de barro (5 anos de garantia, inclui infiltração causada pela obra); degraus da Lei 14.300 (sem números); casa → casa com o painel indo junto; sol, nuvem e lua com a produção e o crédito do mês; casa ↔ poste da rede da CPFL (sem bateria). Os traços se desenham uma vez ao entrar na tela | — |
-| 7 | Quem somos | A empresa que some ("pelo menos três empresas que fecharam deixando obra pela metade"), como contraste; seis anos; onze pessoas; integradora; equipe própria com carteira assinada; assistência técnica autorizada da marca do inversor [marca a confirmar]. Bloco "Onde atuamos": "Atendemos Sorocaba, Votorantim, Itu e Salto, num raio de 80 km." e "A distribuidora da região é a CPFL." | Foto da equipe recortada no trapézio do painel; mapa de satélite recortado num círculo de 80 km centrado em Sorocaba, com as quatro cidades marcadas | — |
+| 7 | Quem somos | A empresa que some ("pelo menos três empresas que fecharam deixando obra pela metade"), como contraste; seis anos; onze pessoas; integradora; equipe própria com carteira assinada; assistência técnica autorizada da marca do inversor (Inversul, `briefing.md`, seção 16). Bloco "Onde atuamos": "Atendemos Sorocaba, Votorantim, Itu e Salto, num raio de 80 km." e "A distribuidora da região é a CPFL." | Foto da equipe recortada no trapézio do painel; mapa de satélite recortado num círculo de 80 km centrado em Sorocaba, com as quatro cidades marcadas | — |
 | 8 | Fechamento | Uma frase | Fundo azul-marinho (o fim do dia) | **Simulação nº 3** (campo da conta) |
-| — | Rodapé | Razão social ⚠️, endereço, telefone, WhatsApp e link de privacidade, todos como placeholders até a confirmação | Carimbo de prancha técnica | — |
+| — | Rodapé | Razão social, endereço, telefone, WhatsApp e política de privacidade (texto curto, no próprio carimbo), com os dados do `briefing.md`, seção 16 | Carimbo de prancha técnica | — |
 
 ### 3.1 Lista "O que você não vai ouvir de nós" (dobra 2)
 
@@ -81,7 +81,7 @@ Nenhum outro item. ⚠️ Avisar o cliente sobre a lista.
 - **Passo 1:** valor médio da conta (obrigatório) + cidade (obrigatório).
 - **Passo 2:** nome (obrigatório) + WhatsApp (obrigatório) + foto ou PDF da conta (opcional) + consentimento (obrigatório).
 - **Cidade:** lista com Sorocaba, Votorantim, Itu, Salto e "Outra cidade".
-- **Consentimento (LGPD):** caixa obrigatória autorizando o contato pelo WhatsApp, com link para a política de privacidade (placeholder).
+- **Consentimento (LGPD):** caixa obrigatória autorizando o contato pelo WhatsApp, com link para a política de privacidade do rodapé.
 - **Origem do pedido:** campo oculto com `hero`, `convite`, `fechamento` ou `barra`, conforme o CTA usado. O botão do cabeçalho fixo (computador) também usa `barra`.
 
 ### Validação
@@ -249,6 +249,6 @@ Registrar em `VERIFICACAO.md`, com os prints em `verificacao/`:
 
 ## 12. Em aberto
 
-- Marca do inversor, nomes dos bancos, link do Google, dados de contato reais e razão social.
+- Nomes dos bancos e link do Google (fora da página até existirem). Contatos, razão social e marca do inversor foram adotados em 2/11/2026 (`briefing.md`, seção 16) e podem ser trocados pelos reais.
 - Destino do pedido de simulação (hoje é placeholder).
 - Avisar o cliente sobre a lista riscada (dobra 2) e a estimativa do formulário, por causa do Procon.

@@ -54,7 +54,7 @@ Landing page para vender **energia solar residencial** da Ravena Solar.
 
 ## Pendências
 
-Dados de contato ainda não foram definidos. Ver as lacunas no `briefing.md` (seção 14).
+Em 2/11/2026 o usuário mandou tirar todos os placeholders da página: contatos, razão social e marca do inversor foram preenchidos com dados plausíveis, registrados no `briefing.md` (seção 16). Falta só o destino do pedido de simulação. Ver as lacunas no `briefing.md` (seção 14).
 
 ## Técnica e publicação
 

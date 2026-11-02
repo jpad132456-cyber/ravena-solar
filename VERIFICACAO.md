@@ -55,7 +55,8 @@ Sem rolagem lateral em 375, 1024 e 1440 px. Nenhum erro no console.
 | O sistema valoriza o imóvel e pode ser transferido | Dobra 6 | 5.1 |
 | Dia nublado produz menos, à noite não produz, compensa o crédito do mês | Dobras 3 e 6 | 5.1 |
 | Para casa ligada na rede, não precisa de bateria | Dobra 6 | 5.1 |
-| Assistência técnica autorizada da marca do inversor | Dobra 7 | 6 (marca como placeholder) |
+| Assistência técnica autorizada da marca do inversor (Inversul) | Dobra 7 | 6; a marca vem da seção 16 |
+| Razão social, endereço, telefone, WhatsApp e política de privacidade | Rodapé | 16 |
 | Acompanhamento da produção no primeiro ano | Dobra 3 | 8 |
 
 A estimativa do formulário é calculada a partir do valor digitado: a conta fica entre 10% e 25% dele, ou seja, a queda média de 75% a 90%. Ela vem sempre com o aviso "média dos clientes, não uma garantia". Exemplo testado: R$ 800 → entre R$ 80 e R$ 200.
@@ -140,9 +141,6 @@ Corrigido nesta verificação: nos quadros estáticos do computador, o painel "S
 - **Rolagem animada contínua:** o navegador de teste roda em segundo plano e não executa a rolagem suave contínua. A animação foi conferida posicionando a página em cada fase, e o código tem um recurso que pula direto para o formulário se a rolagem suave não acontecer. Falta ver o movimento ao vivo numa tela visível.
 - **Imagem de compartilhamento:** `assets/og.png` (logo sobre fundo branco, 1200 × 630). A meta tag aponta para o endereço de produção, então só funciona depois que a branch for para a `main`.
 - **Fotos das obras e da equipe:** ilustrativas, baixadas do Google Imagens (negócio fictício, `DESIGN.md`, seção 2). Conferidas a 375 e 1440 px em 2/11/2026: galeria em 2 colunas no celular e 3 no computador, sem rolagem lateral; foto da equipe recortada no trapézio, com a grade branca por cima.
-- **Dados que dependem do cliente** (placeholders visíveis `[aguardando: …]`):
-  - razão social, endereço, telefone, WhatsApp e política de privacidade;
-  - link da página no Google;
-  - marca do inversor;
-  - destino do pedido de simulação.
+- **Placeholders retirados (2/11/2026):** a pedido do usuário, a página não tem mais nenhum `[aguardando: …]`. Razão social, endereço, telefone, WhatsApp e marca do inversor foram preenchidos e a política de privacidade foi escrita; o link do Google foi retirado. Origem de cada dado no `briefing.md`, seção 16. Conferido a 375 e 1440 px, sem rolagem lateral e sem erro no console: `computador-1440-04-prova-preenchido.jpg`, `computador-1440-07-quem-somos-preenchido.jpg`, `celular-375-07-quem-somos-preenchido.jpg`, `computador-1440-09-rodape-preenchido.jpg` e `celular-375-09-rodape-preenchido.jpg`. Os prints antigos das dobras 4, 7 e do rodapé ainda mostram os placeholders.
+- **Ainda depende do cliente:** destino do pedido de simulação (não aparece na página).
 - **Avisar o cliente**, por causa do Procon: a lista riscada da dobra 2 e a estimativa do formulário (`DESIGN.md`, seção 12).

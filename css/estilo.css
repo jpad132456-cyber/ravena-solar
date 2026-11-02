@@ -735,12 +735,12 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
   border-top: 1px solid var(--marinho); border-left: 1px solid var(--marinho);
 }
 .carimbo > div {
-  display: flex; flex-direction: column; gap: 8px; justify-content: center;
+  display: flex; flex-direction: column; gap: 8px; justify-content: flex-start;
   padding: 16px; min-width: 0;
   border-right: 1px solid var(--marinho); border-bottom: 1px solid var(--marinho);
 }
 .carimbo .aguardando { align-self: flex-start; max-width: 100%; overflow-wrap: anywhere; }
-.carimbo-logo { grid-column: 1 / -1; }
+.carimbo-logo { grid-column: 1 / -1; justify-content: center; }
 .carimbo-logo img { width: 180px; height: auto; }
 .carimbo-largo, .carimbo-duplo { grid-column: 1 / -1; }
 @media (min-width: 768px) {
