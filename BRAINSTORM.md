@@ -237,7 +237,19 @@ A ordem do `DESIGN.md` está mantida. Para cada dobra há duas ou três versões
 
 ---
 
-## 9. Pendências que essas ideias criam
+## 9. Fundo do hero que reage ao mouse (2/11/2026)
+
+Escolhido: grade que acende em volta do cursor + mira presa ao cruzamento (`DESIGN.md`, seção 7). Ficaram de fora:
+
+- **Grade do painel em perspectiva:** o trapézio da logo gigante no fundo, com as células perto do mouse acendendo em âmbar fraco. Disputa com o painel que acende do caso.
+- **Campo de raios:** malha de raios do sol da logo que giram para apontar para o cursor. ❓ O cursor vira um sol, e a página não tem outro sol animado.
+- **Cotas que aparecem:** fundo limpo; o hover no título mostra uma cota sob "75% a 90%" e, no quadro do caso, uma linha de chamada.
+- **Telhados no horizonte:** silhueta de telhados no pé do hero, com painéis aparecendo no telhado sob o mouse. Segunda ilustração na dobra.
+- **Rastro de caneta:** o cursor deixa um traço que some. Distrai do campo da conta.
+
+---
+
+## 10. Pendências que essas ideias criam
 
 - ❓ Opacidade das cores da logo conta como "cor da logo"?
 - ❓ Estimativa de faixa a partir da conta digitada (C7): pode?

@@ -456,6 +456,47 @@
     }
   }
 
+  // ---------- Fundo do hero (01/08) ----------
+  // No computador, com mouse, a grade acende em volta do cursor e a mira se prende ao
+  // cruzamento mais próximo. No celular, sem JavaScript ou com prefers-reduced-motion,
+  // fica só a grade parada.
+
+  var hero = document.getElementById('hero');
+  var fundoHero = hero && hero.querySelector('.hero-fundo');
+  if (fundoHero && !movimentoReduzido && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    var GRADE = 32; // lado do quadriculado, em px (--grade no CSS)
+    var cursorX = 0, cursorY = 0, miraPedida = false;
+
+    var mirar = function () {
+      miraPedida = false;
+      var caixa = hero.getBoundingClientRect();
+      var x = cursorX - caixa.left, y = cursorY - caixa.top;
+      // A grade é centrada na largura (background-position: 50%), a partir do topo.
+      var origem = ((caixa.width - GRADE) / 2) % GRADE;
+      fundoHero.style.setProperty('--x', x + 'px');
+      fundoHero.style.setProperty('--y', y + 'px');
+      fundoHero.style.setProperty('--mx', origem + Math.round((x - origem) / GRADE) * GRADE + 'px');
+      fundoHero.style.setProperty('--my', Math.round(y / GRADE) * GRADE + 'px');
+    };
+    var pedirMira = function () {
+      if (miraPedida) return;
+      miraPedida = true;
+      requestAnimationFrame(mirar);
+    };
+
+    hero.addEventListener('pointermove', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      cursorX = e.clientX; cursorY = e.clientY;
+      pedirMira();
+      hero.classList.add('mirando');
+    });
+    hero.addEventListener('pointerleave', function () { hero.classList.remove('mirando'); });
+    // A rolagem move a página sob o mouse parado.
+    window.addEventListener('scroll', function () {
+      if (hero.classList.contains('mirando')) pedirMira();
+    }, { passive: true });
+  }
+
   // ---------- Mini-desenhos da dobra 6 ----------
   // Os traços se desenham uma vez, ao entrar na tela. Sem JavaScript ou com
   // prefers-reduced-motion, os desenhos aparecem prontos.

@@ -17,6 +17,7 @@
   --marinho-25: rgba(18, 58, 85, .25);
   --marinho-15: rgba(18, 58, 85, .15);
   --marinho-06: rgba(18, 58, 85, .06);
+  --marinho-04: rgba(18, 58, 85, .04);
   --branco-70: rgba(255, 255, 255, .7);
   --branco-25: rgba(255, 255, 255, .25);
   --ambar-20: rgba(242, 160, 61, .2);
@@ -279,6 +280,61 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
 .hero-texto .campo-conta { order: 2; margin-top: 24px; }
 .hero-texto .campo-conta + .pequeno { order: 2; }
 .hero-grade .nota { order: 3; margin-top: 40px; }
+
+/* Fundo de prancha: grade de 32 px centrada na página, que some no pé da dobra.
+   No computador, com mouse, a grade acende em volta do cursor e a mira se prende ao
+   cruzamento mais próximo (.mirando, ligado pelo JS). A folha do caso, branca, fica por cima. */
+.dobra-hero > .dentro { position: relative; }
+.hero-fundo {
+  --grade: 32px;
+  --x: -999px; --y: -999px;    /* cursor */
+  --mx: -999px; --my: -999px;  /* cruzamento mais próximo */
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+  background:
+    linear-gradient(to right, var(--marinho-04) 1px, transparent 1px) 50% 0 / var(--grade) var(--grade),
+    linear-gradient(to bottom, var(--marinho-04) 1px, transparent 1px) 50% 0 / var(--grade) var(--grade);
+  -webkit-mask-image: linear-gradient(#000 70%, transparent);
+  mask-image: linear-gradient(#000 70%, transparent);
+}
+.hero-fundo > * { position: absolute; left: 0; top: 0; opacity: 0; transition: opacity .3s; }
+.mirando .hero-fundo > * { opacity: 1; }
+/* Grade mais forte, com uma cruz em cada cruzamento (no meio do ladrilho, por isso -16 px). */
+.hero-lanterna {
+  right: 0; bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpath d='M16.5 0V32M0 16.5H32' stroke='%23123A55' stroke-opacity='.1'/%3E%3Cpath d='M16.5 12V21M12 16.5H21' stroke='%23123A55' stroke-opacity='.45'/%3E%3C/svg%3E") calc(50% - 16px) -16px / var(--grade) var(--grade);
+  -webkit-mask-image: radial-gradient(circle 176px at var(--x) var(--y), #000, transparent);
+  mask-image: radial-gradient(circle 176px at var(--x) var(--y), #000, transparent);
+}
+/* Réguas nas bordas: traço longo a cada cruzamento da grade, curto a cada 8 px. */
+.hero-regua-topo {
+  right: 0; height: 8px;
+  background:
+    linear-gradient(to right, var(--marinho-25) 1px, transparent 1px) 50% 0 / var(--grade) 8px repeat-x,
+    linear-gradient(to right, var(--marinho-25) 1px, transparent 1px) calc(50% - 4px) 0 / 8px 4px repeat-x;
+}
+.hero-regua-lado {
+  bottom: 0; width: 8px;
+  background:
+    linear-gradient(to bottom, var(--marinho-25) 1px, transparent 1px) 0 0 / 8px var(--grade) repeat-y,
+    linear-gradient(to bottom, var(--marinho-25) 1px, transparent 1px) 0 0 / 4px 8px repeat-y;
+}
+/* Mira tracejada, com a marca cheia onde encosta na régua. */
+.mira-h, .mira-v, .mira-ponto { transition: opacity .3s, transform .09s ease-out; }
+.mira-h {
+  right: 0; height: 1px; transform: translateY(var(--my));
+  background: repeating-linear-gradient(to right, var(--marinho-25) 0 4px, transparent 4px 8px);
+}
+.mira-v {
+  bottom: 0; width: 1px; transform: translateX(var(--mx));
+  background: repeating-linear-gradient(to bottom, var(--marinho-25) 0 4px, transparent 4px 8px);
+}
+.mira-h::before, .mira-v::before { content: ""; position: absolute; left: 0; top: 0; background: var(--marinho); }
+.mira-h::before { width: 12px; height: 1px; }
+.mira-v::before { width: 1px; height: 12px; }
+.mira-ponto {
+  width: 9px; height: 9px; border: 1px solid var(--marinho);
+  transform: translate(calc(var(--mx) - 4px), calc(var(--my) - 4px));
+}
 
 /* Folha de prancha: papel quadriculado e marcas de corte nos cantos, sem moldura. */
 .antes-depois {
