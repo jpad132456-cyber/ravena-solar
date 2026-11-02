@@ -648,16 +648,41 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
 
 /* ---------- 06 Perguntas ---------- */
 
-.perguntas { display: grid; gap: 40px; margin-top: 48px; }
+/* ".dobra" na frente para vencer ".dobra > .dentro > * + *". */
+.dobra .perguntas { display: grid; gap: 48px; margin-top: 48px; }
 .pergunta > p { margin-top: 8px; }
-.dobra .pergunta .subtitulo { margin-top: 0; }
-.desenho { margin-top: 24px; width: 100%; max-width: 320px; height: auto; }
-.desenho .linha { fill: none; stroke: var(--marinho); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.dobra .pergunta .subtitulo { margin-top: 0; text-wrap: balance; }
+.pergunta-num { display: block; margin-bottom: 8px; font-size: var(--pequena); color: var(--marinho-70); }
+.dobra .perguntas-fim { margin-top: 56px; }
+
+/* Mini-desenhos: todos no mesmo quadro e em escala 1:1, para o texto de dentro ficar nos três tamanhos. */
+.desenho-quadro { display: flex; justify-content: center; margin-bottom: 24px; padding: 16px 8px; border: 1px solid var(--marinho-25); border-radius: var(--raio); }
+.desenho { display: block; width: 320px; max-width: 100%; height: auto; }
+.desenho .linha { fill: none; stroke: var(--marinho); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.desenho .linha.ambar { stroke: var(--ambar); stroke-width: 3; }
 .desenho .tracejada { stroke-dasharray: 4 5; }
+.desenho .cheia { fill: var(--marinho-15); }
+.desenho .branca { fill: var(--branco); }
 .desenho .painel { fill: var(--marinho); }
-.perguntas-fim { margin-top: 56px; }
+.desenho .grade-painel { fill: none; stroke: var(--branco-70); stroke-width: 1.5; }
+.desenho .sol, .desenho .energia { fill: var(--ambar); }
+.desenho .raio-sol { fill: none; stroke: var(--ambar); stroke-width: 3.5; stroke-linecap: round; }
+.desenho text { font-family: var(--mono); font-size: var(--pequena); fill: var(--marinho); }
+.desenho .dado { font-size: var(--media); }
+
+/* Os traços se desenham uma vez ao entrar na tela; o resto aparece depois. Classes postas pelo JS. */
+.desenho.anima .linha:not(.tracejada) { stroke-dasharray: 1 2; stroke-dashoffset: 1.1; }
+.desenho.anima > :not(.linha), .desenho.anima > .tracejada { opacity: 0; }
+.desenho.anima .cheia, .desenho.anima .branca { fill-opacity: 0; }
+.desenho.desenhado .cheia, .desenho.desenhado .branca { fill-opacity: 1; transition: fill-opacity .6s ease-out .8s, stroke-dashoffset 1.2s ease-out; }
+.desenho.desenhado .linha:not(.tracejada) { stroke-dashoffset: 0; transition: stroke-dashoffset 1.2s ease-out; }
+.desenho.desenhado > :not(.linha), .desenho.desenhado > .tracejada { opacity: 1; transition: opacity .6s ease-out .8s; }
+
 @media (min-width: 768px) {
-  .perguntas { grid-template-columns: 1fr 1fr; gap: 56px 64px; }
+  .dobra .perguntas { grid-template-columns: 1fr 1fr; gap: 64px; }
+}
+@media (min-width: 1024px) {
+  .desenho-quadro { padding: 24px; }
 }
 
 /* ---------- 07 Quem somos ---------- */

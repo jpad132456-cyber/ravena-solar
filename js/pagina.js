@@ -357,4 +357,26 @@
       atualizarFixos();
     }).observe(campoFechamento);
   }
+
+  // ---------- Mini-desenhos da dobra 6 ----------
+  // Os traços se desenham uma vez, ao entrar na tela. Sem JavaScript ou com
+  // prefers-reduced-motion, os desenhos aparecem prontos.
+
+  if (!movimentoReduzido && 'IntersectionObserver' in window) {
+    var observadorDesenhos = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var desenho = e.target;
+        observadorDesenhos.unobserve(desenho);
+        desenho.classList.add('desenhado');
+        // Ao terminar, tira o tracejado da animação para os cantos voltarem a ter junção.
+        setTimeout(function () { desenho.classList.remove('anima', 'desenhado'); }, 1600);
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('#perguntas .desenho').forEach(function (desenho) {
+      desenho.classList.add('anima');
+      observadorDesenhos.observe(desenho);
+    });
+  }
 })();

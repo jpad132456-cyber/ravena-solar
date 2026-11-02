@@ -23,7 +23,7 @@ Evidências da verificação pedida no `DESIGN.md`, seção 11. Feita em 2 de no
 | 03 Movimento reduzido | `computador-1440-03-movimento-reduzido.png` | `celular-375-03-movimento-reduzido.png` |
 | 04 Prova social | `computador-1440-04-prova.png` | `celular-375-04-prova.png` |
 | 05 Convite (formulário) | `computador-1440-05-simulacao.png` | `celular-375-05-simulacao.png` |
-| 06 Perguntas | `computador-1440-06-perguntas.png` | `celular-375-06-perguntas.png` |
+| 06 Perguntas | `computador-1440-06-perguntas-a.png` e `-b.png` | `celular-375-06-perguntas-a.png` a `-d.png` |
 | 07 Quem somos | `computador-1440-07-quem-somos.png` | `celular-375-07-quem-somos.png` |
 | 08 Fechamento | `computador-1440-08-fechamento.png` | `celular-375-08-fechamento.png` |
 | Rodapé | `computador-1440-09-rodape.png` | `celular-375-09-rodape.png` |
