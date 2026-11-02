@@ -280,20 +280,48 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
 .hero-texto .campo-conta + .pequeno { order: 2; }
 .hero-grade .nota { order: 3; margin-top: 40px; }
 
+/* Folha de prancha: papel quadriculado e marcas de corte nos cantos, sem moldura. */
 .antes-depois {
-  border: 1px solid var(--marinho);
-  border-radius: var(--raio);
+  --corte: linear-gradient(var(--marinho), var(--marinho));
   padding: 24px;
   align-self: start;
+  background:
+    var(--corte) left top / 16px 1px no-repeat, var(--corte) left top / 1px 16px no-repeat,
+    var(--corte) right top / 16px 1px no-repeat, var(--corte) right top / 1px 16px no-repeat,
+    var(--corte) left bottom / 16px 1px no-repeat, var(--corte) left bottom / 1px 16px no-repeat,
+    var(--corte) right bottom / 16px 1px no-repeat, var(--corte) right bottom / 1px 16px no-repeat,
+    linear-gradient(to right, var(--marinho-06) 1px, transparent 1px) -1px -1px / 16px 16px,
+    linear-gradient(to bottom, var(--marinho-06) 1px, transparent 1px) -1px -1px / 16px 16px,
+    var(--branco);
 }
-.antes-depois-linhas { display: flex; gap: 16px; margin-top: 24px; }
-/* Cota da conta: o tracejado mede a conta de antes; a barra, a de agora. A altura da barra é posta pelo JS. */
-.cota-conta { position: relative; width: 16px; flex: none; }
-.cota-conta::before { content: ""; position: absolute; inset: 0; border: 1px dashed var(--marinho-70); border-radius: 2px; }
-.cota-medida { position: absolute; left: 0; right: 0; bottom: 0; height: 15.13%; background: var(--marinho); border-radius: 2px; }
-.antes-depois-valores { display: grid; gap: 24px; flex: 1; }
+.antes-depois-linhas { display: flex; gap: 16px; margin-top: 16px; }
+
+/* Painel que acende: sol e painel da logo em traço fino. */
+.painel-caso { flex: none; width: 40%; }
+.painel-desenho { width: 100%; height: auto; overflow: visible; }
+.painel-sol { fill: var(--ambar); }
+.painel-raios { fill: none; stroke: var(--ambar); stroke-width: 4.5; stroke-linecap: round; }
+.celula { fill: var(--ambar); transition: fill .35s ease-out; }
+.painel-traco {
+  fill: none; stroke: var(--marinho); stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+/* Cota da largura do painel: vai de canto a canto da base (10 a 290 de 300 no desenho). */
+.cota-painel {
+  position: relative; display: flex; justify-content: center;
+  margin: 8px 3.33% 0; font-size: var(--pequena); line-height: 1.4;
+}
+.cota-painel::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 9px; transform: translateY(-50%);
+  border: 1px solid var(--marinho); border-top: 0; border-bottom: 0;
+  background: linear-gradient(var(--marinho), var(--marinho)) 0 50% / 100% 1px no-repeat;
+}
+.cota-painel span { position: relative; padding: 0 8px; background: var(--branco); }
+.antes-depois-valores { display: grid; gap: 16px; flex: 1; min-width: 0; align-content: start; }
 .ad-linha { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
 .ad-linha .rotulo, .ad-obs { width: 100%; }
+/* Celular: "Antes" na mesma linha do valor, para o quadro ficar baixo. */
+.ad-antes .rotulo { width: auto; }
 .ad-obs { color: var(--marinho-70); }
 /* Risco âmbar desenhado com fundo (dá para animar), como na lista da dobra 2. */
 .ad-antes s {
@@ -326,7 +354,11 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
 
 /* Enquanto a conta cai: risco e rótulo "Depois" escondidos; aparecem quando o contador para. */
 .ad-depois .rotulo, .ad-obs { transition: opacity .4s ease-out; }
-.hero-anima .cota-medida { height: 100%; }
+/* Antes de acender: células brancas e traços por desenhar (o JS liga .desenhado e .acesa). */
+.hero-anima .celula { fill: var(--branco); }
+.hero-anima .celula.acesa { fill: var(--ambar); }
+.hero-anima .painel-traco { stroke-dasharray: 1 2; stroke-dashoffset: 1.1; }
+.hero-anima .antes-depois.desenhado .painel-traco { stroke-dashoffset: 0; transition: stroke-dashoffset .9s ease-out; }
 .hero-anima .antes-depois:not(.caiu) .ad-antes s { background-size: 0% 3px; }
 .hero-anima .antes-depois:not(.caiu) .ad-depois .rotulo,
 .hero-anima .antes-depois:not(.caiu) .ad-obs { opacity: 0; }
@@ -342,7 +374,12 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
   .hero-grade { grid-template-columns: minmax(0, 7fr) minmax(auto, 4fr); column-gap: 64px; row-gap: 32px; }
   .hero-texto { display: block; }
   .hero-texto .campo-conta { margin-top: 24px; }
-  .hero-grade .antes-depois { margin-top: 48px; }
+  .hero-grade .antes-depois { margin-top: 0; padding: 32px; }
+  /* Computador: painel em cima, valores embaixo. */
+  .antes-depois-linhas { flex-direction: column; gap: 24px; margin-top: 24px; }
+  .painel-caso { width: 100%; }
+  .ad-antes .rotulo { width: 100%; }
+  .antes-depois-valores { gap: 24px; }
   .hero-grade .nota { margin-top: 0; }
 }
 

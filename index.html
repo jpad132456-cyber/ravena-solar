@@ -64,10 +64,33 @@
       </div>
 
       <figure class="antes-depois" aria-labelledby="caso-resumo">
-        <figcaption id="caso-resumo" class="rotulo">Casa em Sorocaba</figcaption>
+        <figcaption id="caso-resumo" class="rotulo">Casa em Sorocaba · março de 2025</figcaption>
         <div class="antes-depois-linhas">
-          <!-- Altura da conta: o tracejado é a de antes, a barra é a de agora (118/780). -->
-          <div class="cota-conta" aria-hidden="true"><span class="cota-medida"></span></div>
+          <!-- Painel que acende: sol e painel da logo em traço fino, 2 fileiras de 7 células.
+               As células acendem coluna por coluna enquanto a conta cai (js/pagina.js). -->
+          <div class="painel-caso">
+            <svg class="painel-desenho" viewBox="0 0 300 172" width="300" height="172" aria-hidden="true" focusable="false">
+              <circle class="painel-sol" cx="116" cy="52" r="24"/>
+              <path class="painel-raios" d="M79 52 L71 52 M89.84 25.84 L84.18 20.18 M116 15 L116 7 M142.16 25.84 L147.82 20.18 M153 52 L161 52"/>
+              <path class="celula" data-coluna="0" d="M78.5 62 L98.93 62 L74.46 113.5 L44.25 113.5 Z"/>
+              <path class="celula" data-coluna="0" d="M44.25 113.5 L74.46 113.5 L50 165 L10 165 Z"/>
+              <path class="celula" data-coluna="1" d="M98.93 62 L119.36 62 L104.68 113.5 L74.46 113.5 Z"/>
+              <path class="celula" data-coluna="1" d="M74.46 113.5 L104.68 113.5 L90 165 L50 165 Z"/>
+              <path class="celula" data-coluna="2" d="M119.36 62 L139.79 62 L134.89 113.5 L104.68 113.5 Z"/>
+              <path class="celula" data-coluna="2" d="M104.68 113.5 L134.89 113.5 L130 165 L90 165 Z"/>
+              <path class="celula" data-coluna="3" d="M139.79 62 L160.21 62 L165.11 113.5 L134.89 113.5 Z"/>
+              <path class="celula" data-coluna="3" d="M134.89 113.5 L165.11 113.5 L170 165 L130 165 Z"/>
+              <path class="celula" data-coluna="4" d="M160.21 62 L180.64 62 L195.32 113.5 L165.11 113.5 Z"/>
+              <path class="celula" data-coluna="4" d="M165.11 113.5 L195.32 113.5 L210 165 L170 165 Z"/>
+              <path class="celula" data-coluna="5" d="M180.64 62 L201.07 62 L225.54 113.5 L195.32 113.5 Z"/>
+              <path class="celula" data-coluna="5" d="M195.32 113.5 L225.54 113.5 L250 165 L210 165 Z"/>
+              <path class="celula" data-coluna="6" d="M201.07 62 L221.5 62 L255.75 113.5 L225.54 113.5 Z"/>
+              <path class="celula" data-coluna="6" d="M225.54 113.5 L255.75 113.5 L290 165 L250 165 Z"/>
+              <path class="painel-traco" pathLength="1" d="M98.93 62 L50 165 M119.36 62 L90 165 M139.79 62 L130 165 M160.21 62 L170 165 M180.64 62 L210 165 M201.07 62 L250 165 M44.25 113.5 H255.75"/>
+              <path class="painel-traco" pathLength="1" d="M10 165 L78.5 62 L221.5 62 L290 165 Z"/>
+            </svg>
+            <p class="cota-painel numero"><span>6,4 kWp</span></p>
+          </div>
           <div class="antes-depois-valores">
             <p class="ad-linha ad-antes"><span class="rotulo">Antes</span> <s class="numero">R$ 780</s><span class="pequeno">/mês</span></p>
             <p class="ad-linha ad-depois"><span class="rotulo">Depois</span> <strong class="numero numero-grande contador" data-de="780" data-para="118">R$ 118</strong><span class="pequeno">/mês</span><span class="pequeno ad-obs">média dos últimos doze meses</span></p>

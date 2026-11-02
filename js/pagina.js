@@ -361,13 +361,15 @@
   // ---------- Contador do hero (01/08) ----------
   // A conta de Sorocaba cai de R$ 780 para R$ 118 como um relógio de luz girando
   // ao contrário: cada dígito é um cilindro, e o da casa de cima só vira quando o
-  // de baixo passa pelo zero. A cota ao lado encolhe na mesma proporção. Roda uma
-  // vez, quando o quadro aparece. Com prefers-reduced-motion, já fica no valor final.
+  // de baixo passa pelo zero. Antes, os traços do painel se desenham; enquanto a conta
+  // cai, as células acendem coluna por coluna, do lado do sol para o outro. Roda uma
+  // vez, quando o quadro aparece. Com prefers-reduced-motion, já fica no estado final.
 
   var contador = document.querySelector('.contador');
   if (contador) {
     var quadroCaso = contador.closest('.antes-depois');
-    var cotaMedida = quadroCaso.querySelector('.cota-medida');
+    var celulas = quadroCaso.querySelectorAll('.celula');
+    var COLUNAS = 7;
     var contaDe = parseInt(contador.dataset.de, 10);
     var contaPara = parseInt(contador.dataset.para, 10);
     var casas = String(contaDe).length;
@@ -405,14 +407,21 @@
         }
         fitas[k].style.transform = 'translateY(' + (-(posicao % 10) * PASSO).toFixed(4) + 'em)';
       }
-      cotaMedida.style.height = (valor / contaDe * 100).toFixed(2) + '%';
+    };
+
+    var acenderCelulas = function (t) {
+      for (var i = 0; i < celulas.length; i++) {
+        var coluna = parseInt(celulas[i].getAttribute('data-coluna'), 10);
+        celulas[i].classList.toggle('acesa', t * COLUNAS > coluna + 0.3);
+      }
     };
 
     contador.classList.add('montado');
 
     if (!document.documentElement.classList.contains('hero-anima') || movimentoReduzido) {
       mostrarConta(contaPara);
-      quadroCaso.classList.add('caiu');
+      acenderCelulas(1);
+      quadroCaso.classList.add('desenhado', 'caiu');
     } else {
       mostrarConta(contaDe);
       var DURACAO = 2200;
@@ -423,21 +432,26 @@
           var t = Math.min(1, (agora - inicio) / DURACAO);
           var suave = 1 - Math.pow(1 - t, 4); // rápido no começo, devagar no fim
           mostrarConta(contaDe - (contaDe - contaPara) * suave);
+          acenderCelulas(t); // em ritmo constante, para as colunas não acenderem todas de uma vez
           if (t < 1) requestAnimationFrame(quadro);
           else quadroCaso.classList.add('caiu');
         };
         requestAnimationFrame(quadro);
       };
-      // Espera o quadro aparecer e deixa o R$ 780 ser lido antes de cair.
+      // Espera o quadro aparecer, desenha o painel e deixa o R$ 780 ser lido antes de cair.
+      var comecar = function () {
+        quadroCaso.classList.add('desenhado');
+        setTimeout(rodarContador, 900);
+      };
       if ('IntersectionObserver' in window) {
         var observadorCaso = new IntersectionObserver(function (entradas) {
           if (!entradas[0].isIntersecting) return;
           observadorCaso.disconnect();
-          setTimeout(rodarContador, 500);
+          setTimeout(comecar, 200);
         }, { threshold: 0.6 });
         observadorCaso.observe(quadroCaso);
       } else {
-        setTimeout(rodarContador, 500);
+        setTimeout(comecar, 200);
       }
     }
   }
