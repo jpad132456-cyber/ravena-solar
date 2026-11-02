@@ -14,6 +14,8 @@ Evidências da verificação pedida no `DESIGN.md`, seção 11. Feita em 2 de no
 | Dobra | Computador (1440 px) | Celular (375 px) |
 |---|---|---|
 | 01 Hero | `computador-1440-01-hero.png` | `celular-375-01-hero.png` |
+| 01 Hero: meio da animação | `computador-1440-01-hero-meio.png` | `celular-375-01-hero-meio.png` |
+| 01 Hero: movimento reduzido | `computador-1440-01-hero-movimento-reduzido.png` | `celular-375-01-hero-movimento-reduzido.png` |
 | 02 O problema | `computador-1440-02-problema.png` | `celular-375-02-problema.png` |
 | 03 A solução (início) | `computador-1440-03-solucao.png` | `celular-375-03-solucao.png` |
 | 03 Animação: manhã | `computador-1440-03-animacao-a-manha.png` | `celular-375-03-animacao-a-manha.png` |
@@ -103,6 +105,8 @@ Também não aparecem: indústria, comércio acima de 75 kWp, manutenção de si
 
 Com `prefers-reduced-motion: reduce`, a animação não é ligada. O resultado foi `cena-animada` ausente, palco `display: none` e quadros estáticos `display: grid`. No lugar dela aparecem os dois quadros estáticos, dia e noite, com as legendas. As transições do CSS ficam desligadas e a rolagem fica sem animação. Prints: `*-03-movimento-reduzido.png`.
 
+No hero, com movimento reduzido, o painel já aparece desenhado, com as 14 células acesas, e a conta já está em R$ 118, riscando o R$ 780. Prints: `*-01-hero-movimento-reduzido.png`.
+
 Corrigido nesta verificação: nos quadros estáticos do computador, o painel "Seu crédito solar" cobria a ponta da maquete. Agora ele fica colado embaixo do quadro.
 
 ## 7. Formulário
@@ -144,6 +148,23 @@ Corrigido nesta verificação: nos quadros estáticos do computador, o painel "S
 - **Placeholders retirados (2/11/2026):** a pedido do usuário, a página não tem mais nenhum `[aguardando: …]`. Razão social, endereço, telefone, WhatsApp e marca do inversor foram preenchidos e a política de privacidade foi escrita; o link do Google foi retirado. Origem de cada dado no `briefing.md`, seção 16. Conferido a 375 e 1440 px, sem rolagem lateral e sem erro no console: `computador-1440-04-prova-preenchido.jpg`, `computador-1440-07-quem-somos-preenchido.jpg`, `celular-375-07-quem-somos-preenchido.jpg`, `computador-1440-09-rodape-preenchido.jpg` e `celular-375-09-rodape-preenchido.jpg`. Os prints antigos das dobras 4, 7 e do rodapé ainda mostram os placeholders.
 - **Ainda depende do cliente:** destino do pedido de simulação (não aparece na página).
 - **Avisar o cliente**, por causa do Procon: a lista riscada da dobra 2 e a estimativa do formulário (`DESIGN.md`, seção 12).
+
+## 10a. Hero: painel que acende (2/11/2026)
+
+Direção escolhida pelo usuário entre três esboços (`DESIGN.md`, seção 3, dobra 1). Prints tirados com o Chrome em modo invisível, controlado pelo DevTools Protocol, com a animação rodando em tempo real.
+
+| Checagem | Resultado |
+|---|---|
+| Sequência | Os traços do painel se desenham; depois a conta cai de R$ 780 para R$ 118 nos cilindros, enquanto as células acendem coluna por coluna, do lado do sol para o outro; ao parar, o R$ 780 é riscado. Uma vez só. No meio (cerca de 2,6 s): R$ 125 e 10 de 14 células acesas |
+| Estado final | 14 células acesas, classes `desenhado` e `caiu` no quadro |
+| Sem JavaScript | O CSS já mostra as células acesas e o valor final; o script do `<head>` desliga a animação se o `pagina.js` não montar o contador em 3 s |
+| Celular, primeira tela (375 × 812) | O botão "Pedir simulação" termina em 798 px, dentro da tela (antes, terminava em cerca de 1080 px, fora dela) |
+| Computador (1440 × 900) | Quadro e coluna de texto alinhados (de 136 a 644 px); nenhuma rolagem lateral |
+| Tablet (820 px) | Uma coluna, com o quadro horizontal e largura máxima de 560 px; as duas colunas começam em 1024 px, porque abaixo disso o rótulo e o "/mês" quebravam |
+| Leitor de tela | O desenho é `aria-hidden`; a legenda é lida como "Casa em Sorocaba, instalado em março de 2025", e o valor lido é só "R$ 118" |
+| Cores e tamanhos | Só as cores da logo (marinho, âmbar e transparências); textos nos três tamanhos; nenhuma sombra; o sol não se mexe |
+
+Corrigido nesta revisão: no computador, o rótulo "Casa em Sorocaba · março de 2025" quebrava e deixava "2025" sozinho, e virou um título de carimbo ("Casa em Sorocaba" à esquerda, "03/2025" à direita); no celular, o "/mês" quebrava abaixo do valor, e o painel ficou mais estreito.
 
 ## 10. Registro de acessos (`DESIGN.md`, seção 13)
 

@@ -268,22 +268,22 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
 
 /* ---------- 01 Hero ---------- */
 
-.dobra-hero { padding-top: 40px; }
+.dobra-hero { padding-top: 24px; }
 /* Celular: o texto se desfaz na grade para o quadro do caso vir logo depois do subtítulo,
    antes do campo da conta, e a animação aparecer na primeira tela. */
 .hero-grade { display: grid; }
 .hero-texto { display: contents; }
 .hero-texto > * + * { margin-top: 24px; }
 .hero-texto .rotulo + .titulo-hero { margin-top: 16px; }
-.hero-grade .antes-depois { order: 1; margin-top: 32px; }
-.hero-texto .campo-conta { order: 2; margin-top: 32px; }
+.hero-grade .antes-depois { order: 1; margin-top: 24px; }
+.hero-texto .campo-conta { order: 2; margin-top: 24px; }
 .hero-texto .campo-conta + .pequeno { order: 2; }
 .hero-grade .nota { order: 3; margin-top: 40px; }
 
 /* Folha de prancha: papel quadriculado e marcas de corte nos cantos, sem moldura. */
 .antes-depois {
   --corte: linear-gradient(var(--marinho), var(--marinho));
-  padding: 24px;
+  padding: 16px;
   align-self: start;
   background:
     var(--corte) left top / 16px 1px no-repeat, var(--corte) left top / 1px 16px no-repeat,
@@ -294,10 +294,14 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
     linear-gradient(to bottom, var(--marinho-06) 1px, transparent 1px) -1px -1px / 16px 16px,
     var(--branco);
 }
-.antes-depois-linhas { display: flex; gap: 16px; margin-top: 16px; }
+.antes-depois-linhas { display: flex; gap: 16px; margin-top: 12px; }
+/* Título da folha, como no carimbo de prancha: o que é à esquerda, a data à direita. */
+.caso-titulo { display: flex; justify-content: space-between; gap: 16px; }
+.caso-titulo .numero { color: var(--marinho); }
 
 /* Painel que acende: sol e painel da logo em traço fino. */
-.painel-caso { flex: none; width: 40%; }
+/* Celular: painel estreito à esquerda, para "R$ 118 /mês" caber numa linha ao lado. */
+.painel-caso { flex: none; width: 34%; align-self: center; }
 .painel-desenho { width: 100%; height: auto; overflow: visible; }
 .painel-sol { fill: var(--ambar); }
 .painel-raios { fill: none; stroke: var(--ambar); stroke-width: 4.5; stroke-linecap: round; }
@@ -317,10 +321,10 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
   background: linear-gradient(var(--marinho), var(--marinho)) 0 50% / 100% 1px no-repeat;
 }
 .cota-painel span { position: relative; padding: 0 8px; background: var(--branco); }
-.antes-depois-valores { display: grid; gap: 16px; flex: 1; min-width: 0; align-content: start; }
-.ad-linha { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.antes-depois-valores { display: grid; gap: 12px; flex: 1; min-width: 0; align-content: start; }
+.ad-linha { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; }
 .ad-linha .rotulo, .ad-obs { width: 100%; }
-/* Celular: "Antes" na mesma linha do valor, para o quadro ficar baixo. */
+/* "Antes" na mesma linha do valor, para o quadro ficar baixo. */
 .ad-antes .rotulo { width: auto; }
 .ad-obs { color: var(--marinho-70); }
 /* Risco âmbar desenhado com fundo (dá para animar), como na lista da dobra 2. */
@@ -371,14 +375,19 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
 }
 @media (min-width: 768px) {
   .dobra-hero { padding-top: 80px; }
-  .hero-grade { grid-template-columns: minmax(0, 7fr) minmax(auto, 4fr); column-gap: 64px; row-gap: 32px; }
+  /* Tablet: uma coluna, como no celular, com o quadro horizontal na largura do campo. */
+  .hero-grade .antes-depois { max-width: 560px; padding: 24px; }
+}
+/* Duas colunas só a partir de 1024 px: abaixo disso a coluna do quadro fica estreita demais. */
+@media (min-width: 1024px) {
+  .hero-grade .antes-depois { max-width: none; }
+  .hero-grade { grid-template-columns: minmax(0, 7fr) minmax(auto, 4fr); column-gap: 48px; row-gap: 32px; }
   .hero-texto { display: block; }
   .hero-texto .campo-conta { margin-top: 24px; }
   .hero-grade .antes-depois { margin-top: 0; padding: 32px; }
   /* Computador: painel em cima, valores embaixo. */
   .antes-depois-linhas { flex-direction: column; gap: 24px; margin-top: 24px; }
   .painel-caso { width: 100%; }
-  .ad-antes .rotulo { width: 100%; }
   .antes-depois-valores { gap: 24px; }
   .hero-grade .nota { margin-top: 0; }
 }
