@@ -676,13 +676,6 @@
         </dl>
       </div>
 
-      <h3 class="subtitulo">Depoimentos em vídeo</h3>
-      <ul class="videos">
-        <li><div class="aguardando aguardando-bloco proporcao-video">[aguardando: vídeo do depoimento]</div><p class="rotulo">Votorantim · 2025</p></li>
-        <li><div class="aguardando aguardando-bloco proporcao-video">[aguardando: vídeo do depoimento]</div><p class="rotulo">Itu · 2025</p></li>
-        <li><div class="aguardando aguardando-bloco proporcao-video">[aguardando: vídeo do depoimento]</div><p class="rotulo"><span class="aguardando">[aguardando: cidade]</span> · 2025</p></li>
-      </ul>
-
       <h3 class="subtitulo">Obras nossas, fotografadas com autorização dos clientes</h3>
       <ul class="fotos">
         <li class="aguardando aguardando-bloco">[aguardando: foto da obra]</li>
@@ -873,6 +866,37 @@
         </svg>
         <figcaption class="aguardando">[aguardando: foto da equipe]</figcaption>
       </figure>
+
+      <section class="atuacao" aria-labelledby="atuacao-titulo">
+        <div class="atuacao-texto">
+          <h3 id="atuacao-titulo" class="subtitulo">Onde atuamos</h3>
+          <p class="lead">Atendemos Sorocaba, Votorantim, Itu e Salto, num raio de <span class="numero">80 km</span>.</p>
+          <p>A distribuidora da região é a CPFL.</p>
+        </div>
+
+        <!-- Recorte de assets/mapa-80km.jpg: círculo de 80 km centrado em Sorocaba,
+             escala calibrada pelas posições das cidades no print do Google Earth (erro de ~1 km). -->
+        <figure class="mapa">
+          <div class="mapa-circulo">
+            <img src="assets/mapa-80km.jpg" width="893" height="893" loading="lazy" decoding="async"
+                 alt="Imagem de satélite da região recortada num círculo de 80 km de raio com Sorocaba no centro. Votorantim, Itu e Salto ficam dentro do círculo.">
+            <svg viewBox="0 0 893 893" aria-hidden="true">
+              <line class="mapa-raio" x1="446.5" y1="446.5" x2="223.2" y2="833.2"/>
+              <circle class="mapa-borda" cx="446.5" cy="446.5" r="446.5"/>
+              <circle class="mapa-ponto" cx="532.2" cy="254.8" r="6"/>
+              <circle class="mapa-ponto" cx="527.6" cy="294.8" r="6"/>
+              <circle class="mapa-ponto" cx="459.1" cy="472.8" r="6"/>
+              <circle class="mapa-centro" cx="446.5" cy="446.5" r="9"/>
+            </svg>
+            <span class="mapa-cidade mapa-cidade-direita mapa-salto" style="left: 59.6%; top: 28.5%" aria-hidden="true">Salto</span>
+            <span class="mapa-cidade mapa-cidade-direita mapa-itu" style="left: 59.1%; top: 33%" aria-hidden="true">Itu</span>
+            <span class="mapa-cidade mapa-cidade-direita" style="left: 51.4%; top: 52.9%" aria-hidden="true">Votorantim</span>
+            <span class="mapa-cidade mapa-cidade-acima" style="left: 50%; top: 50%" aria-hidden="true">Sorocaba</span>
+            <span class="mapa-raio-rotulo numero" aria-hidden="true">80 km</span>
+          </div>
+          <figcaption class="pequeno">Imagem de satélite: Google Earth · Landsat&nbsp;/&nbsp;Copernicus.</figcaption>
+        </figure>
+      </section>
     </div>
   </section>
 

@@ -38,13 +38,13 @@ Sem rolagem lateral em 375, 1024 e 1440 px. Nenhum erro no console.
 | A conta não zera: taxa mínima da distribuidora e custo do fio | Hero, dobra 2, estimativa | 4.1 |
 | Casa em Sorocaba: R$ 780 → R$ 118 (média dos últimos doze meses), 6,4 kWp, março de 2025 | Hero e ficha da dobra 4 | 6 |
 | 45 a 60 dias da assinatura ao sistema ligado; instalação em 2 dias | Dobras 2 e 3 | 4.2 |
+| Sorocaba, Votorantim, Itu e Salto, num raio de 80 km; distribuidora CPFL | Dobra 7 (Onde atuamos) | 3 |
 | Garantias: 25 anos (performance do painel), 10 (inversor), 5 (instalação, incluindo infiltração causada pela obra) | Dobras 3 e 6 | 4.3 |
 | Sistema típico de R$ 14 mil a R$ 19 mil | Dobra 3 | 4.1 |
 | Retorno de 3 a 4 anos | Dobra 3 | 4.1 |
 | Financiamento com dois bancos; entrada zero possível; parcela próxima da conta | Dobra 3 | 4.4 |
 | 412 sistemas residenciais instalados | Dobras 4 e 6 | 3 e 6 |
 | Nota 4,8 no Google, 137 avaliações | Dobra 4 | 6 |
-| Depoimentos de Votorantim e Itu, 2025 | Dobra 4 | 6 (a cidade do 3º vídeo está como placeholder) |
 | Fotos das obras com autorização | Dobra 4 | 6 |
 | Resposta no mesmo dia útil, por WhatsApp | Hero, dobras 3, 5 e 8 | 7.4 |
 | Visita técnica gratuita e sem compromisso | Dobras 3 e 5 | 7.4 |
@@ -144,6 +144,5 @@ Corrigido nesta verificação: nos quadros estáticos do computador, o painel "S
   - link da página no Google;
   - marca do inversor;
   - fotos das obras e foto da equipe;
-  - vídeos dos depoimentos e cidade do 3º vídeo;
   - destino do pedido de simulação.
 - **Avisar o cliente**, por causa do Procon: a lista riscada da dobra 2 e a estimativa do formulário (`DESIGN.md`, seção 12).

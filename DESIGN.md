@@ -27,10 +27,10 @@ Todas as decisões de design e de conteúdo da página. Os dados da empresa est�
 | 1 | Hero | Título com a queda de 75% a 90%, só a proposta de valor, sem ressalva no título; as ressalvas (média dos clientes, a conta não zera) vão numa nota discreta com asterisco, no pé do hero; subtítulo com como a Ravena entrega isso; caso de Sorocaba resumido; "Sorocaba e região" | Antes/depois **estático** do caso de Sorocaba: R$ 780 riscado e R$ 118 em destaque | **Simulação nº 1** (campo da conta) |
 | 2 | O problema | A conta que só sobe e como a energia solar a derruba (foco da dobra: a queda da conta é a proposta de valor principal); lista "O que você não vai ouvir de nós" (seção 3.1) | A lista, com os itens riscados | — |
 | 3 | A solução | Equipe própria; 4 etapas (simulação → visita → instalação em 2 dias → acompanhamento); 45 a 60 dias; 3 garantias; entrada zero; faixa de R$ 14 mil a R$ 19 mil; retorno de 3 a 4 anos | Animação dia e noite (seção 8) | — |
-| 4 | Prova social | 412 sistemas; 4,8 no Google (137 avaliações); ficha completa do caso de Sorocaba (R$ 780 → R$ 118, 6,4 kWp, março de 2025, média dos últimos doze meses); vídeos ("Votorantim · 2025", "Itu · 2025"); fotos das obras | Ficha técnica do caso | — |
+| 4 | Prova social | 412 sistemas; 4,8 no Google (137 avaliações); ficha completa do caso de Sorocaba (R$ 780 → R$ 118, 6,4 kWp, março de 2025, média dos últimos doze meses); fotos das obras | Ficha técnica do caso | — |
 | 5 | Convite forte | Formulário em 2 passos; resposta no mesmo dia útil, por WhatsApp; visita técnica gratuita e sem compromisso; aviso de conta mínima de R$ 450 | Única dobra azul-marinho até aqui | **Simulação nº 2** (a mais forte) |
 | 6 | Perguntas frequentes | As seis objeções, na ordem do `briefing.md` (seção 5.1), com respostas curtas tiradas do brief, abertas em duas colunas (sem acordeão). No fim: "Ainda tem dúvida? Pergunte na simulação." | Mini-desenhos: corte do telhado de barro (garantia de 5 anos, incluindo infiltração) e casa com seta (transferência) | — |
-| 7 | Quem somos | A empresa que some ("pelo menos três empresas que fecharam deixando obra pela metade"), como contraste; seis anos; onze pessoas; integradora; equipe própria com carteira assinada; assistência técnica autorizada da marca do inversor [marca a confirmar] | Foto da equipe recortada no trapézio do painel | — |
+| 7 | Quem somos | A empresa que some ("pelo menos três empresas que fecharam deixando obra pela metade"), como contraste; seis anos; onze pessoas; integradora; equipe própria com carteira assinada; assistência técnica autorizada da marca do inversor [marca a confirmar]. Bloco "Onde atuamos": "Atendemos Sorocaba, Votorantim, Itu e Salto, num raio de 80 km." e "A distribuidora da região é a CPFL." | Foto da equipe recortada no trapézio do painel; mapa de satélite recortado num círculo de 80 km centrado em Sorocaba, com as quatro cidades marcadas | — |
 | 8 | Fechamento | Uma frase | Fundo azul-marinho (o fim do dia) | **Simulação nº 3** (campo da conta) |
 | — | Rodapé | Razão social ⚠️, endereço, telefone, WhatsApp e link de privacidade, todos como placeholders até a confirmação | Carimbo de prancha técnica | — |
 
@@ -117,7 +117,7 @@ Nenhum outro item. ⚠️ Avisar o cliente sobre a lista.
   | Âmbar | `#F2A03D` | Botão principal, dados, destaques gráficos, energia do sol, crédito | ~3% |
   | Laranja | `#E8721C` | Hover e clique do botão; degradê da dobra 5 | ~2% |
 
-- **Transparência permitida** nas quatro cores (ex.: azul-marinho a 6% como fundo de cartão, a 70% como texto secundário). Nenhuma cor nova, com uma única exceção: a cena dia e noite da dobra 3 (seção 8).
+- **Transparência permitida** nas quatro cores (ex.: azul-marinho a 6% como fundo de cartão, a 70% como texto secundário). Nenhuma cor nova, com duas exceções: a cena dia e noite da dobra 3 (seção 8) e a imagem de satélite do bloco "Onde atuamos" (dobra 7), que é foto. Os traços desenhados sobre ela (borda, raio, pontos e nomes) usam só as cores da logo.
 - **Contraste:**
 
   | Combinação | Contraste | Uso |
@@ -248,7 +248,7 @@ Registrar em `VERIFICACAO.md`, com os prints em `verificacao/`:
 
 ## 12. Em aberto
 
-- Fotos das 40 obras, foto da equipe e vídeos de depoimento: até chegarem, usar placeholders.
+- Fotos das 40 obras e foto da equipe: até chegarem, usar placeholders.
 - Marca do inversor, nomes dos bancos, link do Google, dados de contato reais e razão social.
 - Destino do pedido de simulação (hoje é placeholder).
 - Avisar o cliente sobre a lista riscada (dobra 2) e a estimativa do formulário, por causa do Procon.

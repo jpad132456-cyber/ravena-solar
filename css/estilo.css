@@ -233,7 +233,6 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
   background: var(--marinho-06);
   min-height: 120px;
 }
-.proporcao-video { aspect-ratio: 16 / 9; }
 
 /* ---------- Cabeçalho fixo e barra do celular ---------- */
 
@@ -570,12 +569,10 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
   .ficha-destaque::before { top: 24px; bottom: 24px; }
 }
 
-.videos, .fotos { display: grid; gap: 16px; margin-top: 24px; }
-.videos .rotulo { margin-top: 8px; }
-.fotos { grid-template-columns: repeat(2, 1fr); }
+.fotos { display: grid; gap: 16px; margin-top: 24px; grid-template-columns: repeat(2, 1fr); }
 .fotos .aguardando-bloco { aspect-ratio: 4 / 3; min-height: 0; }
 @media (min-width: 768px) {
-  .videos, .fotos { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .fotos { grid-template-columns: repeat(3, 1fr); gap: 24px; }
 }
 
 /* ---------- 05 Convite (azul-marinho; único lugar do degradê âmbar → laranja) ---------- */
@@ -674,6 +671,30 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
 .foto-trapezio .grade line { stroke: var(--marinho-25); stroke-width: 1; }
 .foto-trapezio figcaption { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background: var(--branco); white-space: nowrap; }
 @media (min-width: 768px) { .quem-grade { grid-template-columns: 1fr 1fr; gap: 64px; } }
+
+/* Onde atuamos: a imagem de satélite é a única outra exceção de cor (DESIGN.md, seção 5). */
+.atuacao { display: grid; gap: 32px; align-items: center; padding-top: 40px; border-top: 1px solid var(--marinho-15); }
+.atuacao-texto > * + * { margin-top: 16px; }
+.mapa { margin: 0; }
+.mapa-circulo { position: relative; width: 100%; max-width: 480px; margin: 0 auto; aspect-ratio: 1; }
+.mapa-circulo img { display: block; width: 100%; height: 100%; border-radius: 50%; }
+.mapa-circulo svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.mapa-borda { fill: none; stroke: var(--ambar); stroke-width: 4; vector-effect: non-scaling-stroke; }
+.mapa-raio { stroke: var(--branco); stroke-width: 2; stroke-dasharray: 6 4; vector-effect: non-scaling-stroke; }
+.mapa-centro, .mapa-ponto { fill: var(--ambar); stroke: var(--marinho); stroke-width: 2; vector-effect: non-scaling-stroke; }
+/* Nomes das quatro cidades do brief, presos aos pontos (left/top no HTML, em % do recorte). */
+.mapa-cidade { position: absolute; padding: 1px 6px; border-radius: var(--raio); background: var(--branco); color: var(--marinho); font-size: 13px; line-height: 18px; font-weight: 700; white-space: nowrap; }
+.mapa-cidade-direita { transform: translate(10px, -50%); }
+.mapa-cidade-acima { transform: translate(-50%, calc(-100% - 10px)); }
+/* Salto e Itu ficam a ~7 km um do outro: afasta os nomes para não se tocarem. */
+.mapa-salto { transform: translate(10px, -80%); }
+.mapa-itu { transform: translate(10px, -20%); }
+/* A 56% do raio desenhado, a partir do centro. */
+.mapa-raio-rotulo { position: absolute; left: 36%; top: 74.2%; transform: translate(-50%, -50%); padding: 2px 8px; border-radius: var(--raio); background: var(--branco); color: var(--marinho); }
+.mapa figcaption { margin-top: 16px; text-align: center; color: var(--marinho-70); }
+@media (min-width: 768px) {
+  .atuacao { grid-column: 1 / -1; grid-template-columns: 1fr 1fr; gap: 64px; padding-top: 64px; }
+}
 
 /* ---------- 08 Fechamento ---------- */
 
