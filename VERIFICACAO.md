@@ -158,4 +158,6 @@ Conferido em 2/11/2026, com simulações no Node (planilha e Vercel falsos):
 | Vercel: GET, corpo inválido, código com caracteres estranhos | 405, 400, 400, sem repassar |
 | Vercel: envio válido | Junta IP (primeiro do `x-forwarded-for`), cidade, estado e país; limita a dobra a 9 e a rolagem a 0–100; descarta botão desconhecido; responde 204 |
 
+**Instalado em 2/11/2026:** planilha "Ravena Solar — Registro de acessos" no Google Drive do usuário, com o Apps Script colado, `instalar()` rodado (abas "Visitas" e "Pessoas" e limpeza diária às 3h) e implantado como App da Web. `PLANILHA_URL` configurado no Vercel (Production, tipo Secret). Um envio de teste direto para a planilha respondeu "ok"; as linhas de teste têm "teste" na coluna "Ambiente".
+
 **Falta conferir no navegador:** os envios do `js/registro.js` (entrada, botões, passos do formulário e saída), o segundo parágrafo da política no rodapé a 375 e 1440 px e um registro de ponta a ponta na planilha, no site no ar, com `PLANILHA_URL` configurado no Vercel.
