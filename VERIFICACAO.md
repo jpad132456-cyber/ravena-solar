@@ -139,8 +139,23 @@ Corrigido nesta verificação: nos quadros estáticos do computador, o painel "S
 ## 9. Pendências e limites
 
 - **Rolagem animada contínua:** o navegador de teste roda em segundo plano e não executa a rolagem suave contínua. A animação foi conferida posicionando a página em cada fase, e o código tem um recurso que pula direto para o formulário se a rolagem suave não acontecer. Falta ver o movimento ao vivo numa tela visível.
-- **Imagem de compartilhamento:** `assets/og.png` (logo sobre fundo branco, 1200 × 630). A meta tag aponta para o endereço de produção, então só funciona depois que a branch for para a `main`.
+- **Imagem de compartilhamento:** `assets/og.png` (logo sobre fundo branco, 1200 × 630). A meta tag aponta para o endereço de produção, então só funciona no site no ar.
 - **Fotos das obras e da equipe:** ilustrativas, baixadas do Google Imagens (negócio fictício, `DESIGN.md`, seção 2). Conferidas a 375 e 1440 px em 2/11/2026: galeria em 2 colunas no celular e 3 no computador, sem rolagem lateral; foto da equipe recortada no trapézio, com a grade branca por cima.
 - **Placeholders retirados (2/11/2026):** a pedido do usuário, a página não tem mais nenhum `[aguardando: …]`. Razão social, endereço, telefone, WhatsApp e marca do inversor foram preenchidos e a política de privacidade foi escrita; o link do Google foi retirado. Origem de cada dado no `briefing.md`, seção 16. Conferido a 375 e 1440 px, sem rolagem lateral e sem erro no console: `computador-1440-04-prova-preenchido.jpg`, `computador-1440-07-quem-somos-preenchido.jpg`, `celular-375-07-quem-somos-preenchido.jpg`, `computador-1440-09-rodape-preenchido.jpg` e `celular-375-09-rodape-preenchido.jpg`. Os prints antigos das dobras 4, 7 e do rodapé ainda mostram os placeholders.
 - **Ainda depende do cliente:** destino do pedido de simulação (não aparece na página).
 - **Avisar o cliente**, por causa do Procon: a lista riscada da dobra 2 e a estimativa do formulário (`DESIGN.md`, seção 12).
+
+## 10. Registro de acessos (`DESIGN.md`, seção 13)
+
+Conferido em 2/11/2026, com simulações no Node (planilha e Vercel falsos):
+
+| Teste | Resultado |
+|---|---|
+| Planilha: código de visita inválido | Recusado ("negado"), nada gravado |
+| Planilha: três envios da mesma visita, um fora de ordem | Uma linha só em "Visitas", com o maior "até onde foi" (5. Simulação), a maior rolagem e a soma dos botões (Hero, Barra do celular) |
+| Planilha: segunda visita da mesma pessoa | "Pessoas" com 2 visitas, mais longe 9. Rodapé, formulário 3. Enviou |
+| Planilha: limpeza diária | Apaga a visita com mais de 180 dias e mantém a recente |
+| Vercel: GET, corpo inválido, código com caracteres estranhos | 405, 400, 400, sem repassar |
+| Vercel: envio válido | Junta IP (primeiro do `x-forwarded-for`), cidade, estado e país; limita a dobra a 9 e a rolagem a 0–100; descarta botão desconhecido; responde 204 |
+
+**Falta conferir no navegador:** os envios do `js/registro.js` (entrada, botões, passos do formulário e saída), o segundo parágrafo da política no rodapé a 375 e 1440 px e um registro de ponta a ponta na planilha, no site no ar, com `PLANILHA_URL` configurado no Vercel.

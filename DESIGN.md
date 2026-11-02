@@ -33,7 +33,7 @@ Todas as decisões de design e de conteúdo da página. Os dados da empresa est�
 | 6 | Perguntas frequentes | As seis objeções, na ordem do `briefing.md` (seção 5.1), com respostas curtas tiradas do brief, abertas em duas colunas (sem acordeão). Cada pergunta numerada de 01 a 06 em Plex Mono, com o raio do sol em âmbar como marcador; cada resposta começa pelo veredito em negrito, com os números em Plex Mono. No fim: "Ainda tem dúvida? Pergunte na simulação." | Seis mini-desenhos, um por pergunta, no mesmo quadro e em escala 1:1, com o dado principal em Plex Mono: carimbo (412 sistemas, 6 anos, sede em Sorocaba); corte do telhado de barro (5 anos de garantia, inclui infiltração causada pela obra); degraus da Lei 14.300 (sem números); casa → casa com o painel indo junto; sol, nuvem e lua com a produção e o crédito do mês; casa ↔ poste da rede da CPFL (sem bateria). Os traços se desenham uma vez ao entrar na tela | — |
 | 7 | Quem somos | A empresa que some ("pelo menos três empresas que fecharam deixando obra pela metade"), como contraste; seis anos; onze pessoas; integradora; equipe própria com carteira assinada; assistência técnica autorizada da marca do inversor (Inversul, `briefing.md`, seção 16). Bloco "Onde atuamos": "Atendemos Sorocaba, Votorantim, Itu e Salto, num raio de 80 km." e "A distribuidora da região é a CPFL." | Foto da equipe recortada no trapézio do painel; mapa de satélite recortado num círculo de 80 km centrado em Sorocaba, com as quatro cidades marcadas | — |
 | 8 | Fechamento | Uma frase | Fundo azul-marinho (o fim do dia) | **Simulação nº 3** (campo da conta) |
-| — | Rodapé | Razão social, endereço, telefone, WhatsApp e política de privacidade (texto curto, no próprio carimbo), com os dados do `briefing.md`, seção 16 | Carimbo de prancha técnica | — |
+| — | Rodapé | Razão social, endereço, telefone, WhatsApp e política de privacidade (texto curto, no próprio carimbo, incluindo o registro de acessos da seção 13), com os dados do `briefing.md`, seção 16 | Carimbo de prancha técnica | — |
 
 ### 3.1 Lista "O que você não vai ouvir de nós" (dobra 2)
 
@@ -252,3 +252,14 @@ Registrar em `VERIFICACAO.md`, com os prints em `verificacao/`:
 - Nomes dos bancos e link do Google (fora da página até existirem). Contatos, razão social e marca do inversor foram adotados em 2/11/2026 (`briefing.md`, seção 16) e podem ser trocados pelos reais.
 - Destino do pedido de simulação (hoje é placeholder).
 - Avisar o cliente sobre a lista riscada (dobra 2) e a estimativa do formulário, por causa do Procon.
+
+## 13. Registro de acessos
+
+Decidido pelo usuário em 2/11/2026. Cada visita é registrada **por pessoa**, numa planilha do Google.
+
+- **O que registra:** IP, horário, cidade, estado e país (calculados pelo Vercel a partir do IP, sem pedir a localização ao navegador), até onde a pessoa foi (a dobra mais funda: conta quando o topo dela passa do meio da tela; o rodapé conta quando aparece no fim da página), a maior % rolada, os botões de simulação usados e até onde chegou no formulário (não mexeu, começou a preencher, chegou ao passo 2, enviou). **Nunca o que a pessoa digita.**
+- **Botões:** os mesmos nomes do campo `origem` (seção 4), mas o botão do cabeçalho fixo vira `cabecalho` e o atalho "Ir para a simulação" vira `pular`, para não se misturarem com a barra do celular.
+- **Por pessoa:** um código aleatório guardado no navegador (`localStorage`, chave `ravena-visitante`), sem nome nem dado de contato. Se o navegador não deixar guardar, vale só para aquela visita. Sem cookies.
+- **Caminho:** `js/registro.js` (navegador) → `api/registro.js` (função do Vercel, que junta IP, horário e localização) → `planilha/registro.gs` (Apps Script da planilha). O endereço da planilha fica só na variável `PLANILHA_URL` do Vercel (ele funciona como chave), nunca no código nem na página.
+- **Planilha:** aba "Visitas" (uma linha por visita) e aba "Pessoas" (uma linha por navegador, com o total de visitas e o mais longe que já foi). A coluna "Ambiente" marca de onde veio o registro (`production` no site no ar).
+- **LGPD:** base no legítimo interesse, explicada na política de privacidade do rodapé, sem faixa de consentimento. Registros apagados 6 meses depois da última visita, por uma limpeza diária na própria planilha.

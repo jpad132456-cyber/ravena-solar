@@ -336,7 +336,7 @@ O usuário pediu para tirar todos os placeholders visíveis da página e preench
 | Telefone | "(15) 3200-0000" | Site antigo (seção 10) |
 | WhatsApp | "(15) 99000-0000" | Site antigo (seção 10) |
 | Marca do inversor (assistência técnica autorizada) | "Inversul" | Site antigo, lista de "Parceiros" (seção 11.1) |
-| Política de privacidade | Texto curto no rodapé: dados usados só para a simulação e o contato pelo WhatsApp, base no consentimento (LGPD), sem venda nem repasse, pedido de correção ou exclusão pelo WhatsApp, página sem cookies | Escrita a partir do formulário (seção 7.2) |
+| Política de privacidade | Texto curto no rodapé: dados usados só para a simulação e o contato pelo WhatsApp, base no consentimento (LGPD), sem venda nem repasse, pedido de correção ou exclusão pelo WhatsApp, página sem cookies. Segundo parágrafo sobre o registro de acessos (IP, horário, cidade, até onde rolou, uso da simulação, código no navegador, legítimo interesse, planilha do Google, 6 meses) | Escrita a partir do formulário (seção 7.2) e do registro de acessos (`DESIGN.md`, seção 13) |
 | Link da página no Google | Retirado da página | Não há como inventar um link |
 
 Ficaram de fora da página: CNPJ e CEP (no site antigo são sequências de zeros), e-mail (o domínio pode pertencer a outra pessoa), nomes dos bancos e destino do pedido de simulação.

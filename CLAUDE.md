@@ -60,8 +60,9 @@ Em 2/11/2026 o usuário mandou tirar todos os placeholders da página: contatos,
 
 - **Stack:** HTML, CSS e JavaScript puros, sem framework, sem biblioteca e sem etapa de build.
 - **Estrutura:** `index.html` na raiz, `css/`, `js/` e `assets/` (logo, fontes e imagens). Nada carregado de fora da pasta.
+- **Registro de acessos:** `js/registro.js` → função do Vercel em `api/registro.js` → planilha do Google (`planilha/registro.gs`). Registra IP, horário, localização, até onde a pessoa foi e se usou a simulação, por pessoa, sem guardar o que ela digita. Detalhes no `DESIGN.md`, seção 13.
 - **Repositório:** `github.com/jpad132456-cyber/ravena-solar` (público), branch `main`.
-- **Hospedagem:** Vercel, projeto `ravena-solar` (https://ravena-solar-kappa.vercel.app). Cada envio para a `main` publica **direto em produção**. Para testar, trabalhar numa branch: o Vercel gera uma prévia dela. Só levar para a `main` o que foi aprovado.
+- **Hospedagem:** Vercel, projeto `ravena-solar` (https://ravena-solar-kappa.vercel.app). Cada envio para a `main` publica **direto em produção**. Trabalhar direto na `main`, sem criar branch.
 - **Envio do formulário:** placeholder. O formulário valida os campos e mostra a confirmação, mas não envia nada até o cliente definir para onde vão os pedidos. Deixar isso comentado no código e registrado no `VERIFICACAO.md`.
 
 ## Ordem de trabalho
