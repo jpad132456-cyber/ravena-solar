@@ -457,44 +457,89 @@
   }
 
   // ---------- Fundo do hero (01/08) ----------
-  // No computador, com mouse, a grade acende em volta do cursor e a mira se prende ao
-  // cruzamento mais próximo. No celular, sem JavaScript ou com prefers-reduced-motion,
-  // fica só a grade parada.
+  // No computador, com mouse, os quadradinhos da grade em volta do cursor acendem
+  // devagar e apagam mais devagar ainda, num rastro leve. Só desenha enquanto algo
+  // está mudando. No celular, sem JavaScript ou com prefers-reduced-motion, fica só
+  // a grade parada.
 
   var hero = document.getElementById('hero');
-  var fundoHero = hero && hero.querySelector('.hero-fundo');
-  if (fundoHero && !movimentoReduzido && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    var GRADE = 32; // lado do quadriculado, em px (--grade no CSS)
-    var cursorX = 0, cursorY = 0, miraPedida = false;
+  var luzHero = hero && hero.querySelector('.hero-luz');
+  if (luzHero && luzHero.getContext && !movimentoReduzido && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    var GRADE = 32;                    // lado do quadriculado, em px (--grade no CSS)
+    var RAIO_LUZ = 80;                 // alcance da luz em volta do cursor, em px
+    var SUBIDA = 500, DESCIDA = 1600;  // tempo de acender e de apagar, em ms
+    var FUNDO_LUZ = 0.03, TRACO_LUZ = 0.04; // opacidade máxima do quadradinho e da linha (somada com a vizinha)
+    var MARINHO = '18, 58, 85';        // azul-marinho da logo
+    var pincel = luzHero.getContext('2d');
+    var largura = 0, altura = 0, origemX = 0, colunas = 0, linhas = 0, brilho = [];
+    var cursorX = 0, cursorY = 0, mouseNoHero = false, luzRodando = false, ultimoQuadro = 0;
 
-    var mirar = function () {
-      miraPedida = false;
+    var medirLuz = function () {
+      var escala = window.devicePixelRatio || 1;
+      largura = hero.clientWidth;
+      altura = hero.clientHeight;
+      luzHero.width = Math.round(largura * escala);
+      luzHero.height = Math.round(altura * escala);
+      pincel.setTransform(escala, 0, 0, escala, 0, 0);
+      // A grade é centrada na largura (background-position: 50%), a partir do topo.
+      origemX = ((largura - GRADE) / 2) % GRADE - GRADE;
+      colunas = Math.ceil((largura - origemX) / GRADE);
+      linhas = Math.ceil(altura / GRADE);
+      brilho = [];
+      for (var k = 0; k < colunas * linhas; k++) brilho.push(0);
+    };
+
+    var quadroLuz = function (agora) {
+      var dt = Math.max(0, Math.min(agora - ultimoQuadro, 100));
+      ultimoQuadro = agora;
       var caixa = hero.getBoundingClientRect();
       var x = cursorX - caixa.left, y = cursorY - caixa.top;
-      // A grade é centrada na largura (background-position: 50%), a partir do topo.
-      var origem = ((caixa.width - GRADE) / 2) % GRADE;
-      fundoHero.style.setProperty('--x', x + 'px');
-      fundoHero.style.setProperty('--y', y + 'px');
-      fundoHero.style.setProperty('--mx', origem + Math.round((x - origem) / GRADE) * GRADE + 'px');
-      fundoHero.style.setProperty('--my', Math.round(y / GRADE) * GRADE + 'px');
+      var mudando = false;
+      pincel.clearRect(0, 0, largura, altura);
+      for (var j = 0; j < linhas; j++) {
+        for (var i = 0; i < colunas; i++) {
+          var k = j * colunas + i;
+          var cx = origemX + i * GRADE, cy = j * GRADE;
+          var alvo = 0;
+          if (mouseNoHero) {
+            var t = Math.max(0, 1 - Math.hypot(cx + GRADE / 2 - x, cy + GRADE / 2 - y) / RAIO_LUZ);
+            alvo = t * t * (3 - 2 * t);
+          }
+          var b = brilho[k];
+          if (alvo === 0 && b === 0) continue;
+          b += (alvo - b) * (1 - Math.exp(-dt / (alvo > b ? SUBIDA : DESCIDA)));
+          if (Math.abs(alvo - b) < 0.003) b = alvo; else mudando = true;
+          brilho[k] = b;
+          if (b === 0) continue;
+          pincel.fillStyle = 'rgba(' + MARINHO + ',' + FUNDO_LUZ * b + ')';
+          pincel.fillRect(cx + 1, cy + 1, GRADE - 1, GRADE - 1);
+          pincel.strokeStyle = 'rgba(' + MARINHO + ',' + TRACO_LUZ * b + ')';
+          pincel.strokeRect(cx + 0.5, cy + 0.5, GRADE, GRADE);
+        }
+      }
+      if (mudando) requestAnimationFrame(quadroLuz);
+      else luzRodando = false;
     };
-    var pedirMira = function () {
-      if (miraPedida) return;
-      miraPedida = true;
-      requestAnimationFrame(mirar);
+    var ligarLuz = function () {
+      if (luzRodando) return;
+      luzRodando = true;
+      ultimoQuadro = performance.now();
+      requestAnimationFrame(quadroLuz);
     };
+
+    medirLuz();
+    if ('ResizeObserver' in window) new ResizeObserver(medirLuz).observe(hero);
+    else window.addEventListener('resize', medirLuz);
 
     hero.addEventListener('pointermove', function (e) {
       if (e.pointerType !== 'mouse') return;
       cursorX = e.clientX; cursorY = e.clientY;
-      pedirMira();
-      hero.classList.add('mirando');
+      mouseNoHero = true;
+      ligarLuz();
     });
-    hero.addEventListener('pointerleave', function () { hero.classList.remove('mirando'); });
+    hero.addEventListener('pointerleave', function () { mouseNoHero = false; ligarLuz(); });
     // A rolagem move a página sob o mouse parado.
-    window.addEventListener('scroll', function () {
-      if (hero.classList.contains('mirando')) pedirMira();
-    }, { passive: true });
+    window.addEventListener('scroll', function () { if (mouseNoHero) ligarLuz(); }, { passive: true });
   }
 
   // ---------- Mini-desenhos da dobra 6 ----------

@@ -239,8 +239,9 @@ A ordem do `DESIGN.md` está mantida. Para cada dobra há duas ou três versões
 
 ## 9. Fundo do hero que reage ao mouse (2/11/2026)
 
-Escolhido: grade que acende em volta do cursor + mira presa ao cruzamento (`DESIGN.md`, seção 7). Ficaram de fora:
+Escolhido: quadradinhos da grade que acendem de leve por onde o mouse passa (`DESIGN.md`, seção 7). Ficaram de fora:
 
+- **Mira de desenhista e cruzes nos cruzamentos:** mira tracejada presa ao cruzamento mais próximo, réguas nas bordas e uma cruz em cada cruzamento perto do cursor. Publicada e tirada no mesmo dia: exagerada.
 - **Grade do painel em perspectiva:** o trapézio da logo gigante no fundo, com as células perto do mouse acendendo em âmbar fraco. Disputa com o painel que acende do caso.
 - **Campo de raios:** malha de raios do sol da logo que giram para apontar para o cursor. ❓ O cursor vira um sol, e a página não tem outro sol animado.
 - **Cotas que aparecem:** fundo limpo; o hover no título mostra uma cota sob "75% a 90%" e, no quadro do caso, uma linha de chamada.

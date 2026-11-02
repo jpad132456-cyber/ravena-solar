@@ -47,15 +47,10 @@
 
   <!-- 01/08 · Hero -->
   <section class="dobra dobra-hero" id="hero" aria-labelledby="hero-titulo">
-    <!-- Fundo de prancha: grade fraca. No computador, a grade acende em volta do mouse e a mira
-         se prende ao cruzamento mais próximo, com réguas nas bordas (js/pagina.js). -->
+    <!-- Fundo de prancha: grade fraca. No computador, os quadradinhos acendem de leve
+         por onde o mouse passa (js/pagina.js). -->
     <div class="hero-fundo" aria-hidden="true">
-      <div class="hero-lanterna"></div>
-      <div class="hero-regua hero-regua-topo"></div>
-      <div class="hero-regua hero-regua-lado"></div>
-      <div class="mira-h"></div>
-      <div class="mira-v"></div>
-      <div class="mira-ponto"></div>
+      <canvas class="hero-luz"></canvas>
     </div>
     <div class="dentro hero-grade">
       <div class="hero-texto">
