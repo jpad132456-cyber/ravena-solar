@@ -358,6 +358,90 @@
     }).observe(campoFechamento);
   }
 
+  // ---------- Contador do hero (01/08) ----------
+  // A conta de Sorocaba cai de R$ 780 para R$ 118 como um relógio de luz girando
+  // ao contrário: cada dígito é um cilindro, e o da casa de cima só vira quando o
+  // de baixo passa pelo zero. A cota ao lado encolhe na mesma proporção. Roda uma
+  // vez, quando o quadro aparece. Com prefers-reduced-motion, já fica no valor final.
+
+  var contador = document.querySelector('.contador');
+  if (contador) {
+    var quadroCaso = contador.closest('.antes-depois');
+    var cotaMedida = quadroCaso.querySelector('.cota-medida');
+    var contaDe = parseInt(contador.dataset.de, 10);
+    var contaPara = parseInt(contador.dataset.para, 10);
+    var casas = String(contaDe).length;
+    var PASSO = 1.05; // altura de um dígito, em em (line-height do .numero-grande)
+    var fitas = [];
+
+    var lido = document.createElement('span');
+    lido.className = 'visualmente-oculto';
+    lido.textContent = formatarReais(contaPara);
+    var visual = document.createElement('span');
+    visual.setAttribute('aria-hidden', 'true');
+    visual.appendChild(document.createTextNode('R$'));
+    for (var c = 0; c < casas; c++) {
+      var cilindro = document.createElement('span');
+      cilindro.className = 'cilindro' + (c === casas - 1 ? ' cilindro-unidade' : '');
+      // 0 a 9 e mais um 0, para a volta do 0 para o 9 ser contínua.
+      cilindro.innerHTML = '<span class="cilindro-molde">0</span><span class="cilindro-fita">' +
+        '<span>0</span><span>1</span><span>2</span><span>3</span><span>4</span>' +
+        '<span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>0</span></span>';
+      fitas.unshift(cilindro.lastChild); // fitas[0] = unidade
+      visual.appendChild(cilindro);
+    }
+    contador.textContent = '';
+    contador.appendChild(lido);
+    contador.appendChild(visual);
+
+    var mostrarConta = function (valor) {
+      for (var k = 0; k < casas; k++) {
+        var base = Math.pow(10, k);
+        var posicao = valor / base;
+        if (k > 0) {
+          // Vira só enquanto a casa de baixo vai do 9 ao 0.
+          var resto = valor % base;
+          posicao = Math.floor(posicao) + Math.max(0, resto - (base - 1));
+        }
+        fitas[k].style.transform = 'translateY(' + (-(posicao % 10) * PASSO).toFixed(4) + 'em)';
+      }
+      cotaMedida.style.height = (valor / contaDe * 100).toFixed(2) + '%';
+    };
+
+    contador.classList.add('montado');
+
+    if (!document.documentElement.classList.contains('hero-anima') || movimentoReduzido) {
+      mostrarConta(contaPara);
+      quadroCaso.classList.add('caiu');
+    } else {
+      mostrarConta(contaDe);
+      var DURACAO = 2200;
+      var rodarContador = function () {
+        var inicio = null;
+        var quadro = function (agora) {
+          if (inicio === null) inicio = agora;
+          var t = Math.min(1, (agora - inicio) / DURACAO);
+          var suave = 1 - Math.pow(1 - t, 4); // rápido no começo, devagar no fim
+          mostrarConta(contaDe - (contaDe - contaPara) * suave);
+          if (t < 1) requestAnimationFrame(quadro);
+          else quadroCaso.classList.add('caiu');
+        };
+        requestAnimationFrame(quadro);
+      };
+      // Espera o quadro aparecer e deixa o R$ 780 ser lido antes de cair.
+      if ('IntersectionObserver' in window) {
+        var observadorCaso = new IntersectionObserver(function (entradas) {
+          if (!entradas[0].isIntersecting) return;
+          observadorCaso.disconnect();
+          setTimeout(rodarContador, 500);
+        }, { threshold: 0.6 });
+        observadorCaso.observe(quadroCaso);
+      } else {
+        setTimeout(rodarContador, 500);
+      }
+    }
+  }
+
   // ---------- Mini-desenhos da dobra 6 ----------
   // Os traços se desenham uma vez, ao entrar na tela. Sem JavaScript ou com
   // prefers-reduced-motion, os desenhos aparecem prontos.

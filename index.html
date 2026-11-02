@@ -18,6 +18,17 @@
   <link rel="preload" href="assets/fonts/IBMPlexSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/IBMPlexSans-Bold.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/estilo.css">
+  <script>
+    // Antes da primeira pintura: liga o contador do hero (sem piscar o valor final).
+    // Se o pagina.js não rodar em 3 s, volta tudo ao estado sem JavaScript.
+    (function (h) {
+      h.classList.add('js');
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) h.classList.add('hero-anima');
+      setTimeout(function () {
+        if (!document.querySelector('.contador.montado')) h.classList.remove('js', 'hero-anima');
+      }, 3000);
+    })(document.documentElement);
+  </script>
   <script src="js/pagina.js" defer></script>
 </head>
 <body>
@@ -54,15 +65,11 @@
       <figure class="antes-depois" aria-labelledby="caso-resumo">
         <figcaption id="caso-resumo" class="rotulo">Casa em Sorocaba</figcaption>
         <div class="antes-depois-linhas">
-          <svg class="cota" viewBox="0 0 24 200" preserveAspectRatio="none" aria-hidden="true">
-            <line x1="4" y1="1" x2="20" y2="1"/>
-            <line x1="12" y1="1" x2="12" y2="199"/>
-            <line x1="4" y1="199" x2="20" y2="199"/>
-            <path d="M7 186 L12 198 L17 186"/>
-          </svg>
+          <!-- Altura da conta: o tracejado é a de antes, a barra é a de agora (118/780). -->
+          <div class="cota-conta" aria-hidden="true"><span class="cota-medida"></span></div>
           <div class="antes-depois-valores">
             <p class="ad-linha ad-antes"><span class="rotulo">Antes</span> <s class="numero">R$ 780</s><span class="pequeno">/mês</span></p>
-            <p class="ad-linha ad-depois"><span class="rotulo">Depois</span> <strong class="numero numero-grande">R$ 118</strong><span class="pequeno">/mês</span><span class="pequeno ad-obs">média dos últimos doze meses</span></p>
+            <p class="ad-linha ad-depois"><span class="rotulo">Depois</span> <strong class="numero numero-grande contador" data-de="780" data-para="118">R$ 118</strong><span class="pequeno">/mês</span><span class="pequeno ad-obs">média dos últimos doze meses</span></p>
           </div>
         </div>
       </figure>

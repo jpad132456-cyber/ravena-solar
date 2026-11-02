@@ -269,9 +269,16 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
 /* ---------- 01 Hero ---------- */
 
 .dobra-hero { padding-top: 40px; }
-.hero-grade { display: grid; gap: 40px; }
+/* Celular: o texto se desfaz na grade para o quadro do caso vir logo depois do subtítulo,
+   antes do campo da conta, e a animação aparecer na primeira tela. */
+.hero-grade { display: grid; }
+.hero-texto { display: contents; }
 .hero-texto > * + * { margin-top: 24px; }
 .hero-texto .rotulo + .titulo-hero { margin-top: 16px; }
+.hero-grade .antes-depois { order: 1; margin-top: 32px; }
+.hero-texto .campo-conta { order: 2; margin-top: 32px; }
+.hero-texto .campo-conta + .pequeno { order: 2; }
+.hero-grade .nota { order: 3; margin-top: 40px; }
 
 .antes-depois {
   border: 1px solid var(--marinho);
@@ -280,25 +287,63 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
   align-self: start;
 }
 .antes-depois-linhas { display: flex; gap: 16px; margin-top: 24px; }
-.cota { width: 24px; flex: none; fill: none; stroke: var(--marinho); stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-.cota * { vector-effect: non-scaling-stroke; }
+/* Cota da conta: o tracejado mede a conta de antes; a barra, a de agora. A altura da barra é posta pelo JS. */
+.cota-conta { position: relative; width: 16px; flex: none; }
+.cota-conta::before { content: ""; position: absolute; inset: 0; border: 1px dashed var(--marinho-70); border-radius: 2px; }
+.cota-medida { position: absolute; left: 0; right: 0; bottom: 0; height: 15.13%; background: var(--marinho); border-radius: 2px; }
 .antes-depois-valores { display: grid; gap: 24px; flex: 1; }
 .ad-linha { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
 .ad-linha .rotulo, .ad-obs { width: 100%; }
 .ad-obs { color: var(--marinho-70); }
-.ad-antes s { font-family: var(--mono); font-size: var(--media); color: var(--marinho-70); text-decoration-color: var(--marinho); }
+/* Risco âmbar desenhado com fundo (dá para animar), como na lista da dobra 2. */
+.ad-antes s {
+  font-family: var(--mono); font-size: var(--media); color: var(--marinho-70);
+  text-decoration: none;
+  background: linear-gradient(var(--ambar), var(--ambar)) no-repeat 0 55% / 100% 3px;
+  transition: background-size .5s ease-out;
+}
+@media (forced-colors: active) { .ad-antes s { text-decoration: line-through; } }
 .ad-depois .numero-grande {
   font-weight: 400;
   background: linear-gradient(transparent 62%, var(--ambar) 62%, var(--ambar) 90%, transparent 90%);
 }
 
+/* Contador: cada dígito é um cilindro, como no relógio de luz. Montado pelo JS. */
+.js .contador:not(.montado) { visibility: hidden; }
+.ad-depois .contador.montado { background: none; }
+.cilindro {
+  position: relative; display: inline-block;
+  margin-left: .06em; padding: 0 .04em;
+  border: 1px solid var(--marinho); border-radius: var(--raio);
+  background: var(--marinho-06);
+  clip-path: inset(0 round var(--raio));
+}
+.cilindro:first-of-type { margin-left: .12em; }
+.cilindro-unidade { background: var(--ambar); }
+.cilindro-molde { visibility: hidden; }
+.cilindro-fita { position: absolute; top: 0; left: .04em; right: .04em; }
+.cilindro-fita span { display: block; text-align: center; }
+
+/* Enquanto a conta cai: risco e rótulo "Depois" escondidos; aparecem quando o contador para. */
+.ad-depois .rotulo, .ad-obs { transition: opacity .4s ease-out; }
+.hero-anima .cota-medida { height: 100%; }
+.hero-anima .antes-depois:not(.caiu) .ad-antes s { background-size: 0% 3px; }
+.hero-anima .antes-depois:not(.caiu) .ad-depois .rotulo,
+.hero-anima .antes-depois:not(.caiu) .ad-obs { opacity: 0; }
+
 .hero-grade .nota { grid-column: 1 / -1; }
 
-@media (min-width: 768px) {
+/* Abaixo de 1024 px o destaque inteiro numa linha empurra o quadro do caso para fora da tela. */
+@media (min-width: 1024px) {
   .titulo-hero mark { white-space: nowrap; }
+}
+@media (min-width: 768px) {
   .dobra-hero { padding-top: 80px; }
-  .hero-grade { grid-template-columns: 7fr 4fr; column-gap: 64px; row-gap: 32px; }
-  .antes-depois { margin-top: 48px; }
+  .hero-grade { grid-template-columns: minmax(0, 7fr) minmax(auto, 4fr); column-gap: 64px; row-gap: 32px; }
+  .hero-texto { display: block; }
+  .hero-texto .campo-conta { margin-top: 24px; }
+  .hero-grade .antes-depois { margin-top: 48px; }
+  .hero-grade .nota { margin-top: 0; }
 }
 
 /* ---------- 02 Problema ---------- */
