@@ -242,7 +242,7 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
   height: var(--cabecalho);
   background: var(--branco);
   border-bottom: 1px solid var(--marinho-15);
-  transition: transform .2s;
+  transition: transform .2s, visibility 0s;
 }
 .cabecalho-dentro {
   height: 100%; max-width: var(--largura); margin: 0 auto; padding: 0 var(--gutter);
@@ -251,7 +251,7 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
 .cabecalho-logo img { width: 150px; height: auto; }
 .botao-cabecalho { display: none; min-height: 40px; padding: 4px 16px; font-size: var(--pequena); }
 @media (min-width: 768px) { .botao-cabecalho { display: inline-flex; } }
-.cabecalho.oculto { transform: translateY(-100%); }
+.cabecalho.oculto { transform: translateY(-100%); visibility: hidden; transition: transform .2s, visibility 0s .2s; }
 
 .barra {
   position: fixed; inset: auto 0 0 0; z-index: 20;
@@ -259,9 +259,10 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
   background: var(--branco);
   border-top: 1px solid var(--marinho);
   transform: translateY(110%);
-  transition: transform .2s;
+  visibility: hidden;   /* escondida também para o teclado e leitores de tela */
+  transition: transform .2s, visibility 0s .2s;
 }
-.barra.visivel { transform: none; }
+.barra.visivel { transform: none; visibility: visible; transition: transform .2s, visibility 0s; }
 .campo-conta-barra { display: flex; gap: 8px; max-width: none; }
 .campo-conta-barra .campo { flex: 1 1 auto; min-width: 0; }
 @media (min-width: 768px) { .barra { display: none; } }
@@ -394,9 +395,10 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
 .credito-marca { position: absolute; left: -5px; right: -5px; bottom: 20%; height: 2px; background: currentColor; border-radius: 1px; }
 .cena-palco-noite .credito-painel { background: var(--marinho); color: var(--branco); border-color: var(--branco-25); }
 @media (min-width: 768px) {
-  .credito-painel { position: absolute; right: 12px; bottom: 12px; margin: 0; border-top: 1px solid var(--marinho-25); border-radius: var(--raio); }
-  .cena-palco-noite .credito-painel { border-top-color: var(--branco-25); }
-  .credito-texto { max-width: 15ch; }
+  /* dentro da cena só na animação, que é grande; nos quadros estáticos (menores) fica colado embaixo */
+  .cena-palco-anim .credito-painel { position: absolute; right: 12px; bottom: 12px; margin: 0; border-top: 1px solid var(--marinho-25); border-radius: var(--raio); }
+  .cena-palco-anim.cena-palco-noite .credito-painel { border-top-color: var(--branco-25); }
+  .cena-palco-anim .credito-texto { max-width: 15ch; }
 }
 .cena-legendas { display: grid; gap: 8px; margin-top: 8px; }
 @media (min-width: 768px) {

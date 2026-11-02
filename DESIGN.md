@@ -196,7 +196,7 @@ Prancha técnica que vai do dia à noite.
 
 ### Barrinha de crédito
 
-- Fica **no canto inferior direito da cena**, como um painel plano (fora do desenho isométrico), com a legenda **"Seu crédito solar"** e, embaixo, "guardado na rede da CPFL". A legenda diz que é solar, que é do cliente e que fica na rede, para não ler como bateria. No celular, onde não cabe dentro da cena sem cobrir o desenho, fica colado logo abaixo do canto inferior direito.
+- Fica **no canto inferior direito da cena**, como um painel plano (fora do desenho isométrico), com a legenda **"Seu crédito solar"** e, embaixo, "guardado na rede da CPFL". A legenda diz que é solar, que é do cliente e que fica na rede, para não ler como bateria. No celular, e nos quadros estáticos da versão sem movimento (que são menores), onde não cabe dentro da cena sem cobrir o desenho, fica colado logo abaixo do canto inferior direito.
 - Preenchimento âmbar, sem números. Enche de dia, esvazia à noite **sem zerar**, e ao amanhecer ainda sobra um pouco.
 - Um tracinho marca o nível que sobra ao amanhecer.
 
