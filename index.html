@@ -656,23 +656,59 @@
       </figure>
 
       <h3 class="subtitulo">Quatro etapas</h3>
+      <!-- Etapas num trilho: nós numerados ligados por uma linha; acendem uma vez ao entrar na tela (js/pagina.js). -->
       <ol class="etapas">
-        <li><span class="numero">1</span><strong>Simulação por WhatsApp</strong><span>Você informa a conta e recebe resposta no mesmo dia útil.</span></li>
-        <li><span class="numero">2</span><strong>Visita técnica</strong><span>Medição do telhado, gratuita e sem compromisso.</span></li>
-        <li><span class="numero">3</span><strong>Instalação em 2 dias</strong><span>Depois do projeto e da homologação na CPFL.</span></li>
-        <li><span class="numero">4</span><strong>Acompanhamento</strong><span>Acompanhamos a produção no primeiro ano e ligamos se cair fora do previsto.</span></li>
+        <li style="--i: 0">
+          <span class="etapa-no numero" aria-hidden="true">1</span>
+          <span class="etapa-marca numero">mesmo dia útil</span>
+          <svg class="desenho desenho-etapa" viewBox="0 0 96 64" width="96" height="64" aria-hidden="true" focusable="false">
+            <path class="linha" pathLength="1" d="M10 6 H58 A6 6 0 0 1 64 12 V30 A6 6 0 0 1 58 36 H22 L12 44 V36 H10 A6 6 0 0 1 4 30 V12 A6 6 0 0 1 10 6 Z"/>
+            <text x="11" y="27">R$</text>
+            <path class="linha" pathLength="1" d="M36 26 H54"/>
+            <path class="linha" pathLength="1" d="M48 40 H86 A6 6 0 0 1 92 46 V54 A6 6 0 0 1 86 60 H48 A6 6 0 0 1 42 54 V46 A6 6 0 0 1 48 40 Z"/>
+            <path class="linha ambar" pathLength="1" d="M58 50 L64 55 L76 45"/>
+          </svg>
+          <strong>Simulação por WhatsApp</strong>
+          <span>Você informa a conta e recebe resposta no mesmo dia útil.</span>
+        </li>
+        <li style="--i: 1">
+          <span class="etapa-no numero" aria-hidden="true">2</span>
+          <span class="etapa-marca numero">gratuita</span>
+          <svg class="desenho desenho-etapa" viewBox="0 0 96 64" width="96" height="64" aria-hidden="true" focusable="false">
+            <path class="linha ambar" pathLength="1" d="M8 6 H88 M8 2 V10 M88 2 V10"/>
+            <path class="linha" pathLength="1" d="M6 40 L48 16 L90 40"/>
+            <path class="linha" pathLength="1" d="M16 34 V60 H80 V34"/>
+            <path class="linha" pathLength="1" d="M42 60 V46 H54 V60"/>
+          </svg>
+          <strong>Visita técnica</strong>
+          <span>Medição do telhado, gratuita e sem compromisso.</span>
+        </li>
+        <li style="--i: 2">
+          <span class="etapa-no numero" aria-hidden="true">3</span>
+          <span class="etapa-marca numero">2 dias</span>
+          <svg class="desenho desenho-etapa" viewBox="0 0 96 64" width="96" height="64" aria-hidden="true" focusable="false">
+            <path class="cheia" d="M8 52 L26 14 H70 L88 52 Z"/>
+            <path class="linha" pathLength="1" d="M8 52 L26 14 H70 L88 52 Z"/>
+            <path class="linha" pathLength="1" d="M40.7 14 L34.7 52 M55.3 14 L61.3 52 M17 33 H79"/>
+            <path class="linha" pathLength="1" d="M14 60 H82"/>
+          </svg>
+          <strong>Instalação em 2 dias</strong>
+          <span>Depois do projeto e da homologação na CPFL.</span>
+        </li>
+        <li style="--i: 3">
+          <span class="etapa-no numero" aria-hidden="true">4</span>
+          <span class="etapa-marca numero">1º ano</span>
+          <svg class="desenho desenho-etapa" viewBox="0 0 96 64" width="96" height="64" aria-hidden="true" focusable="false">
+            <path class="linha" pathLength="1" d="M8 4 V58 H90"/>
+            <path class="linha tracejada" d="M14 38 C32 4 64 4 84 38"/>
+            <path class="linha ambar" pathLength="1" d="M14 45 L25 30 L37 23 L49 21 L61 23 L73 30 L84 45"/>
+          </svg>
+          <strong>Acompanhamento</strong>
+          <span>Acompanhamos a produção no primeiro ano e ligamos se cair fora do previsto.</span>
+        </li>
       </ol>
 
-      <div class="calendario-bloco">
-        <h3 class="subtitulo"><span class="numero">45 a 60</span> dias da assinatura ao sistema ligado</h3>
-        <div class="calendario" aria-hidden="true"><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-instalacao"></i><i class="dia dia-instalacao"></i><i class="dia dia-cheio"></i><i class="dia dia-cheio"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i><i class="dia dia-faixa"></i></div>
-        <ul class="calendario-legenda pequeno">
-          <li><i class="dia dia-cheio"></i> 45 dias</li>
-          <li><i class="dia dia-faixa"></i> faixa até 60 dias</li>
-          <li><i class="dia dia-instalacao"></i> instalação: 2 dias (posição ilustrativa)</li>
-        </ul>
-        <p class="pequeno">O resto é projeto e homologação na CPFL, a parte que não depende de nós.</p>
-      </div>
+      <p class="prazo pequeno"><span class="numero">45 a 60</span> dias da assinatura ao sistema ligado. A instalação leva <span class="numero">2</span> dias; o resto é projeto e homologação na CPFL, a parte que não depende de nós.</p>
 
       <h3 class="subtitulo">Garantias</h3>
       <ul class="cartoes cartoes-3">

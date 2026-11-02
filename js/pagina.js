@@ -477,4 +477,29 @@
       observadorDesenhos.observe(desenho);
     });
   }
+
+  // ---------- Etapas da dobra 3 ----------
+  // O trilho se desenha da etapa 1 à 4, os nós acendem na ordem e cada desenho se
+  // traça junto com o seu nó. Uma vez, ao entrar na tela. Sem JavaScript ou com
+  // prefers-reduced-motion, tudo aparece pronto.
+
+  var etapas = document.querySelector('.etapas');
+  if (etapas && !movimentoReduzido && 'IntersectionObserver' in window) {
+    var desenhosEtapas = etapas.querySelectorAll('.desenho');
+    etapas.classList.add('anima');
+    desenhosEtapas.forEach(function (desenho) { desenho.classList.add('anima'); });
+
+    var observadorEtapas = new IntersectionObserver(function (entradas) {
+      if (!entradas[0].isIntersecting) return;
+      observadorEtapas.disconnect();
+      etapas.classList.add('acesa');
+      desenhosEtapas.forEach(function (desenho, i) {
+        setTimeout(function () {
+          desenho.classList.add('desenhado');
+          setTimeout(function () { desenho.classList.remove('anima', 'desenhado'); }, 1600);
+        }, i * 600);
+      });
+    }, { rootMargin: '0px 0px -25% 0px' }); // quando o topo passa de 3/4 da tela (a lista é mais alta que a tela no celular)
+    observadorEtapas.observe(etapas);
+  }
 })();

@@ -47,11 +47,15 @@ Três itens, todos riscados, cada um seguido de uma linha com o que a Ravena diz
 
 Nenhum outro item. ⚠️ Avisar o cliente sobre a lista.
 
-### 3.2 Calendário de 60 dias (dobra 3)
+### 3.2 Quatro etapas e prazo (dobra 3)
 
-- Vem depois da animação, é **estático** e é secundário (não conta como elemento de destaque).
-- 60 quadrados: 45 cheios, 15 tracejados (a faixa até 60) e **só 2 em âmbar**, a instalação, nos dias 42 e 43 (depois da homologação), com a legenda "posição ilustrativa".
-- Legenda: o resto é projeto e homologação na CPFL.
+Decidido pelo usuário em 2/11/2026, no lugar do calendário de 60 quadrados.
+
+- Vem depois da animação e é secundário (não conta como elemento de destaque).
+- **Etapas num trilho:** as quatro etapas ligadas por uma linha fina em azul-marinho, com um nó numerado em cada uma (círculo com o número em Plex Mono). No computador o trilho é horizontal; no celular, vertical, à esquerda.
+- Cada etapa tem uma etiqueta em Plex Mono com o dado do brief ("mesmo dia útil", "gratuita", "2 dias", "1º ano") e um mini-desenho em traço fino, no estilo dos desenhos da dobra 6: balão de conversa com a resposta, telhado com a cota da medição, painel, gráfico da produção contra o previsto.
+- **Animado uma vez** ao entrar na tela: o trilho se desenha da etapa 1 à 4, os nós acendem em âmbar na ordem e os desenhos se traçam. Com `prefers-reduced-motion` ou sem JavaScript, aparece pronto.
+- **Prazo só em texto**, pequeno e discreto, embaixo das etapas: "45 a 60 dias da assinatura ao sistema ligado. A instalação leva 2 dias; o resto é projeto e homologação na CPFL, a parte que não depende de nós."
 
 ### 3.3 Não entra
 

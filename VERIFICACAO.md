@@ -22,6 +22,9 @@ Evidências da verificação pedida no `DESIGN.md`, seção 11. Feita em 2 de no
 | 03 Animação: meio-dia | `computador-1440-03-animacao-b-meio-dia.png` | `celular-375-03-animacao-b-meio-dia.png` |
 | 03 Animação: anoitecer | `computador-1440-03-animacao-c-anoitecer.png` | `celular-375-03-animacao-c-anoitecer.png` |
 | 03 Animação: noite | `computador-1440-03-animacao-d-noite.png` | `celular-375-03-animacao-d-noite.png` |
+| 03 Etapas no trilho | `computador-1440-03-etapas.png` | `celular-375-03-etapas.png` |
+| 03 Etapas: meio da animação | `computador-1440-03-etapas-meio.png` | `celular-375-03-etapas-meio.png` |
+| 03 Etapas: movimento reduzido | `computador-1440-03-etapas-movimento-reduzido.png` | `celular-375-03-etapas-movimento-reduzido.png` |
 | 03 Movimento reduzido | `computador-1440-03-movimento-reduzido.png` | `celular-375-03-movimento-reduzido.png` |
 | 04 Prova social | `computador-1440-04-prova.png` | `celular-375-04-prova.png` |
 | 05 Convite (formulário) | `computador-1440-05-simulacao.png` | `celular-375-05-simulacao.png` |
@@ -165,6 +168,21 @@ Direção escolhida pelo usuário entre três esboços (`DESIGN.md`, seção 3, 
 | Cores e tamanhos | Só as cores da logo (marinho, âmbar e transparências); textos nos três tamanhos; nenhuma sombra; o sol não se mexe |
 
 Corrigido nesta revisão: no computador, o rótulo "Casa em Sorocaba · março de 2025" quebrava e deixava "2025" sozinho, e virou um título de carimbo ("Casa em Sorocaba" à esquerda, "03/2025" à direita); no celular, o "/mês" quebrava abaixo do valor, e o painel ficou mais estreito.
+
+## 10b. Dobra 3: etapas num trilho (2/11/2026)
+
+Escolha do usuário (`DESIGN.md`, seção 3.2): o calendário de 60 quadrados saiu; as etapas ganharam o trilho, e o prazo ficou só em texto, embaixo.
+
+| Checagem | Resultado |
+|---|---|
+| Sequência | Ao entrar na tela, o trilho se desenha da etapa 1 à 4, os nós acendem em âmbar na ordem (0,6 s entre eles) e cada mini-desenho se traça com o seu nó. Uma vez só. No meio (cerca de 1 s): nós 1 e 2 acesos, 3 e 4 brancos |
+| Movimento reduzido e sem JavaScript | Tudo pronto: os 4 nós em âmbar, o trilho inteiro e os desenhos completos |
+| Computador (1440 px) | Trilho horizontal ligando os 4 nós; nenhuma rolagem lateral |
+| Celular (375 px) | Trilho vertical à esquerda, nós alinhados nele; nenhuma rolagem lateral; a barra fixa da simulação continua visível |
+| Prazo | "45 a 60 dias da assinatura ao sistema ligado. A instalação leva 2 dias; o resto é projeto e homologação na CPFL, a parte que não depende de nós." Em texto pequeno, abaixo de uma linha fina. Dados do `briefing.md`, seção 4.2 |
+| Leitor de tela | Os números dos nós e os desenhos são `aria-hidden`; a lista continua uma `<ol>` |
+
+Corrigido nesta revisão: no celular, o nó caía na segunda coluna, longe do trilho; no 4º desenho, a linha da produção cobria a curva tracejada do previsto; e a animação só disparava com 40% da lista visível, o que não acontece numa tela baixa (no celular a lista tem cerca de 1250 px). Agora dispara quando o topo da lista passa de 3/4 da tela.
 
 ## 10. Registro de acessos (`DESIGN.md`, seção 13)
 

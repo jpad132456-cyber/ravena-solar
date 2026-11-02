@@ -610,23 +610,40 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
 .cena-svg .fluxo-dia { stroke: var(--ambar); }
 .cena-svg .fluxo-noite { stroke: rgba(255, 255, 255, .85); }
 
-.etapas { display: grid; gap: 24px; margin-top: 24px; }
-.etapas li { display: grid; gap: 4px; align-content: start; padding-top: 16px; border-top: 1px solid var(--marinho); }
-.etapas .numero { color: var(--marinho-70); }
-@media (min-width: 768px) { .etapas { grid-template-columns: repeat(4, 1fr); gap: 32px; } }
+/* Etapas num trilho. Celular: nós à esquerda e trilho vertical; computador: trilho horizontal. */
+.etapas { display: grid; gap: 32px; margin-top: 32px; }
+.etapas li { position: relative; display: grid; grid-template-columns: 32px minmax(0, 1fr); column-gap: 16px; row-gap: 4px; align-content: start; }
+.etapas li > * { grid-column: 2; }
+.etapas .etapa-no {
+  grid-column: 1; grid-row: 1 / span 2; position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border: 1px solid var(--marinho); border-radius: 50%;
+  background: var(--ambar); color: var(--marinho); line-height: 1;
+}
+.etapa-marca { color: var(--marinho); line-height: 32px; }
+.etapas .desenho-etapa { width: 96px; margin: 8px 0 12px; }
+/* Trilho: do nó desta etapa até o nó da próxima. */
+.etapas li:not(:last-child)::after {
+  content: ""; position: absolute; left: 15.5px; top: 32px; bottom: -32px; width: 1px;
+  background: var(--marinho); transform-origin: top;
+}
+@media (min-width: 768px) {
+  .etapas { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .etapas li { grid-template-columns: minmax(0, 1fr); }
+  .etapas li > *, .etapas .etapa-no { grid-column: 1; grid-row: auto; }
+  .etapa-marca { line-height: 1.4; margin-top: 12px; }
+  .etapas li:not(:last-child)::after { left: 32px; top: 15.5px; bottom: auto; width: 100%; height: 1px; transform-origin: left; }
+}
+/* Animado uma vez (classes postas pelo JS): o trilho se desenha e os nós acendem na ordem. */
+.etapas.anima .etapa-no { background: var(--branco); }
+.etapas.anima li:not(:last-child)::after { transform: scaleY(0); }
+.etapas.anima.acesa .etapa-no { background: var(--ambar); transition: background .4s ease-out calc(var(--i) * .6s); }
+.etapas.anima.acesa li:not(:last-child)::after { transform: none; transition: transform .5s ease-out calc(var(--i) * .6s + .2s); }
+@media (min-width: 768px) { .etapas.anima li:not(:last-child)::after { transform: scaleX(0); } }
 
-.calendario-bloco .subtitulo { margin-top: 56px; }
-.calendario { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; margin-top: 24px; max-width: 560px; }
-.dia { display: inline-block; aspect-ratio: 1; border-radius: 2px; }
-.calendario .dia { width: 100%; }
-.dia-cheio { background: var(--marinho-25); }
-.dia-faixa { border: 1px dashed var(--marinho); }
-.dia-instalacao { background: var(--ambar); }
-.calendario-legenda { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 16px; }
-.calendario-legenda li { display: flex; align-items: center; gap: 8px; }
-.calendario-legenda .dia { width: 16px; }
-.calendario-bloco > p { margin-top: 8px; color: var(--marinho-70); }
-@media (min-width: 768px) { .calendario { grid-template-columns: repeat(15, 1fr); max-width: 480px; } }
+/* Prazo: só texto, discreto, embaixo das etapas. */
+.dobra .prazo { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--marinho-15); color: var(--marinho-70); max-width: 60ch; }
+.prazo .numero { color: var(--marinho); }
 
 .cartoes { display: grid; gap: 16px; margin-top: 24px; }
 .cartao {
