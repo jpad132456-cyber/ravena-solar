@@ -13,6 +13,7 @@ Todas as decisões de design e de conteúdo da página. Os dados da empresa est�
 ## 2. Regras de conteúdo
 
 - **Não inventar dados.** Todo número ou afirmação sobre a empresa vem do `briefing.md`. Se faltar algum dado, deixar um placeholder visível (seção 9).
+- **Fotos das obras (dobra 4) e da equipe (dobra 7):** a Ravena Solar é um negócio fictício, então essas fotos podem ser imagens reais tiradas da internet. O site é um exercício e não vai ao mercado, então não é preciso filtrar por licença. Regras: buscar só no Google Imagens e baixar direto da busca (sem navegar pelos sites); só fotos de verdade (nada de ilustração, render 3D ou imagem gerada por IA); casas e equipes com cara de Brasil, sem marca d'água nem logo de outra empresa à vista. Origem e licença de cada foto registradas em `assets/fotos/CREDITOS.md`.
 - **O brief vence o site antigo** em qualquer conflito.
 - **Tom:** direto, específico, técnico, com números.
 - **Proibido:** "energia do futuro", "sustentabilidade" como slogan, "revolução solar", "grátis", economia de 95%, prazo inventado. A conta de luz não zera.
@@ -117,7 +118,7 @@ Nenhum outro item. ⚠️ Avisar o cliente sobre a lista.
   | Âmbar | `#F2A03D` | Botão principal, dados, destaques gráficos, energia do sol, crédito | ~3% |
   | Laranja | `#E8721C` | Hover e clique do botão; degradê da dobra 5 | ~2% |
 
-- **Transparência permitida** nas quatro cores (ex.: azul-marinho a 6% como fundo de cartão, a 70% como texto secundário). Nenhuma cor nova, com duas exceções: a cena dia e noite da dobra 3 (seção 8) e a imagem de satélite do bloco "Onde atuamos" (dobra 7), que é foto. Os traços desenhados sobre ela (borda, raio, pontos e nomes) usam só as cores da logo.
+- **Transparência permitida** nas quatro cores (ex.: azul-marinho a 6% como fundo de cartão, a 70% como texto secundário). Nenhuma cor nova, com três exceções: a cena dia e noite da dobra 3 (seção 8), a imagem de satélite do bloco "Onde atuamos" (dobra 7) e as fotos das obras e da equipe (seção 2), que são fotos. Os traços desenhados sobre elas (borda, raio, pontos, nomes e a grade do trapézio) usam só as cores da logo.
 - **Contraste:**
 
   | Combinação | Contraste | Uso |
@@ -248,7 +249,6 @@ Registrar em `VERIFICACAO.md`, com os prints em `verificacao/`:
 
 ## 12. Em aberto
 
-- Fotos das 40 obras e foto da equipe: até chegarem, usar placeholders.
 - Marca do inversor, nomes dos bancos, link do Google, dados de contato reais e razão social.
 - Destino do pedido de simulação (hoje é placeholder).
 - Avisar o cliente sobre a lista riscada (dobra 2) e a estimativa do formulário, por causa do Procon.

@@ -45,7 +45,7 @@ Sem rolagem lateral em 375, 1024 e 1440 px. Nenhum erro no console.
 | Financiamento com dois bancos; entrada zero possível; parcela próxima da conta | Dobra 3 | 4.4 |
 | 412 sistemas residenciais instalados | Dobras 4 e 6 | 3 e 6 |
 | Nota 4,8 no Google, 137 avaliações | Dobra 4 | 6 |
-| Fotos das obras com autorização | Dobra 4 | 6 |
+| Fotos das obras com autorização (6 fotos ilustrativas do Google Imagens, negócio fictício; origem em `assets/fotos/CREDITOS.md`) | Dobra 4 | 6 |
 | Resposta no mesmo dia útil, por WhatsApp | Hero, dobras 3, 5 e 8 | 7.4 |
 | Visita técnica gratuita e sem compromisso | Dobras 3 e 5 | 7.4 |
 | Contas acima de R$ 450; abaixo disso "a conta não fecha e nós mesmos desaconselhamos" | Dobra 5 e aviso do formulário | 5 |
@@ -139,10 +139,10 @@ Corrigido nesta verificação: nos quadros estáticos do computador, o painel "S
 
 - **Rolagem animada contínua:** o navegador de teste roda em segundo plano e não executa a rolagem suave contínua. A animação foi conferida posicionando a página em cada fase, e o código tem um recurso que pula direto para o formulário se a rolagem suave não acontecer. Falta ver o movimento ao vivo numa tela visível.
 - **Imagem de compartilhamento:** `assets/og.png` (logo sobre fundo branco, 1200 × 630). A meta tag aponta para o endereço de produção, então só funciona depois que a branch for para a `main`.
+- **Fotos das obras e da equipe:** ilustrativas, baixadas do Google Imagens (negócio fictício, `DESIGN.md`, seção 2). Conferidas a 375 e 1440 px em 2/11/2026: galeria em 2 colunas no celular e 3 no computador, sem rolagem lateral; foto da equipe recortada no trapézio, com a grade branca por cima.
 - **Dados que dependem do cliente** (placeholders visíveis `[aguardando: …]`):
   - razão social, endereço, telefone, WhatsApp e política de privacidade;
   - link da página no Google;
   - marca do inversor;
-  - fotos das obras e foto da equipe;
   - destino do pedido de simulação.
 - **Avisar o cliente**, por causa do Procon: a lista riscada da dobra 2 e a estimativa do formulário (`DESIGN.md`, seção 12).
