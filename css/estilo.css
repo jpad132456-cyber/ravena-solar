@@ -693,11 +693,6 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
   .ficha-destaque::before { top: 24px; bottom: 24px; }
 }
 
-.fotos { display: grid; gap: 16px; margin-top: 24px; grid-template-columns: repeat(2, 1fr); }
-.fotos img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--raio); }
-@media (min-width: 768px) {
-  .fotos { grid-template-columns: repeat(3, 1fr); gap: 24px; }
-}
 
 /* ---------- 05 Convite (azul-marinho; único lugar do degradê âmbar → laranja) ---------- */
 
@@ -814,12 +809,7 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
 .quem-grade { display: grid; gap: 40px; }
 .quem-grade > div > * + * { margin-top: 24px; }
 .quem-grade > div > .rotulo + .titulo { margin-top: 16px; }
-.foto-trapezio { position: relative; align-self: center; }
-.foto-trapezio svg { width: 100%; height: auto; }
-/* Foto recortada no trapézio do painel, com as linhas brancas da grade por cima. */
-.foto-trapezio .trapezio { fill: none; stroke: var(--marinho); stroke-width: 1; }
-.foto-trapezio .grade line { stroke: var(--branco-70); stroke-width: 1.5; }
-@media (min-width: 768px) { .quem-grade { grid-template-columns: 1fr 1fr; gap: 64px; } }
+@media (min-width: 768px) { .quem-grade { gap: 64px; } }
 
 /* Onde atuamos: a imagem de satélite é a única outra exceção de cor (DESIGN.md, seção 5). */
 .atuacao { display: grid; gap: 32px; align-items: center; padding-top: 40px; border-top: 1px solid var(--marinho-15); }
