@@ -127,7 +127,7 @@ Corrigido nesta verificação: nos quadros estáticos do computador, o painel "S
 | Confirmação | "Pedido recebido. Resposta no mesmo dia útil, por WhatsApp.", com o foco levado para a mensagem |
 | Botão Voltar | Volta ao passo 1 mantendo conta e cidade |
 
-**Envio em placeholder.** O formulário valida e mostra a confirmação, mas **não envia nada**, até o cliente definir para onde vão os pedidos (WhatsApp, e-mail, planilha…). Isso está comentado no `index.html` e no `js/pagina.js`, no ponto em que o envio deve entrar. O campo oculto `origem` já é preenchido e deve seguir junto quando o envio existir.
+**Envio em placeholder.** O formulário valida e mostra a confirmação, mas **não envia nada**, até o cliente definir para onde vão os pedidos (WhatsApp, e-mail, planilha…). Isso está comentado no `public/index.html` e no `public/js/pagina.js`, no ponto em que o envio deve entrar. O campo oculto `origem` já é preenchido e deve seguir junto quando o envio existir.
 
 ## 8. Os três CTAs e o acesso fixo
 
@@ -200,3 +200,22 @@ Conferido em 2/11/2026, com simulações no Node (planilha e Vercel falsos):
 **Instalado em 2/11/2026:** planilha "Ravena Solar — Registro de acessos" no Google Drive do usuário, com o Apps Script colado, `instalar()` rodado (abas "Visitas" e "Pessoas" e limpeza diária às 3h) e implantado como App da Web. `PLANILHA_URL` configurado no Vercel (Production, tipo Secret). Um envio de teste direto para a planilha respondeu "ok". As linhas de teste e as visitas da verificação foram apagadas da planilha no mesmo dia.
 
 **Conferido no site no ar (2/11/2026):** uma visita real (campo do hero com R$ 800, cidade escolhida, "Continuar" e rolagem até o rodapé) apareceu na aba "Visitas" como 9. Rodapé, 100%, Hero, 2. Chegou ao passo 2, production, com IP, cidade, estado e país; a aba "Pessoas" juntou as duas visitas do mesmo navegador. O segundo parágrafo da política aparece no rodapé a 375 px e no computador, sem rolagem lateral e sem erro no console. A cidade vem do IP e é aproximada (uma conexão de Sorocaba pode aparecer como outra cidade). Também aparecem visitas automáticas (robôs), como as de San Jose/EUA.
+
+## 11. Conversão para Next (8/11/2026)
+
+A pedido do usuário, a estrutura virou um projeto Next (16.4.5). O que mudou:
+
+- `index.html`, `css/`, `js/` e `assets/` foram para `public/`, sem nenhuma alteração nos arquivos. O endereço `/` mostra `public/index.html` (reescrita em `next.config.mjs`).
+- `api/registro.js` virou a rota do Next `app/api/registro/route.js`, no mesmo endereço `/api/registro`, com o mesmo comportamento: POST válido responde 204 e repassa para a planilha; corpo inválido, 400; GET e OPTIONS, 405.
+- `vercel.json` fixa o framework como Next no Vercel.
+
+O que não mudou: aparência, comportamento, textos e endereços (`/`, `/index.html`, `/css/…`, `/js/…`, `/assets/…`, `/api/registro`). Os documentos do projeto (`.md`, `verificacao/`, `planilha/`) ficam fora de `public/` e deixam de ser servidos pelo site; antes eles podiam ser abertos pelo endereço (ex.: `/briefing.md`).
+
+| Checagem (local, `next start`) | Resultado |
+|---|---|
+| Fotos antes × depois: `verificacao/antes-next-*` e `verificacao/depois-next-*`, a 375 e a 1440 px, topo e página inteira, com e sem movimento reduzido (8 pares) | 0 pixel diferente nos 8 pares |
+| Os 23 arquivos de `public/` servidos pelo Next | Idênticos byte a byte aos arquivos do site antigo |
+| `/api/registro`: GET, OPTIONS, corpo inválido, envio válido | 405, 405, 400, 204 |
+| Navegador | Sem erro no console; os envios do `registro.js` para `/api/registro` respondem 204 |
+
+Sobre o método das fotos: a primeira captura não esperava as fotos (obras, equipe, mapa) terminarem de decodificar. Nela, 7 dos 8 pares deram 0 pixel diferente, e o par "celular, página inteira, movimento reduzido" teve diferença só dentro de uma foto de obra. Duas capturas seguidas do mesmo servidor também diferiam nessas fotos, então era ruído da captura, não da conversão. A captura passou a esperar as imagens decodificarem e foi refeita dos dois lados: as fotos de antes vieram dos arquivos exatos do commit anterior à conversão (`aa0c3fb`), servidos como site estático.

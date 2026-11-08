@@ -27,7 +27,7 @@ Uma landing page de energia solar residencial com uma única ação: **pedir uma
 | **Animação dia e noite** na dobra da solução: casa, painéis, rede e uma barra de crédito que não zera | Responde de uma vez a "e à noite?", "preciso de bateria?" e mostra que a rede guarda o crédito |
 | **Desenho em SVG feito no código**, sem imagens externas | Cada peça precisa ser animada separadamente, e as cores precisam ser só as da logo |
 | **Sem placeholders na página:** contatos, razão social e marca do inversor preenchidos com dados plausíveis; link do Google retirado | Pedido do usuário para deixar a página pronta para o público (2/11/2026); origem no `briefing.md`, seção 16 |
-| **HTML, CSS e JavaScript puros**, publicados no Vercel a partir do GitHub | Uma página só não precisa de framework; sem build, o site fica leve e fácil de verificar, e cada envio ao GitHub publica sozinho |
+| **Projeto Next** que serve o mesmo HTML, CSS e JavaScript puros (em `public/`), publicado no Vercel a partir do GitHub | A página continua sem React e sem build próprio; o Next só serve os arquivos e roda a rota `/api/registro`. Cada envio ao GitHub publica sozinho |
 | **Formulário sem envio real por enquanto**: valida e confirma, mas não envia | O cliente ainda não disse para onde os pedidos devem ir |
 | **Registro de cada acesso, por pessoa** (IP, horário, cidade, até onde foi, botões e passo do formulário), numa planilha do Google, por 6 meses | Pedido do usuário (2/11/2026) para medir onde o visitante desiste antes de pedir a simulação. Código aleatório no navegador em vez de cookie; aviso na política de privacidade, com base no legítimo interesse |
 

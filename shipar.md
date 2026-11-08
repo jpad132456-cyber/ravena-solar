@@ -7,7 +7,7 @@ Hoje ela está no ar como exercício: parte do conteúdo é decorativo e o formu
 
 ## 1. Fazer o formulário de simulação enviar o pedido
 
-Hoje o formulário valida os campos e mostra a confirmação, mas não manda nada para ninguém (placeholder comentado em `index.html`, perto da linha 777, e registrado no `VERIFICACAO.md`).
+Hoje o formulário valida os campos e mostra a confirmação, mas não manda nada para ninguém (placeholder comentado em `public/index.html`, perto da linha 777, e registrado no `VERIFICACAO.md`).
 
 Falta:
 

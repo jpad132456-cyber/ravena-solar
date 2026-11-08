@@ -1,4 +1,4 @@
-// Ravena Solar — guarda na planilha os registros de acesso que chegam de api/registro.js.
+// Ravena Solar — guarda na planilha os registros de acesso que chegam de /api/registro (app/api/registro/route.js).
 // Duas abas: "Visitas" (uma linha por visita) e "Pessoas" (uma linha por navegador).
 // Os registros são apagados 6 meses depois da última visita. Decisões em DESIGN.md, seção 13.
 //
