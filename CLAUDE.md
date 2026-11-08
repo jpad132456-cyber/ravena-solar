@@ -58,12 +58,13 @@ Em 2/11/2026 o usuário mandou tirar todos os placeholders da página: contatos,
 
 ## Técnica e publicação
 
-- **Stack:** projeto Next (desde 8/11/2026, a pedido do usuário). A página continua em HTML, CSS e JavaScript puros, sem React e sem biblioteca na página; o Next só serve os arquivos e roda a rota `/api/registro`.
-- **Estrutura:** `public/index.html`, `public/css/`, `public/js/` e `public/assets/` (logo, fontes e imagens); o endereço `/` mostra `public/index.html` (reescrita em `next.config.mjs`). `vercel.json` fixa o framework como Next. Nada carregado de fora da pasta; a única exceção é a consulta ao ViaCEP da verificação de CEP do hero (`DESIGN.md`, seção 4).
+- **Stack:** projeto Next (desde 8/11/2026, a pedido do usuário). A página continua em HTML, CSS e JavaScript puros, sem React e sem biblioteca na página; o Next só serve os arquivos e roda as rotas `/api/registro` e `/api/cep`.
+- **Estrutura:** `public/index.html`, `public/css/`, `public/js/` e `public/assets/` (logo, fontes e imagens); o endereço `/` mostra `public/index.html` (reescrita em `next.config.mjs`). `vercel.json` fixa o framework como Next. Nada carregado de fora da pasta: a página só fala com o próprio site.
 - **Rodar local:** `npm install` e depois `npx next build && npx next start` (ou `npx next dev`).
 - **Registro de acessos:** `public/js/registro.js` → rota do Next em `app/api/registro/route.js` (endereço `/api/registro`) → planilha do Google (`planilha/registro.gs`). Registra IP, horário, localização, até onde a pessoa foi e se usou a simulação, por pessoa, sem guardar o que ela digita. Detalhes no `DESIGN.md`, seção 13.
 - **Repositório:** `github.com/jpad132456-cyber/ravena-solar` (público), branch `main`.
 - **Hospedagem:** Vercel, projeto `ravena-solar` (https://ravena-solar-kappa.vercel.app). Cada envio para a `main` publica **direto em produção**. Trabalhar direto na `main`, sem criar branch.
+- **Verificação de CEP:** o "Meu CEP é atendido?" do hero pede `/api/cep` (`app/api/cep/route.js`), que consulta o ViaCEP pelo servidor e devolve a resposta como veio. O aparelho do visitante nunca fala direto com o ViaCEP. Detalhes no `DESIGN.md`, seção 4.
 - **Envio do formulário:** placeholder. O formulário valida os campos e mostra a confirmação, mas não envia nada até o cliente definir para onde vão os pedidos. Deixar isso comentado no código e registrado no `VERIFICACAO.md`.
 
 ## Ordem de trabalho

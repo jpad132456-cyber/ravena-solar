@@ -590,12 +590,13 @@
   }
 
   // ---------- Verificação de CEP (hero) ----------
-  // "Meu CEP é atendido?" abre uma caixinha com o campo do CEP. Ao verificar, o CEP vai
-  // para o ViaCEP (https://viacep.com.br/ws/<cep>/json/, público, sem chave) e a página
-  // devolve o que aconteceu: o código HTTP, o nome do erro e o motivo, ou o endereço
-  // encontrado. Três checagens: formato (8 dígitos), CEP existente e cidade entre as
-  // quatro atendidas (briefing.md: Sorocaba, Votorantim, Itu e Salto). Nada é guardado
-  // nem entra no registro de acessos.
+  // "Meu CEP é atendido?" abre uma caixinha com o campo do CEP. O navegador não fala com
+  // o ViaCEP: pede GET /api/cep?cep=<dígitos> ao servidor do site (app/api/cep/route.js),
+  // que consulta o ViaCEP e devolve a resposta dele como veio. A página mostra o que
+  // aconteceu: o código HTTP, o nome do erro e o motivo, ou o endereço encontrado. Três
+  // checagens: formato (8 dígitos), CEP existente e cidade entre as quatro atendidas
+  // (briefing.md: Sorocaba, Votorantim, Itu e Salto). Nada é guardado nem entra no
+  // registro de acessos.
 
   var cepAbrir = document.getElementById('cep-abrir');
   var cepCaixa = document.getElementById('cep');
@@ -605,7 +606,7 @@
 
   if (cepAbrir && cepForm && window.fetch) {
     var CIDADES_ATENDIDAS = ['sorocaba', 'votorantim', 'itu', 'salto'];
-    var CEP_TEMPO_MAX = 8000; // ms até desistir da consulta
+    var CEP_TEMPO_MAX = 10000; // ms; o servidor do site desiste do ViaCEP em 8 s e responde 504 antes disso
     var NOMES_HTTP = {
       200: 'OK', 400: 'Bad Request', 403: 'Forbidden', 404: 'Not Found', 408: 'Request Timeout',
       429: 'Too Many Requests', 500: 'Internal Server Error', 502: 'Bad Gateway',
@@ -614,7 +615,7 @@
     var consultaAtual = 0;
 
     var normalizar = function (texto) {
-      return String(texto || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+      return String(texto || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
     };
     var formatarCep = function (digitos) {
       return digitos.length > 5 ? digitos.slice(0, 5) + '-' + digitos.slice(5) : digitos;
@@ -672,7 +673,7 @@
 
       if (r.bruto !== undefined) {
         var detalhes = criar('details', 'cep-bruto');
-        detalhes.appendChild(criar('summary', '', 'Resposta do ViaCEP'));
+        detalhes.appendChild(criar('summary', '', r.deQuem || 'Resposta do ViaCEP'));
         detalhes.appendChild(criar('pre', '', r.bruto || '(vazia)'));
         caixa.appendChild(detalhes);
       }
@@ -691,22 +692,7 @@
         return;
       }
 
-      // O ViaCEP responde HTTP 400 a CEP fora do formato, mas sem o cabeçalho CORS, e o
-      // navegador não deixa ler essa resposta (vira "Failed to fetch"). Por isso o formato
-      // é checado aqui, antes de consultar.
-      if (digitos.length !== 8) {
-        consultaAtual++;
-        botao.disabled = false;
-        cepForm.removeAttribute('aria-busy');
-        mostrarCep({
-          codigo: 'HTTP 400', titulo: 'Bad Request (formato inválido)',
-          motivo: 'O CEP tem 8 dígitos, e você digitou ' + digitos.length + '. Com esse formato o ViaCEP recusa a consulta (HTTP 400), por isso ela nem foi enviada. Confira os números e tente de novo.',
-          checagens: ['falhou', 'pendente', 'pendente']
-        });
-        cepCampo.focus();
-        return;
-      }
-
+      // Com menos de 8 dígitos a consulta segue mesmo assim: o 400 vem do próprio ViaCEP.
       var esta = ++consultaAtual;
       var controle = window.AbortController ? new AbortController() : null;
       var relogio = controle && setTimeout(function () { controle.abort(); }, CEP_TEMPO_MAX);
@@ -714,7 +700,7 @@
 
       botao.disabled = true;
       cepForm.setAttribute('aria-busy', 'true');
-      cepResultado.replaceChildren(criar('p', 'cep-carregando', 'Consultando o CEP ' + cepTexto + ' no ViaCEP…'));
+      cepResultado.replaceChildren(criar('p', 'cep-carregando', 'Consultando o CEP ' + cepTexto + ' no ViaCEP, pelo servidor do site…'));
 
       var terminar = function (r) {
         if (esta !== consultaAtual) return; // chegou depois de uma consulta mais nova
@@ -724,20 +710,42 @@
         mostrarCep(r);
       };
 
-      fetch('https://viacep.com.br/ws/' + encodeURIComponent(digitos) + '/json/', controle ? { signal: controle.signal } : {})
+      fetch('/api/cep?cep=' + encodeURIComponent(digitos), controle ? { signal: controle.signal } : {})
         .then(function (resposta) {
           return resposta.text().then(function (corpo) {
             var codigo = 'HTTP ' + resposta.status;
+            var deQuem = resposta.headers.get('X-Resposta-De');
 
+            // Erro do próprio servidor do site: pedido inválido, ViaCEP fora do alcance (502)
+            // ou sem resposta (504). Ou uma resposta sem o cabeçalho, que não passou pela rota.
+            if (deQuem !== 'viacep') {
+              var info = {};
+              try { info = JSON.parse(corpo) || {}; } catch (erroJson) { info = {}; }
+              return terminar({
+                codigo: codigo, titulo: info.erro || nomeHttp(resposta),
+                motivo: (info.mensagem ? info.mensagem + ' ' : 'O servidor do site não conseguiu fazer a consulta. ') +
+                  'Não é erro no seu CEP: ele não foi verificado. Tente de novo em alguns minutos.',
+                checagens: [resposta.status === 400 && deQuem ? 'falhou' : 'pendente', 'pendente', 'pendente'],
+                bruto: corpo, deQuem: 'Resposta do servidor do site'
+              });
+            }
+
+            if (resposta.status === 400) {
+              return terminar({
+                codigo: codigo, titulo: nomeHttp(resposta) + ' (formato inválido)',
+                motivo: 'O ViaCEP recusou o CEP ' + cepTexto + ' porque o formato está errado: o CEP tem 8 dígitos, e você digitou ' + digitos.length + '. Confira os números e tente de novo.',
+                checagens: ['falhou', 'pendente', 'pendente'], bruto: corpo
+              });
+            }
             if (!resposta.ok) {
               return terminar({
                 codigo: codigo, titulo: nomeHttp(resposta),
                 motivo: resposta.status === 429
-                  ? 'O ViaCEP recebeu consultas demais deste aparelho e pediu uma pausa. Tente de novo em alguns minutos.'
+                  ? 'O ViaCEP recebeu consultas demais e pediu uma pausa. Não é erro no seu CEP. Tente de novo em alguns minutos.'
                   : resposta.status >= 500
                     ? 'O ViaCEP está com problema e não respondeu a consulta. Não é erro no seu CEP. Tente de novo em alguns minutos.'
                     : 'O ViaCEP não aceitou a consulta. Tente de novo em alguns minutos.',
-                checagens: ['ok', 'pendente', 'pendente'], bruto: corpo
+                checagens: ['pendente', 'pendente', 'pendente'], bruto: corpo
               });
             }
 
@@ -782,9 +790,9 @@
             codigo: 'Sem código HTTP',
             titulo: tempo ? 'Tempo esgotado (AbortError)' : 'Falha de conexão (' + (erro && erro.name || 'Erro') + ': ' + (erro && erro.message || 'sem detalhe') + ')',
             motivo: tempo
-              ? 'O ViaCEP não respondeu em ' + (CEP_TEMPO_MAX / 1000) + ' segundos, e a consulta foi cancelada. Tente de novo.'
-              : 'O navegador não conseguiu falar com o ViaCEP: a internet caiu, o serviço está fora do ar ou algum bloqueador impediu a consulta. O CEP não foi consultado; tente de novo.',
-            checagens: ['ok', 'pendente', 'pendente']
+              ? 'O servidor do site não respondeu em ' + (CEP_TEMPO_MAX / 1000) + ' segundos, e a consulta foi cancelada. Tente de novo.'
+              : 'O aparelho não conseguiu falar com o servidor do site: a internet caiu ou algum bloqueador impediu a consulta. O CEP não foi consultado; tente de novo.',
+            checagens: ['pendente', 'pendente', 'pendente']
           });
         });
     });

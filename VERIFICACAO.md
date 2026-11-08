@@ -241,3 +241,23 @@ Testado no navegador (`next dev`), a 1440 e a 375 px. Prints: `verificacao/compu
 | Sem resposta em 8 s (simulado) | Sem código HTTP · Tempo esgotado (AbortError) |
 
 Enquanto consulta: "Consultando o CEP … no ViaCEP…" e o botão "Verificar" fica desativado. Cada resultado lista as três checagens (formato, CEP nos Correios, área atendida) como válido / encontrado / dentro, inválido / não encontrado / fora ou "não verificado", e traz a resposta crua do ViaCEP num "Resposta do ViaCEP" fechado. O texto da API entra na página só como texto. Sem JavaScript, o link fica escondido. O botão "Pedir simulação" do hero continua na primeira tela do celular (375 × 812). Sem rolagem lateral.
+
+## 13. CEP pelo servidor do site (8/11/2026)
+
+A pedido do usuário, o aparelho do visitante deixou de falar com o ViaCEP. Agora a página pede `GET /api/cep?cep=<dígitos>` à rota do Next `app/api/cep/route.js`, que consulta o ViaCEP pelo servidor do Vercel e devolve a resposta dele como veio. O cabeçalho `X-Resposta-De` diz se a resposta é do ViaCEP (`viacep`) ou da própria rota (`intermediario`).
+
+Com isso, o 400 do formato errado passou a vir do próprio ViaCEP (antes o navegador não conseguia ler, por falta de CORS, e a página checava o formato sozinha). Prints: `verificacao/computador-1440-01-hero-cep-400.jpg` e `verificacao/celular-375-01-hero-cep-400.jpg`.
+
+| Checagem (local, `next dev`) | Resultado |
+|---|---|
+| Rota: `18035060`, `13010000`, `99999999` | 200 `viacep`, com o corpo do ViaCEP |
+| Rota: `12345` | 400 `viacep`, com a página de erro HTML do próprio ViaCEP |
+| Rota: `abc`, `123456789`, vazio | 400 `intermediario`, "Pedido inválido" (não chega ao ViaCEP) |
+| Rota com o ViaCEP fora do alcance (simulado) | 502 `intermediario`, "Bad Gateway" |
+| Rota com o ViaCEP sem responder (simulado) | 504 `intermediario` em 8 s, "Gateway Timeout" |
+| Rota com o ViaCEP respondendo 503 (simulado) | 503 `viacep`, repassado como veio |
+| Página: Sorocaba, Campinas, inexistente, `12345` | Coberto, fora da área, não encontrado e `HTTP 400 · Bad Request (formato inválido)`, como na seção 12 |
+| Página com 504 da rota, 503 do ViaCEP e sem internet (simulados) | Código, nome e motivo de cada um; "Resposta do servidor do site" no 504 |
+| Pedidos feitos pelo navegador | Só para `/api/cep`; nenhum para `viacep.com.br` |
+
+A resposta crua aberta ganhou altura máxima de 240 px com rolagem (a página de erro do ViaCEP tem cerca de 30 linhas). Sem rolagem lateral a 375 e a 1440 px; o botão "Pedir simulação" do hero continua na primeira tela do celular.

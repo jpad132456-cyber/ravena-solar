@@ -107,10 +107,11 @@ Decidido pelo usuário em 2/11/2026, no lugar do calendário de 60 quadrados.
 Pedido do usuário em 8/11/2026.
 
 - **Onde:** só no hero, embaixo do botão "Pedir simulação", na linha de "Resposta no mesmo dia útil, por WhatsApp.": um link discreto, em texto pequeno, "Meu CEP é atendido?". Sem JavaScript, não aparece.
-- **Como:** o link abre um campo de CEP (máscara `00000-000`) e o botão "Verificar". A página consulta o ViaCEP (`https://viacep.com.br/ws/<cep>/json/`, público) e mostra embaixo o carregamento e depois o resultado. É a única chamada da página para fora da pasta.
-- **Três checagens:** formato (8 dígitos, checado na página, porque o ViaCEP responde 400 sem CORS e o navegador não deixa ler), CEP existente (ViaCEP) e área atendida: Sorocaba, Votorantim, Itu ou Salto, em SP. Fora delas: "Atendemos Sorocaba, Votorantim, Itu e Salto, num raio de 80 km: se a sua cidade fica perto, pergunte na simulação." (exceção à seção 3.3, que tira a lista de cidades da dobra 1: aparece só nessa resposta).
-- **Resposta:** sempre o código (HTTP ou "Sem código HTTP"), o nome do erro e o motivo; no acerto, o endereço encontrado. Também a lista das três checagens e a resposta crua do ViaCEP, fechada.
-- **Privacidade:** o CEP não é guardado nem entra no registro de acessos (seção 13). A política do rodapé não muda (decisão do usuário).
+- **Como:** o link abre um campo de CEP (máscara `00000-000`) e o botão "Verificar". O aparelho da pessoa **não fala com o ViaCEP**: a página pede `GET /api/cep?cep=<dígitos>` ao servidor do site (rota do Next em `app/api/cep/route.js`, no Vercel), que consulta o ViaCEP (`https://viacep.com.br/ws/<cep>/json/`, público), recebe a resposta e a devolve como veio (mesmo código HTTP e mesmo corpo). Pedido do usuário em 8/11/2026. Mostra embaixo o carregamento e depois o resultado.
+- **Rota `/api/cep`:** aceita só dígitos, até 8; fora disso responde 400 por conta própria. Se o ViaCEP não responder em 8 s, 504; se não der para falar com ele, 502. O cabeçalho `X-Resposta-De` diz de quem é a resposta: `viacep` ou `intermediario` (erro da própria rota). Não guarda o CEP. A página espera até 10 s pela rota.
+- **Três checagens:** formato (8 dígitos: CEP mais curto vai mesmo assim, e o 400 vem do próprio ViaCEP), CEP existente (ViaCEP) e área atendida: Sorocaba, Votorantim, Itu ou Salto, em SP. Fora delas: "Atendemos Sorocaba, Votorantim, Itu e Salto, num raio de 80 km: se a sua cidade fica perto, pergunte na simulação." (exceção à seção 3.3, que tira a lista de cidades da dobra 1: aparece só nessa resposta).
+- **Resposta:** sempre o código (HTTP ou "Sem código HTTP"), o nome do erro e o motivo; no acerto, o endereço encontrado. Também a lista das três checagens e a resposta crua (do ViaCEP ou do servidor do site), fechada e com altura limitada.
+- **Privacidade:** o CEP não é guardado nem entra no registro de acessos (seção 13). O ViaCEP vê o IP do servidor do Vercel, não o da pessoa. A política do rodapé não muda (decisão do usuário).
 
 ### Acesso de qualquer ponto
 
