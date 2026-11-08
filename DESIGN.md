@@ -102,6 +102,16 @@ Decidido pelo usuário em 2/11/2026, no lugar do calendário de 60 quadrados.
 - **Depois do envio:** "Resposta no mesmo dia útil, por WhatsApp."
 - **Envio:** placeholder até o cliente definir o destino. O formulário valida e mostra a confirmação, mas não envia.
 
+### Verificação de CEP (hero)
+
+Pedido do usuário em 8/11/2026.
+
+- **Onde:** só no hero, embaixo do botão "Pedir simulação", na linha de "Resposta no mesmo dia útil, por WhatsApp.": um link discreto, em texto pequeno, "Meu CEP é atendido?". Sem JavaScript, não aparece.
+- **Como:** o link abre um campo de CEP (máscara `00000-000`) e o botão "Verificar". A página consulta o ViaCEP (`https://viacep.com.br/ws/<cep>/json/`, público) e mostra embaixo o carregamento e depois o resultado. É a única chamada da página para fora da pasta.
+- **Três checagens:** formato (8 dígitos, checado na página, porque o ViaCEP responde 400 sem CORS e o navegador não deixa ler), CEP existente (ViaCEP) e área atendida: Sorocaba, Votorantim, Itu ou Salto, em SP. Fora delas: "Atendemos Sorocaba, Votorantim, Itu e Salto, num raio de 80 km: se a sua cidade fica perto, pergunte na simulação." (exceção à seção 3.3, que tira a lista de cidades da dobra 1: aparece só nessa resposta).
+- **Resposta:** sempre o código (HTTP ou "Sem código HTTP"), o nome do erro e o motivo; no acerto, o endereço encontrado. Também a lista das três checagens e a resposta crua do ViaCEP, fechada.
+- **Privacidade:** o CEP não é guardado nem entra no registro de acessos (seção 13). A política do rodapé não muda (decisão do usuário).
+
 ### Acesso de qualquer ponto
 
 - **Computador:** cabeçalho fino e fixo, com a logo e o botão "Pedir simulação".

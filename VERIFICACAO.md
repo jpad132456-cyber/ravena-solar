@@ -221,3 +221,23 @@ O que não mudou: aparência, comportamento, textos e endereços (`/`, `/index.h
 Sobre o método das fotos: a primeira captura não esperava as fotos (obras, equipe, mapa) terminarem de decodificar. Nela, 7 dos 8 pares deram 0 pixel diferente, e o par "celular, página inteira, movimento reduzido" teve diferença só dentro de uma foto de obra. Duas capturas seguidas do mesmo servidor também diferiam nessas fotos, então era ruído da captura, não da conversão. A captura passou a esperar as imagens decodificarem e foi refeita dos dois lados: as fotos de antes vieram dos arquivos exatos do commit anterior à conversão (`aa0c3fb`), servidos como site estático.
 
 **Conferido no site no ar depois da conversão (8/11/2026):** com o deploy do commit `2458936` publicado, uma visita a https://ravena-solar-kappa.vercel.app rolou até o meio da página (50%) às 09:38:15. A aba "Visitas" da planilha ganhou a linha 37: pessoa `eef01f14-a933-…` (o mesmo código guardado no navegador da visita), início 08/11/2026 09:38:03, São Paulo/SP/BR, "4. Prova", rolagem 50, formulário "0. Não mexeu", production. O "atualizado" de 09:41:05 é um envio posterior da mesma aba, que ficou aberta. O registro continua funcionando pela rota do Next.
+
+## 12. Verificação de CEP no hero (8/11/2026)
+
+A pedido do usuário: link discreto "Meu CEP é atendido?" embaixo do botão "Pedir simulação" do hero (só no hero). Abre o campo do CEP; "Verificar" consulta o ViaCEP (`https://viacep.com.br/ws/<cep>/json/`) e mostra o resultado embaixo. Decisões do usuário: área atendida = as quatro cidades do brief (Sorocaba, Votorantim, Itu, Salto, em SP); política de privacidade sem mudança; nada vai para o registro de acessos.
+
+Testado no navegador (`next dev`), a 1440 e a 375 px. Prints: `verificacao/computador-1440-01-hero-cep.jpg` (CEP de Salto, coberto) e `verificacao/celular-375-01-hero-cep.jpg` (CEP de Campinas, fora).
+
+| Entrada | O que aparece |
+|---|---|
+| Vazio | "Digite o CEP da sua casa, com 8 dígitos." (não consulta) |
+| `12345` | `HTTP 400` · Bad Request (formato inválido), com o número de dígitos digitado. Checado na página: o ViaCEP responde 400 a esse formato **sem cabeçalho CORS**, e o navegador não deixa ler a resposta (conferido com `curl`), então a consulta nem é enviada |
+| `18035-060`, `18110-005`, `13300-005`, `13320-010` | `HTTP 200` · CEP válido e dentro da área atendida, com o endereço (Sorocaba, Votorantim, Itu e Salto) |
+| `13010-000` | `HTTP 200` · CEP válido, mas fora da área atendida (Campinas/SP) |
+| `99999-999`, `18300-000` | `HTTP 200` · CEP não encontrado (resposta `"erro": "true"`) |
+| Servidor com erro (simulado, 503) | `HTTP 503` · Service Unavailable, "não é erro no seu CEP" |
+| Resposta que não é JSON (simulada) | `HTTP 200` · Resposta inválida (SyntaxError) |
+| Sem internet (simulado) | Sem código HTTP · Falha de conexão (TypeError: Failed to fetch) |
+| Sem resposta em 8 s (simulado) | Sem código HTTP · Tempo esgotado (AbortError) |
+
+Enquanto consulta: "Consultando o CEP … no ViaCEP…" e o botão "Verificar" fica desativado. Cada resultado lista as três checagens (formato, CEP nos Correios, área atendida) como válido / encontrado / dentro, inválido / não encontrado / fora ou "não verificado", e traz a resposta crua do ViaCEP num "Resposta do ViaCEP" fechado. O texto da API entra na página só como texto. Sem JavaScript, o link fica escondido. O botão "Pedir simulação" do hero continua na primeira tela do celular (375 × 812). Sem rolagem lateral.

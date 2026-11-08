@@ -278,7 +278,67 @@ label { display: block; font-weight: 700; margin-bottom: 8px; }
 .hero-texto .rotulo + .titulo-hero { margin-top: 16px; }
 .hero-grade .antes-depois { order: 1; margin-top: 24px; }
 .hero-texto .campo-conta { order: 2; margin-top: 24px; }
-.hero-texto .campo-conta + .pequeno { order: 2; }
+.hero-texto .hero-apoio, .hero-texto .cep { order: 2; }
+
+/* Linha embaixo do campo: prazo de resposta à esquerda e, discreto, "Meu CEP é atendido?"
+   alinhado com o botão. */
+.hero-apoio {
+  max-width: 560px;
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+  gap: 0 24px;
+}
+.hero-texto .hero-apoio { margin-top: 16px; }
+.cep-abrir { color: var(--marinho-70); padding: 4px 0; }
+.cep-abrir:hover, .cep-abrir[aria-expanded="true"] { color: var(--marinho); }
+
+/* ---------- Verificação de CEP (hero) ---------- */
+
+.hero-texto .cep { margin-top: 16px; }
+.cep { max-width: 560px; }
+.cep label { font-weight: 400; }
+.cep-linha { display: flex; gap: 8px; }
+.campo-cep { width: 168px; flex: 0 0 auto; font-family: var(--mono); }
+.botao-secundario {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 8px 16px;
+  border: 1px solid var(--marinho); border-radius: var(--raio);
+  background: var(--branco); color: var(--marinho);
+  font: 700 var(--pequena)/1.2 var(--sans);
+  cursor: pointer;
+  transition: background-color .15s;
+}
+.botao-secundario:hover { background: var(--marinho-06); }
+.botao-secundario:disabled { cursor: progress; color: var(--marinho-70); border-color: var(--marinho-25); }
+
+.cep-resultado:empty { display: none; }
+.cep-resultado { margin-top: 16px; }
+.cep-carregando { color: var(--marinho-70); }
+.cep-caixa {
+  padding: 16px;
+  border-left: 4px solid var(--ambar);
+  background: var(--ambar-20);
+  border-radius: 0 var(--raio) var(--raio) 0;
+}
+.cep-caixa.falha { border-left-color: var(--laranja); background: var(--marinho-06); }
+.cep-caixa > * + * { margin-top: 8px; }
+.cep-titulo { font-weight: 700; }
+.cep-codigo { font-family: var(--mono); font-weight: 400; }
+.cep-checagens li { display: flex; gap: 8px; align-items: baseline; }
+.cep-checagens li::before {
+  content: ""; flex: 0 0 auto;
+  width: 14px; height: 4px; border-radius: 2px;
+  background: var(--marinho-25);
+  transform: translateY(-3px);
+}
+.cep-checagens li.ok::before { background: var(--ambar); }
+.cep-checagens li.falhou::before { background: var(--laranja); }
+.cep-checagens .situacao { font-family: var(--mono); white-space: nowrap; }
+.cep-bruto summary { cursor: pointer; color: var(--marinho-70); width: max-content; }
+.cep-bruto pre {
+  margin: 8px 0 0; padding: 8px 12px; overflow-x: auto;
+  background: var(--branco); border: 1px solid var(--marinho-15); border-radius: var(--raio);
+  font: 400 var(--pequena)/1.5 var(--mono); white-space: pre-wrap; word-break: break-word;
+}
 .hero-grade .nota { order: 3; margin-top: 40px; }
 
 /* Fundo de prancha: grade de 32 px centrada na página, que some no pé da dobra.

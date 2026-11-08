@@ -588,4 +588,205 @@
     }, { rootMargin: '0px 0px -25% 0px' }); // quando o topo passa de 3/4 da tela (a lista é mais alta que a tela no celular)
     observadorEtapas.observe(etapas);
   }
+
+  // ---------- Verificação de CEP (hero) ----------
+  // "Meu CEP é atendido?" abre uma caixinha com o campo do CEP. Ao verificar, o CEP vai
+  // para o ViaCEP (https://viacep.com.br/ws/<cep>/json/, público, sem chave) e a página
+  // devolve o que aconteceu: o código HTTP, o nome do erro e o motivo, ou o endereço
+  // encontrado. Três checagens: formato (8 dígitos), CEP existente e cidade entre as
+  // quatro atendidas (briefing.md: Sorocaba, Votorantim, Itu e Salto). Nada é guardado
+  // nem entra no registro de acessos.
+
+  var cepAbrir = document.getElementById('cep-abrir');
+  var cepCaixa = document.getElementById('cep');
+  var cepForm = document.getElementById('cep-form');
+  var cepCampo = document.getElementById('cep-campo');
+  var cepResultado = document.getElementById('cep-resultado');
+
+  if (cepAbrir && cepForm && window.fetch) {
+    var CIDADES_ATENDIDAS = ['sorocaba', 'votorantim', 'itu', 'salto'];
+    var CEP_TEMPO_MAX = 8000; // ms até desistir da consulta
+    var NOMES_HTTP = {
+      200: 'OK', 400: 'Bad Request', 403: 'Forbidden', 404: 'Not Found', 408: 'Request Timeout',
+      429: 'Too Many Requests', 500: 'Internal Server Error', 502: 'Bad Gateway',
+      503: 'Service Unavailable', 504: 'Gateway Timeout'
+    };
+    var consultaAtual = 0;
+
+    var normalizar = function (texto) {
+      return String(texto || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+    };
+    var formatarCep = function (digitos) {
+      return digitos.length > 5 ? digitos.slice(0, 5) + '-' + digitos.slice(5) : digitos;
+    };
+    var nomeHttp = function (resposta) {
+      return resposta.statusText || NOMES_HTTP[resposta.status] || 'sem nome';
+    };
+    var criar = function (tag, classe, texto) {
+      var el = document.createElement(tag);
+      if (classe) el.className = classe;
+      if (texto !== undefined) el.textContent = texto; // texto da API entra sempre como texto, nunca como HTML
+      return el;
+    };
+
+    cepAbrir.hidden = false;
+    cepAbrir.addEventListener('click', function () {
+      var abrir = cepCaixa.hidden;
+      cepCaixa.hidden = !abrir;
+      cepAbrir.setAttribute('aria-expanded', String(abrir));
+      if (abrir) cepCampo.focus();
+    });
+
+    cepCampo.addEventListener('input', function () {
+      cepCampo.value = formatarCep(soDigitos(cepCampo.value).slice(0, 8));
+    });
+
+    // checagens: [formato, existe, cobertura], cada uma 'ok', 'falhou' ou 'pendente'.
+    var mostrarCep = function (r) {
+      var caixa = criar('div', 'cep-caixa' + (r.ok ? '' : ' falha'));
+      var titulo = criar('p', 'cep-titulo');
+      if (r.codigo) {
+        titulo.appendChild(criar('span', 'cep-codigo', r.codigo));
+        titulo.appendChild(document.createTextNode(' · '));
+      }
+      titulo.appendChild(document.createTextNode(r.titulo));
+      caixa.appendChild(titulo);
+      caixa.appendChild(criar('p', '', r.motivo));
+
+      var rotulos = [
+        ['Formato (8 dígitos)', 'válido', 'inválido'],
+        ['CEP nos Correios', 'encontrado', 'não encontrado'],
+        ['Área atendida', 'dentro', 'fora']
+      ];
+      var lista = criar('ul', 'cep-checagens');
+      lista.setAttribute('aria-label', 'Checagens');
+      rotulos.forEach(function (rotulo, i) {
+        var situacao = r.checagens[i];
+        var item = criar('li', situacao);
+        var texto = situacao === 'ok' ? rotulo[1] : situacao === 'falhou' ? rotulo[2] : 'não verificado';
+        item.appendChild(criar('span', '', rotulo[0] + ':'));
+        item.appendChild(criar('span', 'situacao', texto));
+        lista.appendChild(item);
+      });
+      caixa.appendChild(lista);
+
+      if (r.bruto !== undefined) {
+        var detalhes = criar('details', 'cep-bruto');
+        detalhes.appendChild(criar('summary', '', 'Resposta do ViaCEP'));
+        detalhes.appendChild(criar('pre', '', r.bruto || '(vazia)'));
+        caixa.appendChild(detalhes);
+      }
+
+      cepResultado.replaceChildren(caixa);
+    };
+
+    cepForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var digitos = soDigitos(cepCampo.value);
+      var botao = cepForm.querySelector('button');
+
+      if (!digitos) {
+        cepResultado.replaceChildren(criar('p', 'erro', 'Digite o CEP da sua casa, com 8 dígitos.'));
+        cepCampo.focus();
+        return;
+      }
+
+      // O ViaCEP responde HTTP 400 a CEP fora do formato, mas sem o cabeçalho CORS, e o
+      // navegador não deixa ler essa resposta (vira "Failed to fetch"). Por isso o formato
+      // é checado aqui, antes de consultar.
+      if (digitos.length !== 8) {
+        consultaAtual++;
+        botao.disabled = false;
+        cepForm.removeAttribute('aria-busy');
+        mostrarCep({
+          codigo: 'HTTP 400', titulo: 'Bad Request (formato inválido)',
+          motivo: 'O CEP tem 8 dígitos, e você digitou ' + digitos.length + '. Com esse formato o ViaCEP recusa a consulta (HTTP 400), por isso ela nem foi enviada. Confira os números e tente de novo.',
+          checagens: ['falhou', 'pendente', 'pendente']
+        });
+        cepCampo.focus();
+        return;
+      }
+
+      var esta = ++consultaAtual;
+      var controle = window.AbortController ? new AbortController() : null;
+      var relogio = controle && setTimeout(function () { controle.abort(); }, CEP_TEMPO_MAX);
+      var cepTexto = formatarCep(digitos);
+
+      botao.disabled = true;
+      cepForm.setAttribute('aria-busy', 'true');
+      cepResultado.replaceChildren(criar('p', 'cep-carregando', 'Consultando o CEP ' + cepTexto + ' no ViaCEP…'));
+
+      var terminar = function (r) {
+        if (esta !== consultaAtual) return; // chegou depois de uma consulta mais nova
+        clearTimeout(relogio);
+        botao.disabled = false;
+        cepForm.removeAttribute('aria-busy');
+        mostrarCep(r);
+      };
+
+      fetch('https://viacep.com.br/ws/' + encodeURIComponent(digitos) + '/json/', controle ? { signal: controle.signal } : {})
+        .then(function (resposta) {
+          return resposta.text().then(function (corpo) {
+            var codigo = 'HTTP ' + resposta.status;
+
+            if (!resposta.ok) {
+              return terminar({
+                codigo: codigo, titulo: nomeHttp(resposta),
+                motivo: resposta.status === 429
+                  ? 'O ViaCEP recebeu consultas demais deste aparelho e pediu uma pausa. Tente de novo em alguns minutos.'
+                  : resposta.status >= 500
+                    ? 'O ViaCEP está com problema e não respondeu a consulta. Não é erro no seu CEP. Tente de novo em alguns minutos.'
+                    : 'O ViaCEP não aceitou a consulta. Tente de novo em alguns minutos.',
+                checagens: ['ok', 'pendente', 'pendente'], bruto: corpo
+              });
+            }
+
+            var dados;
+            try { dados = JSON.parse(corpo); } catch (erroJson) {
+              return terminar({
+                codigo: codigo, titulo: 'Resposta inválida (' + erroJson.name + ')',
+                motivo: 'O ViaCEP respondeu, mas a resposta não veio em JSON e não deu para ler. Tente de novo em alguns minutos.',
+                checagens: ['ok', 'pendente', 'pendente'], bruto: corpo
+              });
+            }
+
+            if (dados.erro) {
+              return terminar({
+                codigo: codigo, titulo: 'CEP não encontrado (resposta "erro": ' + JSON.stringify(dados.erro) + ')',
+                motivo: 'O formato está certo, mas o CEP ' + cepTexto + ' não existe na base dos Correios usada pelo ViaCEP. Confira os números na conta de luz ou num envelope.',
+                checagens: ['ok', 'falhou', 'pendente'], bruto: corpo
+              });
+            }
+
+            var cidade = (dados.localidade || '?') + '/' + (dados.uf || '?');
+            var endereco = [dados.logradouro, dados.bairro, cidade].filter(Boolean).join(', ');
+            var atendida = normalizar(dados.uf) === 'sp' && CIDADES_ATENDIDAS.indexOf(normalizar(dados.localidade)) !== -1;
+
+            if (atendida) {
+              return terminar({
+                ok: true, codigo: codigo, titulo: 'CEP válido e dentro da área atendida pela Ravena Solar.',
+                motivo: 'Endereço encontrado: ' + endereco + '.',
+                checagens: ['ok', 'ok', 'ok'], bruto: corpo
+              });
+            }
+            return terminar({
+              codigo: codigo, titulo: 'CEP válido, mas fora da área atendida',
+              motivo: 'O CEP ' + cepTexto + ' é de ' + endereco + '. Atendemos Sorocaba, Votorantim, Itu e Salto, num raio de 80 km: se a sua cidade fica perto, pergunte na simulação.',
+              checagens: ['ok', 'ok', 'falhou'], bruto: corpo
+            });
+          });
+        })
+        .catch(function (erro) {
+          var tempo = erro && erro.name === 'AbortError';
+          terminar({
+            codigo: 'Sem código HTTP',
+            titulo: tempo ? 'Tempo esgotado (AbortError)' : 'Falha de conexão (' + (erro && erro.name || 'Erro') + ': ' + (erro && erro.message || 'sem detalhe') + ')',
+            motivo: tempo
+              ? 'O ViaCEP não respondeu em ' + (CEP_TEMPO_MAX / 1000) + ' segundos, e a consulta foi cancelada. Tente de novo.'
+              : 'O navegador não conseguiu falar com o ViaCEP: a internet caiu, o serviço está fora do ar ou algum bloqueador impediu a consulta. O CEP não foi consultado; tente de novo.',
+            checagens: ['ok', 'pendente', 'pendente']
+          });
+        });
+    });
+  }
 })();

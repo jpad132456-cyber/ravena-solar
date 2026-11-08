@@ -59,7 +59,7 @@ Em 2/11/2026 o usuário mandou tirar todos os placeholders da página: contatos,
 ## Técnica e publicação
 
 - **Stack:** projeto Next (desde 8/11/2026, a pedido do usuário). A página continua em HTML, CSS e JavaScript puros, sem React e sem biblioteca na página; o Next só serve os arquivos e roda a rota `/api/registro`.
-- **Estrutura:** `public/index.html`, `public/css/`, `public/js/` e `public/assets/` (logo, fontes e imagens); o endereço `/` mostra `public/index.html` (reescrita em `next.config.mjs`). `vercel.json` fixa o framework como Next. Nada carregado de fora da pasta.
+- **Estrutura:** `public/index.html`, `public/css/`, `public/js/` e `public/assets/` (logo, fontes e imagens); o endereço `/` mostra `public/index.html` (reescrita em `next.config.mjs`). `vercel.json` fixa o framework como Next. Nada carregado de fora da pasta; a única exceção é a consulta ao ViaCEP da verificação de CEP do hero (`DESIGN.md`, seção 4).
 - **Rodar local:** `npm install` e depois `npx next build && npx next start` (ou `npx next dev`).
 - **Registro de acessos:** `public/js/registro.js` → rota do Next em `app/api/registro/route.js` (endereço `/api/registro`) → planilha do Google (`planilha/registro.gs`). Registra IP, horário, localização, até onde a pessoa foi e se usou a simulação, por pessoa, sem guardar o que ela digita. Detalhes no `DESIGN.md`, seção 13.
 - **Repositório:** `github.com/jpad132456-cyber/ravena-solar` (público), branch `main`.

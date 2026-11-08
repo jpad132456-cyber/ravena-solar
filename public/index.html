@@ -65,7 +65,22 @@
             <button type="submit" class="botao">Pedir simulação</button>
           </div>
         </form>
-        <p class="pequeno">Resposta no mesmo dia útil, por WhatsApp.</p>
+        <div class="hero-apoio">
+          <p class="pequeno">Resposta no mesmo dia útil, por WhatsApp.</p>
+          <!-- Verificação de CEP: consulta o ViaCEP e diz se a cidade está entre as quatro atendidas
+               (js/pagina.js). Sem JavaScript, o botão fica escondido. -->
+          <button type="button" class="botao-texto cep-abrir" id="cep-abrir" aria-expanded="false" aria-controls="cep" hidden>Meu CEP é atendido?</button>
+        </div>
+        <div class="cep" id="cep" hidden>
+          <form class="cep-form" id="cep-form" novalidate>
+            <label for="cep-campo">CEP da sua casa</label>
+            <div class="cep-linha">
+              <input id="cep-campo" name="cep" class="campo campo-cep" type="text" inputmode="numeric" autocomplete="postal-code" placeholder="00000-000" maxlength="9">
+              <button type="submit" class="botao-secundario">Verificar</button>
+            </div>
+          </form>
+          <div class="cep-resultado" id="cep-resultado" aria-live="polite"></div>
+        </div>
       </div>
 
       <figure class="antes-depois" aria-labelledby="caso-resumo">
