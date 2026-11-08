@@ -12,13 +12,13 @@ Landing page para vender **energia solar residencial** da Ravena Solar.
 - `BRAINSTORM.md`: ideias que **não** foram escolhidas. Não usar nada dele sem pedido.
 - `SPEC.md`: resumo para pessoas. Não é instrução; em conflito, vale o `DESIGN.md`.
 - `VERIFICACAO.md` e `verificacao/`: evidências de verificação (a criar; ver `DESIGN.md`, seção 11).
-- `assets/logo.svg` e `assets/logo.png`: logo da marca. `assets/fonts/`: fontes locais (a criar).
+- `public/assets/logo.svg` e `public/assets/logo.png`: logo da marca. `public/assets/fonts/`: fontes locais.
 
 ## Regras inegociáveis
 
 1. **Não inventar dados.** Todo número, prazo, garantia ou afirmação sobre a empresa tem que estar no `briefing.md`. Se faltar algum dado, deixar um placeholder visível e avisar.
 2. **Brief vence o site antigo.** Em qualquer conflito, vale o brief (`briefing.md`, seção 12).
-3. **Cores da marca:** usar só as da logo, lidas de `assets/logo.svg`. Três exceções: a cena dia e noite da dobra 3 pode ter cores próprias (céu, grama, telha, árvores…), conforme o `DESIGN.md`, seção 8; a imagem de satélite do bloco "Onde atuamos" (dobra 7); e as fotos das obras (dobra 4) e da equipe (dobra 7), tiradas do Google Imagens porque o negócio é fictício (`DESIGN.md`, seção 2). Nas fotos, os traços por cima usam só as cores da logo (`DESIGN.md`, seção 5).
+3. **Cores da marca:** usar só as da logo, lidas de `public/assets/logo.svg`. Três exceções: a cena dia e noite da dobra 3 pode ter cores próprias (céu, grama, telha, árvores…), conforme o `DESIGN.md`, seção 8; a imagem de satélite do bloco "Onde atuamos" (dobra 7); e as fotos das obras (dobra 4) e da equipe (dobra 7), tiradas do Google Imagens porque o negócio é fictício (`DESIGN.md`, seção 2). Nas fotos, os traços por cima usam só as cores da logo (`DESIGN.md`, seção 5).
 4. **Tom:** "Direto e específico. Somos técnicos e gostamos de número."
    - Proibido: "energia do futuro", "sustentabilidade" como slogan, "revolução solar", "grátis", economia de 95%, prazo inventado.
    - Conta de luz **não zera**: a queda média é de 75% a 90%.
@@ -58,9 +58,10 @@ Em 2/11/2026 o usuário mandou tirar todos os placeholders da página: contatos,
 
 ## Técnica e publicação
 
-- **Stack:** HTML, CSS e JavaScript puros, sem framework, sem biblioteca e sem etapa de build.
-- **Estrutura:** `index.html` na raiz, `css/`, `js/` e `assets/` (logo, fontes e imagens). Nada carregado de fora da pasta.
-- **Registro de acessos:** `js/registro.js` → função do Vercel em `api/registro.js` → planilha do Google (`planilha/registro.gs`). Registra IP, horário, localização, até onde a pessoa foi e se usou a simulação, por pessoa, sem guardar o que ela digita. Detalhes no `DESIGN.md`, seção 13.
+- **Stack:** projeto Next (desde 8/11/2026, a pedido do usuário). A página continua em HTML, CSS e JavaScript puros, sem React e sem biblioteca na página; o Next só serve os arquivos e roda a rota `/api/registro`.
+- **Estrutura:** `public/index.html`, `public/css/`, `public/js/` e `public/assets/` (logo, fontes e imagens); o endereço `/` mostra `public/index.html` (reescrita em `next.config.mjs`). `vercel.json` fixa o framework como Next. Nada carregado de fora da pasta.
+- **Rodar local:** `npm install` e depois `npx next build && npx next start` (ou `npx next dev`).
+- **Registro de acessos:** `public/js/registro.js` → rota do Next em `app/api/registro/route.js` (endereço `/api/registro`) → planilha do Google (`planilha/registro.gs`). Registra IP, horário, localização, até onde a pessoa foi e se usou a simulação, por pessoa, sem guardar o que ela digita. Detalhes no `DESIGN.md`, seção 13.
 - **Repositório:** `github.com/jpad132456-cyber/ravena-solar` (público), branch `main`.
 - **Hospedagem:** Vercel, projeto `ravena-solar` (https://ravena-solar-kappa.vercel.app). Cada envio para a `main` publica **direto em produção**. Trabalhar direto na `main`, sem criar branch.
 - **Envio do formulário:** placeholder. O formulário valida os campos e mostra a confirmação, mas não envia nada até o cliente definir para onde vão os pedidos. Deixar isso comentado no código e registrado no `VERIFICACAO.md`.
