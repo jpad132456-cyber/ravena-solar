@@ -1,7 +1,11 @@
 -- TESTE das tabelas pessoas e simulacoes: 3 leads fictícios.
--- Rodar no SQL Editor do Supabase DEPOIS da migration 20261113120000.
+-- Rodar no SQL Editor do Supabase DEPOIS das migrations 20261113120000, 20261119120000
+-- e 20261119130000 (a conferência da PARTE 2 espera a ID aleatória).
 -- Pode rodar mais de uma vez: a pessoa é reaproveitada (mesmo telefone = mesma pessoa, pelo on conflict).
 -- Dados inventados (nomes e telefones de teste). No fim há a limpeza.
+-- Telefones com DDD 00, que não existe no Brasil: a limpeza (like '5500%') nunca apaga
+-- um lead de verdade. (Até 19/11/2026 este arquivo usava DDD 15; os 3 leads que estão
+-- hoje no banco vieram dessa versão.)
 --
 -- Fica fora de supabase/migrations/ e fora de supabase/seed.sql de propósito:
 -- o CLI roda esses dois sozinho, e dado de teste não deve ir para o banco de verdade.
@@ -13,7 +17,7 @@
 
 with nova_pessoa as (
   insert into public.pessoas (telefone, nome)
-  values ('5515999990001', 'Teste Ana Souza')
+  values ('5500999990001', 'Teste Ana Souza')
   on conflict (telefone) do update set nome = excluded.nome
   returning id
 )
@@ -22,7 +26,7 @@ select id, 'Sorocaba', 780.00, null, now() from nova_pessoa;
 
 with nova_pessoa as (
   insert into public.pessoas (telefone, nome)
-  values ('5515999990002', 'Teste Bruno Lima')
+  values ('5500999990002', 'Teste Bruno Lima')
   on conflict (telefone) do update set nome = excluded.nome
   returning id
 )
@@ -32,7 +36,7 @@ select id, 'Itu', 560.50, id::text || '/teste-conta.pdf', now() from nova_pessoa
 
 with nova_pessoa as (
   insert into public.pessoas (telefone, nome)
-  values ('5515999990003', 'Teste Carla Dias')
+  values ('5500999990003', 'Teste Carla Dias')
   on conflict (telefone) do update set nome = excluded.nome
   returning id
 )
@@ -47,13 +51,13 @@ select id, 'Salto', 200.00, null, now() from nova_pessoa;
 select p.id as pessoa_id, p.nome, p.telefone, s.cidade, s.valor_conta, s.conta_arquivo, s.criado_em
 from public.pessoas p
 join public.simulacoes s on s.pessoa_id = p.id
-where p.telefone like '551599999000_'
+where p.telefone like '5500%'
 order by p.telefone;
 
 -- Esperado: ok = true nas 3 linhas (a id NÃO é o md5 do telefone; migration 20261119120000).
 select telefone, id <> md5(telefone)::uuid as ok
 from public.pessoas
-where telefone like '551599999000_'
+where telefone like '5500%'
 order by telefone;
 
 
@@ -73,7 +77,7 @@ begin
 
   -- nome vazio
   begin
-    insert into public.pessoas (telefone, nome) values ('5515999990009', '   ');
+    insert into public.pessoas (telefone, nome) values ('5500999990009', '   ');
     raise exception 'FALHOU: aceitou nome vazio';
   exception when check_violation then
     raise notice 'OK: recusou nome vazio';
@@ -91,7 +95,7 @@ begin
   -- valor da conta zero
   begin
     insert into public.simulacoes (pessoa_id, cidade, valor_conta, consentimento_em)
-    values ((select id from public.pessoas where telefone = '5515999990001'), 'Sorocaba', 0, now());
+    values ((select id from public.pessoas where telefone = '5500999990001'), 'Sorocaba', 0, now());
     raise exception 'FALHOU: aceitou valor zero';
   exception when check_violation then
     raise notice 'OK: recusou valor zero';
@@ -104,6 +108,6 @@ $$;
 -- Apagar as pessoas de teste apaga as simulações delas junto (on delete cascade).
 -- Descomente as linhas abaixo para rodar.
 
--- delete from public.pessoas where telefone like '551599999000_';
+-- delete from public.pessoas where telefone like '5500%';
 -- select count(*) as sobrou from public.simulacoes s
---   join public.pessoas p on p.id = s.pessoa_id where p.telefone like '551599999000_';  -- esperado: 0
+--   join public.pessoas p on p.id = s.pessoa_id where p.telefone like '5500%';  -- esperado: 0
