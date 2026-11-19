@@ -11,6 +11,7 @@ Landing page para vender **energia solar residencial** da Ravena Solar.
 - `DESIGN.md`: todas as decisões de design e de conteúdo (dobras, textos permitidos, formulário, cores, tipografia, animação, layout, acessibilidade e verificação). **Ler inteiro antes de qualquer trabalho no site.**
 - `BRAINSTORM.md`: ideias que **não** foram escolhidas. Não usar nada dele sem pedido.
 - `SPEC.md`: resumo para pessoas. Não é instrução; em conflito, vale o `DESIGN.md`.
+- `DADOS.md` e `supabase/`: tabelas `pessoas` e `simulacoes` do Supabase (plano em `DADOS.md`; migration em `supabase/migrations/`; descrição das colunas em `supabase/TABELAS.md`). Ainda **sem ligação com o site**.
 - `VERIFICACAO.md` e `verificacao/`: evidências de verificação (a criar; ver `DESIGN.md`, seção 11).
 - `public/assets/logo.svg` e `public/assets/logo.png`: logo da marca. `public/assets/fonts/`: fontes locais.
 
@@ -65,7 +66,7 @@ Em 2/11/2026 o usuário mandou tirar todos os placeholders da página: contatos,
 - **Repositório:** `github.com/jpad132456-cyber/ravena-solar` (público), branch `main`.
 - **Hospedagem:** Vercel, projeto `ravena-solar` (https://ravena-solar-kappa.vercel.app). Cada envio para a `main` publica **direto em produção**. Trabalhar direto na `main`, sem criar branch.
 - **Verificação de CEP:** o "Meu CEP é atendido?" do hero pede `/api/cep` (`app/api/cep/route.js`), que consulta o ViaCEP pelo servidor e devolve a resposta como veio. O aparelho do visitante nunca fala direto com o ViaCEP. Detalhes no `DESIGN.md`, seção 4.
-- **Envio do formulário:** placeholder. O formulário valida os campos e mostra a confirmação, mas não envia nada até o cliente definir para onde vão os pedidos. Deixar isso comentado no código e registrado no `VERIFICACAO.md`.
+- **Envio do formulário:** placeholder. O formulário valida os campos e mostra a confirmação, mas não envia nada até o cliente definir para onde vão os pedidos. Deixar isso comentado no código e registrado no `VERIFICACAO.md`. As tabelas `pessoas` e `simulacoes` já têm migration (`supabase/`, ver `DADOS.md`), mas o site não fala com elas: ligar é trabalho futuro.
 
 ## Ordem de trabalho
 
