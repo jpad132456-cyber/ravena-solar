@@ -2,7 +2,12 @@
 -- Rodar no SQL Editor DEPOIS de 3_leads_de_teste.sql (precisa da "Teste Ana Souza").
 -- Rodar UMA vez: rodar de novo cria mais uma simulação para a Ana.
 --
--- PREVISÕES (escritas antes de rodar):
+-- ATENÇÃO (19/11/2026): as previsões abaixo valem para a versão antiga (id = md5 do telefone).
+-- Depois da migration 20261119120000 a ID é aleatória e a troca de telefone é ACEITA
+-- (mesma id, simulações ligadas). O teste dessa correção é id_da_pessoa_sem_telefone.sql.
+-- Aqui, na versão nova, a troca muda o telefone da Ana de verdade.
+--
+-- PREVISÕES (escritas antes de rodar, versão antiga):
 --   Consulta 1: 2 linhas, as duas de "Teste Ana Souza", telefone 5515999990001,
 --     com a mesma pessoa_id: Sorocaba R$ 780,00 (de antes) e Votorantim R$ 640,00 (nova).
 --     A tabela simulacoes passa a ter 4 linhas no total.
@@ -37,4 +42,4 @@ join public.simulacoes s on s.pessoa_id = p.id
 where p.nome = 'Teste Ana Souza'
 order by s.valor_conta desc;
 -- Esperado (previsão acima): 2 linhas, telefone 5515999990001 nas duas,
--- pessoa_id igual a md5('5515999990001')::uuid.
+-- pessoa_id igual a md5('5515999990001')::uuid (versão antiga; na nova, a id é aleatória).

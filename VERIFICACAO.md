@@ -266,3 +266,20 @@ A resposta crua aberta ganhou altura máxima de 240 px com rolagem (a página de
 
 Migration `supabase/migrations/20261113120000_cria_pessoas_e_simulacoes.sql` e descrição em `supabase/TABELAS.md` (plano em `DADOS.md`). **Escritas, mas ainda não aplicadas no Supabase nem testadas num Postgres** (não há Postgres nesta máquina; o Docker está desligado). O site não foi alterado e não fala com as tabelas. A conferência no Supabase usa as consultas do `supabase/TABELAS.md`; o resultado entra aqui quando for feita.
 
+### 14.1 ID da pessoa aleatória (19/11/2026)
+
+Defeito: a ID era `md5(telefone)::uuid`, então trocar o telefone de quem já tem simulação era recusado pela chave estrangeira (erro 23503) e a ID entregava o telefone.
+
+Correção: `supabase/migrations/20261119120000_id_da_pessoa_aleatoria.sql` (ID com `gen_random_uuid()`; as IDs que já existiam foram trocadas e as simulações acompanharam). Aplicada no SQL Editor do projeto RAVENA SOLAR em 19/11/2026.
+
+Teste `supabase/testes/id_da_pessoa_sem_telefone.sql`, rodado no SQL Editor (Postgres 17) antes e depois da migration:
+
+| Teste | Antes | Depois |
+|---|---|---|
+| 1. Trocar o telefone de quem tem simulação | FALHOU (23503, chave estrangeira) | PASSOU |
+| 2. Descobrir o telefone a partir da ID (10 mil candidatos) | FALHOU (achou 5515999990099) | PASSOU |
+| 3. Nenhuma ID igual ao md5 do telefone | FALHOU (4 pessoas) | PASSOU (0) |
+| 4. Mesmo telefone reaproveita a mesma pessoa | PASSOU | PASSOU |
+
+Prints: `verificacao/id-lead-antes.jpg` e `verificacao/id-lead-depois.jpg`. Depois da migration: chave estrangeira igual à de antes (`on delete cascade`), 3 pessoas e 4 simulações, todas ligadas.
+

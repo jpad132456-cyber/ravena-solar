@@ -1,6 +1,6 @@
 -- TESTE das tabelas pessoas e simulacoes: 3 leads fictícios.
 -- Rodar no SQL Editor do Supabase DEPOIS da migration 20261113120000.
--- Pode rodar mais de uma vez: a pessoa é reaproveitada (mesmo telefone = mesma ID).
+-- Pode rodar mais de uma vez: a pessoa é reaproveitada (mesmo telefone = mesma pessoa, pelo on conflict).
 -- Dados inventados (nomes e telefones de teste). No fim há a limpeza.
 --
 -- Fica fora de supabase/migrations/ e fora de supabase/seed.sql de propósito:
@@ -42,7 +42,7 @@ select id, 'Salto', 200.00, null, now() from nova_pessoa;
 
 
 -- PARTE 2. Ver o resultado ------------------------------------------------
--- Esperado: 3 linhas, uma por lead, com a id da pessoa calculada do telefone.
+-- Esperado: 3 linhas, uma por lead, com a id da pessoa gerada pelo banco.
 
 select p.id as pessoa_id, p.nome, p.telefone, s.cidade, s.valor_conta, s.conta_arquivo, s.criado_em
 from public.pessoas p
@@ -50,8 +50,8 @@ join public.simulacoes s on s.pessoa_id = p.id
 where p.telefone like '551599999000_'
 order by p.telefone;
 
--- Esperado: ok = true nas 3 linhas (a id é mesmo o md5 do telefone).
-select telefone, id = md5(telefone)::uuid as ok
+-- Esperado: ok = true nas 3 linhas (a id NÃO é o md5 do telefone; migration 20261119120000).
+select telefone, id <> md5(telefone)::uuid as ok
 from public.pessoas
 where telefone like '551599999000_'
 order by telefone;
@@ -82,7 +82,7 @@ begin
   -- simulação de pessoa que não existe
   begin
     insert into public.simulacoes (pessoa_id, cidade, valor_conta, consentimento_em)
-    values (md5('5500000000000')::uuid, 'Itu', 500, now());
+    values (gen_random_uuid(), 'Itu', 500, now());
     raise exception 'FALHOU: aceitou simulacao sem pessoa';
   exception when foreign_key_violation then
     raise notice 'OK: recusou simulacao sem pessoa';
@@ -91,7 +91,7 @@ begin
   -- valor da conta zero
   begin
     insert into public.simulacoes (pessoa_id, cidade, valor_conta, consentimento_em)
-    values (md5('5515999990001')::uuid, 'Sorocaba', 0, now());
+    values ((select id from public.pessoas where telefone = '5515999990001'), 'Sorocaba', 0, now());
     raise exception 'FALHOU: aceitou valor zero';
   exception when check_violation then
     raise notice 'OK: recusou valor zero';

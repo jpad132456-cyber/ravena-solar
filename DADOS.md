@@ -28,7 +28,7 @@ Não mexe em `public/`, `app/`, `next.config.mjs` nem no formulário.
 
 | Coluna | Tipo | Regra |
 |---|---|---|
-| `id` | `uuid`, chave primária | **Gerada a partir do telefone**: coluna calculada (`generated always as ... stored`) com `md5(telefone)::uuid`. Mesmo telefone → sempre a mesma ID; telefones diferentes → IDs diferentes; ninguém digita nem escolhe a ID |
+| `id` | `uuid`, chave primária | **Trocada em 19/11/2026: agora é aleatória (`gen_random_uuid()`)**, ver o fim desta seção. Plano original: **gerada a partir do telefone**: coluna calculada (`generated always as ... stored`) com `md5(telefone)::uuid`. Mesmo telefone → sempre a mesma ID; telefones diferentes → IDs diferentes; ninguém digita nem escolhe a ID |
 | `telefone` | `text`, obrigatório, **único** | Só dígitos, com 55 na frente: `55` + DDD + 9 dígitos (ex.: `5515999999999`). `check` com a regex `^55[0-9]{2}9[0-9]{8}$`. A máscara `(15) 99999-9999` do formulário é tirada antes de gravar (essa limpeza será feita na hora de ligar o site, não agora) |
 | `nome` | `text`, obrigatório | Não vazio (`check (length(btrim(nome)) > 0)`) |
 | `criado_em` | `timestamptz`, obrigatório | `default now()` |
@@ -36,7 +36,9 @@ Não mexe em `public/`, `app/`, `next.config.mjs` nem no formulário.
 
 Por que `md5(...)::uuid` e não `uuid_generate_v5`: é função nativa do Postgres (sem extensão), é imutável (obrigatório para coluna calculada) e entrega o que foi pedido. A ID **não é segredo** (o telefone é fácil de adivinhar); quem protege os dados é a RLS (seção 3.4).
 
-Mesmo telefone pedindo de novo: a pessoa já existe e o novo pedido vira **mais uma linha em `simulacoes`** (é o "um para muitos"). O nome é atualizado para o mais recente (regra a aplicar no futuro `INSERT ... ON CONFLICT (id) DO UPDATE`; não é regra da tabela agora).
+**Correção (19/11/2026), migration `20261119120000_id_da_pessoa_aleatoria.sql`:** a ID calculada do telefone tinha dois defeitos: trocar o telefone de quem já tem simulação era recusado pela chave estrangeira (erro 23503), e a ID entregava o telefone (basta calcular o md5 dos telefones possíveis). A ID passou a ser aleatória; o telefone continua único e é por ele que a pessoa é reaproveitada. Teste: `supabase/testes/id_da_pessoa_sem_telefone.sql` (prints em `verificacao/id-lead-antes.jpg` e `verificacao/id-lead-depois.jpg`).
+
+Mesmo telefone pedindo de novo: a pessoa já existe e o novo pedido vira **mais uma linha em `simulacoes`** (é o "um para muitos"). O nome é atualizado para o mais recente (regra a aplicar no futuro `INSERT ... ON CONFLICT (telefone) DO UPDATE`; não é regra da tabela agora).
 
 ### 3.2 `simulacoes` (o "muitos")
 
@@ -92,7 +94,7 @@ pessoas (1) ───────< simulacoes (N)
 
 1. **"Endereço" da simulação. Resolvida pelo usuário (13/11/2026): só a cidade**, como no formulário. Coluna `cidade`. O endereço completo fica para a visita técnica.
 2. **Colunas que o usuário não citou.** Incluídas `consentimento_em` (a caixa LGPD é obrigatória no formulário) e `criado_em`. Não incluída `origem` (qual dos três botões levou ao pedido). *Sem objeção do usuário até agora; segue como no plano.*
-3. **ID pelo telefone.** `md5(telefone)::uuid`, como na seção 3.1. A alternativa seria o próprio telefone como chave. *Sem objeção do usuário até agora; segue como no plano.*
+3. **ID pelo telefone.** `md5(telefone)::uuid`, como na seção 3.1. A alternativa seria o próprio telefone como chave. **Trocada em 19/11/2026 por ID aleatória** (seção 3.1).
 
 ## 6. Andamento
 
@@ -102,7 +104,8 @@ pessoas (1) ───────< simulacoes (N)
 | 3. `supabase/TABELAS.md` | Escrito |
 | 4. Teste do SQL num Postgres | **Não feito**: não há Postgres nesta máquina e o Docker está instalado mas desligado. Os pontos de risco a testar são a coluna calculada como chave primária, a chave estrangeira e a RLS |
 | Leads de teste | Escritos: `supabase/testes/3_leads_de_teste.sql` (3 pessoas e 3 simulações fictícias, conferência da ID e 4 recusas esperadas). **Ainda não rodados** |
-| 5. Aplicar no Supabase | Pendente (usuário) |
-| 6. Conferir no Supabase | Pendente (consultas no `supabase/TABELAS.md`) |
+| 5. Aplicar no Supabase | Feito pelo usuário (informado em 19/11/2026) |
+| 6. Conferir no Supabase | Feito pelo usuário (informado em 19/11/2026) |
 | 7. `CLAUDE.md` e `VERIFICACAO.md` | Feito |
-| 8. Commit na `main` | Pendente (aguarda aprovação do usuário) |
+| 8. Commit na `main` | Feito (0e30e55) |
+| 9. ID aleatória (19/11/2026) | Migration `20261119120000` aplicada no Supabase; teste `id_da_pessoa_sem_telefone.sql`: 3 de 4 FALHOU antes, 4 de 4 PASSOU depois. Branch `corrige-id-lead` e PR |

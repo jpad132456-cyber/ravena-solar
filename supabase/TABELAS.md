@@ -1,13 +1,13 @@
 # Tabelas do Supabase: pedidos de simulação
 
-Migration: [`migrations/20261113120000_cria_pessoas_e_simulacoes.sql`](migrations/20261113120000_cria_pessoas_e_simulacoes.sql). Plano e decisões: [`../DADOS.md`](../DADOS.md).
+Migrations: [`migrations/20261113120000_cria_pessoas_e_simulacoes.sql`](migrations/20261113120000_cria_pessoas_e_simulacoes.sql) (cria as tabelas) e [`migrations/20261119120000_id_da_pessoa_aleatoria.sql`](migrations/20261119120000_id_da_pessoa_aleatoria.sql) (a ID da pessoa passa a ser aleatória). Plano e decisões: [`../DADOS.md`](../DADOS.md).
 
 **Estado:** as tabelas existem só para guardar os pedidos. **O site ainda não está ligado a elas** (o formulário continua como placeholder, `DESIGN.md`, seção 4).
 
 ```
 pessoas (1) ───────< simulacoes (N)
   id  ◄──────────── pessoa_id
-  telefone (único; é de onde a id nasce)
+  telefone (único)
   nome              cidade, valor_conta,
                     conta_arquivo → Storage "contas-de-luz"
 ```
@@ -18,7 +18,7 @@ Uma pessoa (um telefone) pode ter várias simulações. Cada pedido de simulaç�
 
 | Coluna | Tipo | O que guarda e como |
 |---|---|---|
-| `id` | `uuid`, chave primária | A ID única da pessoa. **Nasce do telefone**: é calculada pelo banco (`md5(telefone)::uuid`). Mesmo telefone, sempre a mesma ID. **Nunca se envia na inserção** (o banco recusa) |
+| `id` | `uuid`, chave primária | A ID única da pessoa, **aleatória**: o banco gera (`gen_random_uuid()`). **Não depende do telefone**: trocar o telefone mantém a ID, e a ID não revela o telefone. Não se envia na inserção. Até 19/11/2026 era `md5(telefone)::uuid` (ver a migration 20261119120000) |
 | `telefone` | `text`, obrigatório, único | O WhatsApp **só com dígitos, com 55 na frente**: `55` + DDD + 9 dígitos. Ex.: `(15) 99999-9999` vira `5515999999999`. O banco recusa qualquer outro formato. A máscara do formulário tem que ser tirada antes de gravar |
 | `nome` | `text`, obrigatório | Nome digitado no formulário. Não pode ser vazio |
 | `criado_em` | `timestamptz` | Preenchido pelo banco, na criação |
@@ -79,13 +79,13 @@ where schemaname = 'public' and tablename in ('pessoas', 'simulacoes');
 select id, public, file_size_limit, allowed_mime_types
 from storage.buckets where id = 'contas-de-luz';
 
--- 3. Pessoa de teste: a id aparece calculada
+-- 3. Pessoa de teste: a id aparece gerada pelo banco
 insert into public.pessoas (telefone, nome) values ('5515999990000', 'Teste')
 returning id, telefone, nome;
 
 -- 4. Simulação de teste ligada à pessoa pela id
 insert into public.simulacoes (pessoa_id, cidade, valor_conta, consentimento_em)
-values (md5('5515999990000')::uuid, 'Sorocaba', 780.00, now())
+select id, 'Sorocaba', 780.00, now() from public.pessoas where telefone = '5515999990000'
 returning id, pessoa_id, cidade, valor_conta, conta_arquivo;
 
 -- 5. A ligação funciona
@@ -104,7 +104,7 @@ O banco tem que **recusar** (erro) estes casos:
 insert into public.pessoas (telefone, nome) values ('15999990000', 'Sem 55');          -- formato do telefone
 insert into public.pessoas (telefone, nome) values ('5515999990000', '   ');           -- nome vazio
 insert into public.simulacoes (pessoa_id, cidade, valor_conta, consentimento_em)
-values (md5('5500000000000')::uuid, 'Itu', 500, now());                                 -- pessoa que não existe
+values (gen_random_uuid(), 'Itu', 500, now());                                         -- pessoa que não existe
 ```
 
 ## Como o site vai usar (quando for ligado, fora deste trabalho)
