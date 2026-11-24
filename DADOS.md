@@ -84,7 +84,7 @@ pessoas (1) ───────< simulacoes (N)
    - **B (CLI):** `supabase login`, `supabase link --project-ref <ref>`, `supabase db push`.
 6. **Conferir no Supabase** com as consultas do `TABELAS.md` (inserir uma pessoa de teste, uma simulação, ver a ligação pela ID, apagar o teste).
 7. **Atualizar a documentação:** em `CLAUDE.md` (lista de arquivos e a linha de "Envio do formulário", dizendo que as tabelas existem mas o site ainda não está ligado) e em `VERIFICACAO.md` (o que foi conferido). `DESIGN.md` não muda: o envio continua placeholder.
-8. **Commit e envio direto na `main`** (regra do projeto), só depois da sua aprovação do resultado. Os arquivos ficam fora de `public/`, então a página não muda; o Vercel só reconstrói o site igual.
+8. **Commit numa branch e pull request** (regra do projeto desde 24/11/2026: nada direto na `main`, e o pull request só com a sua autorização expressa), só depois da sua aprovação do resultado. Os arquivos ficam fora de `public/`, então a página não muda; o Vercel só reconstrói o site igual.
 
 **Fora deste trabalho (fica para quando o site for ligado):** rota `app/api/simulacao/route.js`, mandar o formulário para ela, tirar a máscara do telefone, enviar o arquivo ao Storage, variáveis de ambiente no Vercel, atualizar a política de privacidade do rodapé (hoje fala de dados usados "só para a simulação e o contato pelo WhatsApp"; guardar no Supabase exige dizer onde e por quanto tempo) e definir o prazo de retenção.
 
@@ -105,4 +105,4 @@ pessoas (1) ───────< simulacoes (N)
 | 5. Aplicar no Supabase | Pendente (usuário) |
 | 6. Conferir no Supabase | Pendente (consultas no `supabase/TABELAS.md`) |
 | 7. `CLAUDE.md` e `VERIFICACAO.md` | Feito |
-| 8. Commit na `main` | Pendente (aguarda aprovação do usuário) |
+| 8. Commit numa branch e pull request | Pendente (aguarda aprovação do usuário e autorização expressa para o pull request) |
