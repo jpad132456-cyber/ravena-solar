@@ -64,7 +64,12 @@ Em 2/11/2026 o usuário mandou tirar todos os placeholders da página: contatos,
 - **Rodar local:** `npm install` e depois `npx next build && npx next start` (ou `npx next dev`).
 - **Registro de acessos:** `public/js/registro.js` → rota do Next em `app/api/registro/route.js` (endereço `/api/registro`) → planilha do Google (`planilha/registro.gs`). Registra IP, horário, localização, até onde a pessoa foi e se usou a simulação, por pessoa, sem guardar o que ela digita. Detalhes no `DESIGN.md`, seção 13.
 - **Repositório:** `github.com/jpad132456-cyber/ravena-solar` (público), branch `main`.
-- **Hospedagem:** Vercel, projeto `ravena-solar` (https://ravena-solar-kappa.vercel.app). Cada envio para a `main` publica **direto em produção**. Trabalhar direto na `main`, sem criar branch.
+- **Hospedagem:** Vercel, projeto `ravena-solar` (https://ravena-solar-kappa.vercel.app). Cada envio para a `main` publica **direto em produção**.
+- **Fluxo de branches (vale a partir de 24/11/2026):**
+  - **Toda alteração no site é feita numa branch**, criada a partir da `main` atualizada. Nunca commitar nem enviar direto na `main`.
+  - A alteração só entra na `main` depois de juntada (merge) a partir da branch, e isso só acontece pelo pull request.
+  - **Pull request: só abrir com autorização expressa do usuário**, dada no chat, para aquela alteração. Terminado o trabalho na branch, commitar, enviar a branch ao repositório se for útil e **perguntar** se o usuário quer o pull request. Sem um "sim" claro, não abrir, e não juntar nada à `main` por outro caminho (merge local, push na `main`, `gh pr merge`).
+  - A autorização vale só para o pull request pedido; não se estende às próximas alterações.
 - **Verificação de CEP:** o "Meu CEP é atendido?" do hero pede `/api/cep` (`app/api/cep/route.js`), que consulta o ViaCEP pelo servidor e devolve a resposta como veio. O aparelho do visitante nunca fala direto com o ViaCEP. Detalhes no `DESIGN.md`, seção 4.
 - **Envio do formulário:** placeholder. O formulário valida os campos e mostra a confirmação, mas não envia nada até o cliente definir para onde vão os pedidos. Deixar isso comentado no código e registrado no `VERIFICACAO.md`. As tabelas `pessoas` e `simulacoes` já têm migration (`supabase/`, ver `DADOS.md`), mas o site não fala com elas: ligar é trabalho futuro.
 
