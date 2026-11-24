@@ -1,6 +1,6 @@
 # DADOS.md — Plano: tabelas no Supabase para os pedidos de simulação
 
-> Status (13/11/2026): **migration e `supabase/TABELAS.md` escritos. Ainda não aplicados no Supabase e ainda não testados num Postgres** (ver seção 6).
+> Status (19/11/2026): **três migrations aplicadas no Supabase** (projeto RAVENA SOLAR, pelo SQL Editor) e testadas lá: `20261113120000` (tabelas), `20261119120000` (ID aleatória) e `20261119130000` (caminho do arquivo com a ID nova). Ver seção 6 e `VERIFICACAO.md`, seção 14.
 > Escopo (decisão do usuário, 13/11/2026): só as tabelas passam a existir no Supabase. **Nenhuma ligação com o site**: o formulário continua como placeholder (`DESIGN.md`, seção 4) e a rota `/api/registro` não muda.
 
 ## 1. O que o usuário pediu
@@ -34,9 +34,9 @@ Não mexe em `public/`, `app/`, `next.config.mjs` nem no formulário.
 | `criado_em` | `timestamptz`, obrigatório | `default now()` |
 | `atualizado_em` | `timestamptz`, obrigatório | `default now()`, atualizado por gatilho em cada alteração |
 
-Por que `md5(...)::uuid` e não `uuid_generate_v5`: é função nativa do Postgres (sem extensão), é imutável (obrigatório para coluna calculada) e entrega o que foi pedido. A ID **não é segredo** (o telefone é fácil de adivinhar); quem protege os dados é a RLS (seção 3.4).
+*Plano original (13/11), substituído em 19/11 pela correção abaixo:* por que `md5(...)::uuid` e não `uuid_generate_v5`: é função nativa do Postgres (sem extensão), é imutável (obrigatório para coluna calculada) e entrega o que foi pedido. A ID **não é segredo** (o telefone é fácil de adivinhar); quem protege os dados é a RLS (seção 3.4).
 
-**Correção (19/11/2026), migration `20261119120000_id_da_pessoa_aleatoria.sql`:** a ID calculada do telefone tinha dois defeitos: trocar o telefone de quem já tem simulação era recusado pela chave estrangeira (erro 23503), e a ID entregava o telefone (basta calcular o md5 dos telefones possíveis). A ID passou a ser aleatória; o telefone continua único e é por ele que a pessoa é reaproveitada. Teste: `supabase/testes/id_da_pessoa_sem_telefone.sql` (prints em `verificacao/id-lead-antes.jpg` e `verificacao/id-lead-depois.jpg`).
+**Correção (19/11/2026), migration `20261119120000_id_da_pessoa_aleatoria.sql`:** a ID calculada do telefone tinha dois defeitos: trocar o telefone de quem já tem simulação era recusado pela chave estrangeira (erro 23503), e a ID entregava o telefone (basta calcular o md5 dos telefones possíveis). A ID passou a ser aleatória; o telefone continua único e é por ele que a pessoa é reaproveitada. A migration `20261119130000_conta_arquivo_com_id_nova.sql` leva o caminho do arquivo (`conta_arquivo = <pessoa_id>/...`) para a ID nova. Testes: `supabase/testes/id_da_pessoa_sem_telefone.sql` e `supabase/testes/conferencia_vinculos_depois_da_troca_de_id.sql` (resultados e prints no `VERIFICACAO.md`, seção 14.1).
 
 Mesmo telefone pedindo de novo: a pessoa já existe e o novo pedido vira **mais uma linha em `simulacoes`** (é o "um para muitos"). O nome é atualizado para o mais recente (regra a aplicar no futuro `INSERT ... ON CONFLICT (telefone) DO UPDATE`; não é regra da tabela agora).
 
@@ -70,7 +70,7 @@ Mesmo telefone pedindo de novo: a pessoa já existe e o novo pedido vira **mais 
 ```
 pessoas (1) ───────< simulacoes (N)
   id  ◄──────────── pessoa_id
-  telefone (único; origem da id)
+  telefone (único)
   nome              cidade, valor_conta,
                     conta_arquivo → Storage "contas-de-luz"
 ```
@@ -79,8 +79,8 @@ pessoas (1) ───────< simulacoes (N)
 
 1. **Aprovação** deste plano e resposta às dúvidas da seção 5. *(você)*
 2. **Escrever a migration** `supabase/migrations/20261113120000_cria_pessoas_e_simulacoes.sql`: tabelas, coluna calculada da ID, `check`s, chave estrangeira, índice, gatilho de `atualizado_em`, RLS, bucket `contas-de-luz`. Comentários em português em cada bloco (`comment on table/column` também, para o Supabase mostrar a descrição no painel). Sem `drop`; só `create`, para não apagar nada por engano.
-3. **Escrever `supabase/TABELAS.md`**: o que vai em cada coluna e como (formato, exemplo, quem preenche), como a ID nasce do telefone, como o arquivo é guardado, exemplo de inserção e as consultas de conferência.
-4. **Testar o SQL antes de você rodar**: se houver Postgres ou Docker nesta máquina, rodar a migration num banco descartável e conferir: ID repetida para o mesmo telefone, telefone inválido recusado, simulação sem pessoa recusada, apagar pessoa apaga as simulações. Se não houver, relato isso e a conferência fica para o passo 5.
+3. **Escrever `supabase/TABELAS.md`**: o que vai em cada coluna e como (formato, exemplo, quem preenche), como a ID nasce do telefone (plano de 13/11; desde 19/11 a ID é aleatória, seção 3.1), como o arquivo é guardado, exemplo de inserção e as consultas de conferência.
+4. **Testar o SQL antes de você rodar**: se houver Postgres ou Docker nesta máquina, rodar a migration num banco descartável e conferir: ID repetida para o mesmo telefone (plano de 13/11; com a ID aleatória, a pessoa é reaproveitada pelo telefone), telefone inválido recusado, simulação sem pessoa recusada, apagar pessoa apaga as simulações. Se não houver, relato isso e a conferência fica para o passo 5.
 5. **Aplicar no Supabase** *(você, na sua conta; eu não entro com senha nem chave)*. Dois caminhos, escolha um:
    - **A (mais simples):** painel do Supabase → *SQL Editor* → colar o conteúdo da migration → *Run*. Depois, *Table Editor* mostra `pessoas` e `simulacoes`, e *Storage* mostra `contas-de-luz`.
    - **B (CLI):** `supabase login`, `supabase link --project-ref <ref>`, `supabase db push`.
@@ -102,10 +102,10 @@ pessoas (1) ───────< simulacoes (N)
 |---|---|
 | 2. Migration | Escrita: `supabase/migrations/20261113120000_cria_pessoas_e_simulacoes.sql` |
 | 3. `supabase/TABELAS.md` | Escrito |
-| 4. Teste do SQL num Postgres | **Não feito**: não há Postgres nesta máquina e o Docker está instalado mas desligado. Os pontos de risco a testar são a coluna calculada como chave primária, a chave estrangeira e a RLS |
-| Leads de teste | Escritos: `supabase/testes/3_leads_de_teste.sql` (3 pessoas e 3 simulações fictícias, conferência da ID e 4 recusas esperadas). **Ainda não rodados** |
+| 4. Teste do SQL num Postgres | Não feito localmente (não há Postgres nesta máquina). Feito direto no Supabase (passos 6 e 9) |
+| Leads de teste | Escritos: `supabase/testes/3_leads_de_teste.sql` (3 pessoas e 3 simulações fictícias, conferência da ID e 4 recusas esperadas). Rodados no Supabase antes de 19/11/2026 (são os 3 leads que estão lá) |
 | 5. Aplicar no Supabase | Feito pelo usuário (informado em 19/11/2026) |
 | 6. Conferir no Supabase | Feito pelo usuário (informado em 19/11/2026) |
 | 7. `CLAUDE.md` e `VERIFICACAO.md` | Feito |
 | 8. Commit na `main` | Feito (0e30e55) |
-| 9. ID aleatória (19/11/2026) | Migration `20261119120000` aplicada no Supabase; teste `id_da_pessoa_sem_telefone.sql`: 3 de 4 FALHOU antes, 4 de 4 PASSOU depois. Branch `corrige-id-lead` e PR |
+| 9. ID aleatória (19/11/2026) | Migrations `20261119120000` e `20261119130000` aplicadas no Supabase; testes `id_da_pessoa_sem_telefone.sql` e `conferencia_vinculos_depois_da_troca_de_id.sql` (resultados no `VERIFICACAO.md`, seção 14.1). Branch `corrige-id-lead` e PR #2 |

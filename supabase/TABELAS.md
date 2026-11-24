@@ -1,6 +1,6 @@
 # Tabelas do Supabase: pedidos de simulação
 
-Migrations: [`migrations/20261113120000_cria_pessoas_e_simulacoes.sql`](migrations/20261113120000_cria_pessoas_e_simulacoes.sql) (cria as tabelas) e [`migrations/20261119120000_id_da_pessoa_aleatoria.sql`](migrations/20261119120000_id_da_pessoa_aleatoria.sql) (a ID da pessoa passa a ser aleatória). Plano e decisões: [`../DADOS.md`](../DADOS.md).
+Migrations: [`migrations/20261113120000_cria_pessoas_e_simulacoes.sql`](migrations/20261113120000_cria_pessoas_e_simulacoes.sql) (cria as tabelas) e [`migrations/20261119120000_id_da_pessoa_aleatoria.sql`](migrations/20261119120000_id_da_pessoa_aleatoria.sql) (a ID da pessoa passa a ser aleatória) e [`migrations/20261119130000_conta_arquivo_com_id_nova.sql`](migrations/20261119130000_conta_arquivo_com_id_nova.sql) (o caminho do arquivo acompanha a ID nova). Plano e decisões: [`../DADOS.md`](../DADOS.md).
 
 **Estado:** as tabelas existem só para guardar os pedidos. **O site ainda não está ligado a elas** (o formulário continua como placeholder, `DESIGN.md`, seção 4).
 
@@ -50,7 +50,15 @@ Uma pessoa (um telefone) pode ter várias simulações. Cada pedido de simulaç�
 
 ## Como aplicar no Supabase
 
-**A (mais simples).** No painel do projeto: *SQL Editor* → *New query* → colar todo o conteúdo da migration → *Run*. Rode **uma vez só** (rodar de novo dá erro de "já existe", sem apagar nada).
+São três migrations, **nesta ordem**: `20261113120000_cria_pessoas_e_simulacoes.sql`, `20261119120000_id_da_pessoa_aleatoria.sql` e `20261119130000_conta_arquivo_com_id_nova.sql`. No projeto RAVENA SOLAR as três já foram aplicadas (19/11/2026), pelo caminho A.
+
+**A (mais simples).** No painel do projeto: *SQL Editor* → *New query* → colar todo o conteúdo de cada migration, uma de cada vez, na ordem → *Run*. Rode cada uma **uma vez só** (as duas primeiras dão erro se rodadas de novo, sem apagar nada; a terceira não muda nada).
+
+**Atenção, CLI depois do caminho A:** o SQL Editor não registra as migrations no histórico do CLI (`supabase_migrations.schema_migrations`). Antes do primeiro `supabase db push` num projeto montado pelo SQL Editor, marcar as que já rodaram, senão o CLI tenta criar as tabelas de novo e para com "relation pessoas already exists":
+
+```bash
+supabase migration repair --status applied 20261113120000 20261119120000 20261119130000
+```
 
 **B (CLI).**
 

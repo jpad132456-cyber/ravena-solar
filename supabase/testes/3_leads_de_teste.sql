@@ -1,5 +1,8 @@
 -- TESTE das tabelas pessoas e simulacoes: 3 leads fictícios.
--- Rodar no SQL Editor do Supabase DEPOIS da migration 20261113120000.
+-- Rodar no SQL Editor do Supabase DEPOIS das migrations 20261113120000, 20261119120000
+-- e 20261119130000 (a conferência da PARTE 2 espera a ID aleatória).
+-- A limpeza da PARTE 4 (like '551599999000_') também apaga a Ana depois da troca de
+-- telefone do ana_duas_simulacoes_e_troca_de_telefone.sql (vai para 5515999990007).
 -- Pode rodar mais de uma vez: a pessoa é reaproveitada (mesmo telefone = mesma pessoa, pelo on conflict).
 -- Dados inventados (nomes e telefones de teste). No fim há a limpeza.
 --

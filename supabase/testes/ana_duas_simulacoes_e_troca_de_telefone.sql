@@ -5,7 +5,9 @@
 -- ATENÇÃO (19/11/2026): as previsões abaixo valem para a versão antiga (id = md5 do telefone).
 -- Depois da migration 20261119120000 a ID é aleatória e a troca de telefone é ACEITA
 -- (mesma id, simulações ligadas). O teste dessa correção é id_da_pessoa_sem_telefone.sql.
--- Aqui, na versão nova, a troca muda o telefone da Ana de verdade.
+-- Aqui, na versão nova, a troca muda o telefone da Ana de verdade, para 5515999990007
+-- (até 24/11/2026 era 5515988887777, que ficava fora da limpeza do 3_leads_de_teste.sql;
+-- 5515999990007 cabe no like '551599999000_' de lá).
 --
 -- PREVISÕES (escritas antes de rodar, versão antiga):
 --   Consulta 1: 2 linhas, as duas de "Teste Ana Souza", telefone 5515999990001,
@@ -27,7 +29,7 @@ where nome = 'Teste Ana Souza';
 -- 2. Troca de telefone: tenta e mostra o que o banco respondeu ---------------
 do $$
 begin
-  update public.pessoas set telefone = '5515988887777' where nome = 'Teste Ana Souza';
+  update public.pessoas set telefone = '5515999990007' where nome = 'Teste Ana Souza';
   raise notice 'TROCA ACEITOU: o telefone mudou (a previsao era que o banco recusasse)';
 exception when foreign_key_violation then
   raise notice 'TROCA RECUSADA (como previsto): %', sqlerrm;
