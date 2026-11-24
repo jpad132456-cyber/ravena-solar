@@ -261,3 +261,8 @@ Com isso, o 400 do formato errado passou a vir do próprio ViaCEP (antes o naveg
 | Pedidos feitos pelo navegador | Só para `/api/cep`; nenhum para `viacep.com.br` |
 
 A resposta crua aberta ganhou altura máxima de 240 px com rolagem (a página de erro do ViaCEP tem cerca de 30 linhas). Sem rolagem lateral a 375 e a 1440 px; o botão "Pedir simulação" do hero continua na primeira tela do celular.
+
+## 14. Tabelas do Supabase (13/11/2026)
+
+Migration `supabase/migrations/20261113120000_cria_pessoas_e_simulacoes.sql` e descrição em `supabase/TABELAS.md` (plano em `DADOS.md`). **Escritas, mas ainda não aplicadas no Supabase nem testadas num Postgres** (não há Postgres nesta máquina; o Docker está desligado). O site não foi alterado e não fala com as tabelas. A conferência no Supabase usa as consultas do `supabase/TABELAS.md`; o resultado entra aqui quando for feita.
+
