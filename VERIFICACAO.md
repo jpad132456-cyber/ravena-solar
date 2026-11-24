@@ -264,41 +264,22 @@ A resposta crua aberta ganhou altura máxima de 240 px com rolagem (a página de
 
 ## 14. Tabelas do Supabase (13/11/2026)
 
-Migration `supabase/migrations/20261113120000_cria_pessoas_e_simulacoes.sql` e descrição em `supabase/TABELAS.md` (plano em `DADOS.md`). **Escritas, mas ainda não aplicadas no Supabase nem testadas num Postgres** (não há Postgres nesta máquina; o Docker está desligado). *Atualização (19/11/2026): aplicada e conferida no Supabase pelo usuário; ver 14.1.* O site não foi alterado e não fala com as tabelas. A conferência no Supabase usa as consultas do `supabase/TABELAS.md`; o resultado entra aqui quando for feita.
+Migration `supabase/migrations/20261113120000_cria_pessoas_e_simulacoes.sql` e descrição em `supabase/TABELAS.md` (plano em `DADOS.md`). **Escritas, mas ainda não aplicadas no Supabase nem testadas num Postgres** (não há Postgres nesta máquina; o Docker está desligado). O site não foi alterado e não fala com as tabelas. A conferência no Supabase usa as consultas do `supabase/TABELAS.md`; o resultado entra aqui quando for feita.
 
 ### 14.1 ID da pessoa aleatória (19/11/2026)
 
-Defeito: a ID era `md5(telefone)::uuid`, então trocar o telefone de quem já tem simulação era recusado pela chave estrangeira (erro 23503) e a ID entregava o telefone. O caminho do arquivo da conta (`conta_arquivo = <pessoa_id>/...`) também guardava essa ID.
+Defeito: a ID era `md5(telefone)::uuid`, então trocar o telefone de quem já tem simulação era recusado pela chave estrangeira (erro 23503) e a ID entregava o telefone.
 
-Correção, aplicada no SQL Editor do projeto RAVENA SOLAR em 19/11/2026, nesta ordem:
-- `supabase/migrations/20261119120000_id_da_pessoa_aleatoria.sql`: ID com `gen_random_uuid()`; as IDs que já existiam foram trocadas e as simulações acompanharam (`on update cascade` só durante a troca).
-- `supabase/migrations/20261119130000_conta_arquivo_com_id_nova.sql`: o caminho do arquivo passa para a ID nova. Atualizou 1 linha (a simulação de Itu do "Teste Bruno Lima"). O bucket `contas-de-luz` tinha 0 objetos, então não havia arquivo para mover. Print: `verificacao/id-lead-conta-arquivo-migration.jpg` (rodada com um `returning` a mais, para mostrar a linha alterada).
+Correção: `supabase/migrations/20261119120000_id_da_pessoa_aleatoria.sql` (ID com `gen_random_uuid()`; as IDs que já existiam foram trocadas e as simulações acompanharam). Aplicada no SQL Editor do projeto RAVENA SOLAR em 19/11/2026.
 
-**Primeira versão do teste** (`id_da_pessoa_sem_telefone.sql`, commit `b24d1f9`), antes e depois da `20261119120000`:
+Teste `supabase/testes/id_da_pessoa_sem_telefone.sql`, rodado no SQL Editor (Postgres 17) antes e depois da migration:
 
 | Teste | Antes | Depois |
 |---|---|---|
-| Trocar o telefone de quem tem simulação | FALHOU (23503, chave estrangeira) | PASSOU |
-| Descobrir o telefone a partir da ID (10 mil candidatos) | FALHOU (achou 5515999990099) | PASSOU |
-| Nenhuma ID igual ao md5 do telefone | FALHOU (4 pessoas) | PASSOU (0) |
-| Mesmo telefone reaproveita a mesma pessoa | PASSOU | PASSOU |
+| 1. Trocar o telefone de quem tem simulação | FALHOU (23503, chave estrangeira) | PASSOU |
+| 2. Descobrir o telefone a partir da ID (10 mil candidatos) | FALHOU (achou 5515999990099) | PASSOU |
+| 3. Nenhuma ID igual ao md5 do telefone | FALHOU (4 pessoas) | PASSOU (0) |
+| 4. Mesmo telefone reaproveita a mesma pessoa | PASSOU | PASSOU |
 
-Prints: `verificacao/id-lead-antes.jpg` e `verificacao/id-lead-depois.jpg`.
-
-**Segunda versão do teste**, depois da revisão do PR #2. Mudanças: telefones de teste com DDD 00 (o `delete` da limpeza nunca alcança um lead real); teste novo "apagar e recriar com o mesmo telefone dá outra ID" (prova que a ID não é função nenhuma do telefone, não só que não é o md5); teste novo do `conta_arquivo`. No SQL Editor foi colada a mesma lógica com o cabeçalho de comentários resumido. A versão antiga do banco já não existe, então não foi possível rodar esta versão nela.
-
-| Teste | Antes da `20261119130000` | Depois |
-|---|---|---|
-| 1. Trocar o telefone de quem tem simulação | PASSOU | PASSOU |
-| 2. A ID não é o md5 do telefone (força bruta) | PASSOU | PASSOU |
-| 3. Mesmo telefone, pessoa recriada: outra ID | PASSOU | PASSOU |
-| 4. Banco: nenhuma ID igual ao md5 do telefone | PASSOU (0 de 4) | PASSOU (0 de 4) |
-| 5. Banco: nenhum `conta_arquivo` com o md5 do telefone | FALHOU (1) | PASSOU (0 de 1) |
-| 6. Mesmo telefone reaproveita a mesma pessoa | PASSOU | PASSOU |
-
-Resultado igual às previsões do arquivo. Prints: `verificacao/id-lead-conta-arquivo-antes.jpg` (consulta mostrando o caminho com o md5 e o bucket vazio), `verificacao/id-lead-v2-antes-previsoes.jpg`, `verificacao/id-lead-v2-antes.jpg` e `verificacao/id-lead-v2-depois.jpg`.
-
-**Conferência dos vínculos** (`supabase/testes/conferencia_vinculos_depois_da_troca_de_id.sql`, só leitura), depois das duas migrations: as 4 simulações estão ligadas à pessoa esperada pelos scripts que as criaram (Ana: Sorocaba 780,00 e Votorantim 640,00; Bruno: Itu 560,50, com o arquivo na pasta da pessoa; Carla: Salto 200,00), 3 pessoas e 4 simulações, nenhuma sem pessoa, chave estrangeira `FOREIGN KEY (pessoa_id) REFERENCES pessoas(id) ON DELETE CASCADE`. 6 de 6 PASSOU. Print: `verificacao/id-lead-vinculos.jpg`.
-
-Limites do que foi provado: a conferência compara o estado depois da troca com o que os scripts de teste inseriram, porque não foi tirada uma foto das tabelas antes da migration. O tempo para percorrer todos os celulares possíveis por força bruta não foi medido.
+Prints: `verificacao/id-lead-antes.jpg` e `verificacao/id-lead-depois.jpg`. Depois da migration: chave estrangeira igual à de antes (`on delete cascade`), 3 pessoas e 4 simulações, todas ligadas.
 
